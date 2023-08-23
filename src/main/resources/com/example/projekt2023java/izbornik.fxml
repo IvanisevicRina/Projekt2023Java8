@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="0.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.Izbornik">
+    <children>
+        <MenuBar layoutY="2.0" prefHeight="26.0" prefWidth="1200.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Svecenik">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showSveceniciSearchScreen" text="Pretraga" />
+
+                        <MenuItem mnemonicParsing="false" onAction="#sveceniciUnosScreen" text="Unos" />
+                        <MenuItem mnemonicParsing="false" onAction="#showDeletingSvecenikScreen" text="Brisanje" />
+                        <MenuItem mnemonicParsing="false" onAction="#showIzmjenaSvecenikScreen" text="Izmjena" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Zupljani">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showZupljaniSearchScreen" text="Pretraga" />
+
+                        <MenuItem mnemonicParsing="false" onAction="#showZupljaniEnteringScreen" text="Unos" />
+
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Sakrament">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showSakramentiSearchScreen" text="Pretraga" />
+
+                        <MenuItem mnemonicParsing="false" onAction="#showSakramentiEnteringScreen" text="Unos" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="OsobniSakrament">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiSearchScreen" text="Pretraga" />
+
+                        <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiEnteringScreen" text="Unos" />
+                    </items>
+                </Menu>
+            <Menu mnemonicParsing="false" text="Galerija">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#showGalerijaScreen" text="Prikaz" />
+                  <MenuItem mnemonicParsing="false" onAction="#showGalerijaUnosScreen" text="Unos" />
+               </items>
+            </Menu>
+            </menus>
+        </MenuBar>
+    </children>
+</AnchorPane>
