@@ -2,6 +2,7 @@ package com.example.projekt2023java;
 
 import baza.BazaPodataka;
 import entitet.Svecenik;
+import javafx.beans.property.SimpleLongProperty;
 import util.Datoteke;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -34,6 +35,8 @@ public class SveceniciController {
     private TableView<Svecenik> svecenikTableView;
 
     @FXML
+    private TableColumn<Svecenik, Long> idSvecenikaTableColumn;
+    @FXML
     private TableColumn<Svecenik, String> sifraSvecenikaTableColumn;
 
     @FXML
@@ -53,6 +56,9 @@ public class SveceniciController {
     public void initialize(){
 
         svecenikList = BazaPodataka.dohvatiSveSvecenike();
+        idSvecenikaTableColumn.setCellValueFactory(cellData ->
+                new SimpleLongProperty(cellData.getValue().getId()).asObject());
+
         sifraSvecenikaTableColumn
                 .setCellValueFactory(cellData ->
                         new SimpleStringProperty(cellData.getValue().getSifra()));
