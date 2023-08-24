@@ -44,8 +44,12 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#showGalerijaScreen" text="Prikaz" />
                   <MenuItem mnemonicParsing="false" onAction="#showGalerijaUnosScreen" text="Unos" />
+                   <MenuItem mnemonicParsing="false" onAction="#showGalerijaZupljanina" text="SlikeZupljanina" />
+
                </items>
             </Menu>
+
+
             </menus>
         </MenuBar>
     </children>

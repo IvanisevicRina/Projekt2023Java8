@@ -59,7 +59,6 @@ public class UnosGalerijaController {
 
 
 
-                Set<Zupljanin> oviZupljani = new HashSet<>();
 
                 List<Zupljanin> sviZupljani = BazaPodataka.dohvatiSveZupljane();
 
@@ -76,6 +75,15 @@ public class UnosGalerijaController {
                                 slike_zupljanina = zupljanin.getSlike();
                                 slike_zupljanina.add(slika);
                             }
+
+                            String query2 = "INSERT INTO ZupljaninSlike (zupljanin_id, naziv, slika) VALUES (?, ?, ?)";
+                            PreparedStatement statement2 = connection.prepareStatement(query2);
+
+                            statement2.setLong(1, zupljanin.getId());  // zupljanin_id
+                            statement2.setString(2, nazivSlikeField.getText());  // naziv
+                            statement2.setBytes(3, slikaBytes);  // slika
+
+                            statement2.executeUpdate();
                             zupljanin.setSlike(slike_zupljanina);
                             azurirajZupljanineSlike(zupljanin);
 

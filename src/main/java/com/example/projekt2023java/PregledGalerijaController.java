@@ -4,8 +4,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.sql.*;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class PregledGalerijaController {
@@ -13,15 +15,26 @@ public class PregledGalerijaController {
     private ImageView imageView;
 
     private ResultSet resultSet;
-    private Statement statement;
+    private static Connection connectToDatabase() throws Exception {
+        Properties konfiguracijaBaze = new Properties();
+        konfiguracijaBaze.load(new FileInputStream("dat/bazaPodataka.properties"));
 
+        Connection con = DriverManager.getConnection(
+                konfiguracijaBaze.getProperty("bazaPodatakaUrl"),
+                konfiguracijaBaze.getProperty("korisnickoIme"),
+                konfiguracijaBaze.getProperty("lozinka"));
+        return con;
+    }
     public void initialize() {
         prikaziSlike();
     }
+
     public void prikaziSlike() {
         try {
-            Connection connection =DriverManager.getConnection("jdbc:h2:tcp://localhost/~/java-tvz-2023-PROJEKT", "student", "student");
-            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            Connection con = connectToDatabase();
+            if(con!=null){
+                System.out.println("Uspješno smo se spojili na bazu!");
+            }Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
             resultSet = statement.executeQuery("SELECT slika FROM Slike");
 
@@ -31,8 +44,8 @@ public class PregledGalerijaController {
                 Image image = new Image(new ByteArrayInputStream(slikaBytes));
                 imageView.setImage(image);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

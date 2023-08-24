@@ -97,11 +97,11 @@ public class UnosOsobnogSakramentaController {
             }
             List<Zupljanin> sviZupljani = BazaPodataka.dohvatiSveZupljane();
 
-            Zupljanin ovajStudent=sviZupljani.get(0);
+            Zupljanin ovajZupljanin=sviZupljani.get(0);
 
             for (Zupljanin zupljanin:sviZupljani) {
                 if(Objects.equals(odabirZupljaninaComboBox.getValue(), (zupljanin.getIme() + " " + zupljanin.getPrezime()))){
-                    ovajStudent = zupljanin;
+                    ovajZupljanin = zupljanin;
                 }
             }
 
@@ -109,7 +109,7 @@ public class UnosOsobnogSakramentaController {
 
             LocalDateTime datumIVrijeme = LocalDateTime.parse(datumIVrijemeOsobnogSakramenta, formatterDatumaIspita);
 
-            OsobniSakrament noviOsobniSakrament= new OsobniSakrament(id,ovajSakrament,ovajStudent,datumIVrijeme,new Crkva(crkvaOsobnogSakramenta));
+            OsobniSakrament noviOsobniSakrament= new OsobniSakrament(id,ovajSakrament,ovajZupljanin,datumIVrijeme,new Crkva(crkvaOsobnogSakramenta));
 
             try {
                 BazaPodataka.spremiOsobniSakrament(noviOsobniSakrament);

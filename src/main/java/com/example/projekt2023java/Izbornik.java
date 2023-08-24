@@ -100,7 +100,13 @@ public class Izbornik {
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
     }
-
+    public void showGalerijaZupljanina() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prikazSlikaZupljanina.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        HelloApplication.getMainStage().setTitle("Prikaz Slika Zupljanina:");
+        HelloApplication.getMainStage().setScene(scene);
+        HelloApplication.getMainStage().show();
+    }
 
 
 
