@@ -8,5 +8,6 @@
     <fx:include source="izbornik.fxml" />
    <ComboBox fx:id="odabirZupljaninaComboBox" layoutX="295.0" layoutY="153.0" prefWidth="150.0" />
    <Button layoutX="585.0" layoutY="153.0" mnemonicParsing="false" onAction="#izdajPotvrdu" text="Button" />
+   <Button layoutX="362.0" layoutY="294.0" mnemonicParsing="false" onAction="#downloadPDF" text="Download PDF" />
 
 </AnchorPane>

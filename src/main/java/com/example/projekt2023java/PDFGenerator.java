@@ -4,13 +4,14 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import entitet.Zupljanin;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 public class PDFGenerator {
 
-    public static void generatePDF(String fileName, List<String> sakramenti) {
+    public static void generatePDF(String fileName, List<String> sakramenti, Zupljanin zupljanin) {
         Document document = new Document();
 
         try {
@@ -18,7 +19,7 @@ public class PDFGenerator {
             document.open();
 
             // Dodajte sadržaj u PDF
-            Paragraph paragraph = new Paragraph("Popis sakramenata za župljanina:\n");
+            Paragraph paragraph = new Paragraph("Popis sakramenata za župljanina" + zupljanin.getIme() + " " + zupljanin.getPrezime() +":\n");
 
             for (String sakrament : sakramenti) {
                 paragraph.add(sakrament + "\n");

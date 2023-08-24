@@ -4,19 +4,25 @@ import baza.BazaPodataka;
 import entitet.Sakrament;
 import entitet.Zupljanin;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.stage.FileChooser;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 
 public class PotvrdaPrimljenihSakramenataController {
 
     @FXML
     private ComboBox<String> odabirZupljaninaComboBox;
-
-
 
 
     public void initialize() {
@@ -25,31 +31,72 @@ public class PotvrdaPrimljenihSakramenataController {
 
     }
 
-    public void izdajPotvrdu(){
+    public void izdajPotvrdu() {
         List<Zupljanin> sviZupljani = BazaPodataka.dohvatiSveZupljane();
 
-        Zupljanin ovajZupljanin=sviZupljani.get(0);
+        Zupljanin ovajZupljanin = sviZupljani.get(0);
 
-        for (Zupljanin zupljanin:sviZupljani) {
-            if(Objects.equals(odabirZupljaninaComboBox.getValue(), (zupljanin.getIme() + " " + zupljanin.getPrezime()))){
+        for (Zupljanin zupljanin : sviZupljani) {
+            if (Objects.equals(odabirZupljaninaComboBox.getValue(), (zupljanin.getIme() + " " + zupljanin.getPrezime()))) {
                 ovajZupljanin = zupljanin;
             }
         }
         List<String> popisSakramenata = new ArrayList<>();
         List<Sakrament> sakramenti = BazaPodataka.dohvatiSveSakramente();
-        for (Sakrament sakrament:sakramenti) {
-            for (Zupljanin zupljanin:sakrament.getZupljani()) {
-                if(zupljanin.getId().equals(ovajZupljanin.getId())){
+        for (Sakrament sakrament : sakramenti) {
+            for (Zupljanin zupljanin : sakrament.getZupljani()) {
+                if (zupljanin.getId().equals(ovajZupljanin.getId())) {
                     popisSakramenata.add(sakrament.getNaziv());
                 }
             }
         }
-        PDFGenerator.generatePDF("dat/sakramenti.pdf", popisSakramenata);
+        PDFGenerator.generatePDF("dat/sakramenti.pdf", popisSakramenata, ovajZupljanin);
 
+    }
 
+    @FXML
+    private void downloadPDF(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialFileName("sakramenti.pdf");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
 
+        File selectedFile = fileChooser.showSaveDialog(null);
+        if (selectedFile != null) {
+            try {
+                FileInputStream inputStream = new FileInputStream("dat/sakramenti.pdf");
+                FileOutputStream outputStream = new FileOutputStream(selectedFile);
 
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
 
+                inputStream.close();
+                outputStream.close();
+
+                showDownloadSuccessfulAlert();
+            } catch (IOException e) {
+                e.printStackTrace();
+                showDownloadFailedAlert();
+            }
+        }
+    }
+
+    private void showDownloadSuccessfulAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Download Successful");
+        alert.setHeaderText(null);
+        alert.setContentText("PDF file downloaded successfully.");
+        alert.showAndWait();
+    }
+
+    private void showDownloadFailedAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Download Failed");
+        alert.setHeaderText(null);
+        alert.setContentText("Failed to download the PDF file.");
+        alert.showAndWait();
     }
 
 
