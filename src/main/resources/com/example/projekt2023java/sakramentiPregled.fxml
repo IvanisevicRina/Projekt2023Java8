@@ -50,10 +50,10 @@
         <Button mnemonicParsing="false" onAction="#dohvatiSakramenti" text="Dohvati sakramente" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
         <TableView fx:id="sakramentiTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="2">
             <columns>
-                <TableColumn fx:id="sifraSakramentaTableColumn" prefWidth="100.0" text="Šifra" />
-                <TableColumn fx:id="nazivSakramentaTableColumn" prefWidth="135.0" text="Naziv" />
-            <TableColumn fx:id="sifreZupljanaSakramentaTableColumn" prefWidth="135.0" text="Zupljani" />
-            <TableColumn fx:id="brojZupljanaSakramentaTableColumn" prefWidth="135.0" text="BrojZupljana" />
+                <TableColumn fx:id="sifraSakramentaTableColumn" prefWidth="292.0" text="Šifra" />
+                <TableColumn fx:id="nazivSakramentaTableColumn" prefWidth="306.0" text="Naziv" />
+            <TableColumn fx:id="sifreZupljanaSakramentaTableColumn" prefWidth="464.0" text="Zupljani" />
+            <TableColumn fx:id="brojZupljanaSakramentaTableColumn" prefWidth="137.0" text="BrojZupljana" />
          </columns>
         </TableView>
         <Label text="Šifra:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">

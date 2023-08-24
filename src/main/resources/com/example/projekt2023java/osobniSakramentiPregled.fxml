@@ -49,10 +49,10 @@
         <Button mnemonicParsing="false" onAction="#dohvatiOsobneSakramente" text="Dohvati osobne Sakramente" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
         <TableView fx:id="osobniSakramentiTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="2">
             <columns>
-                <TableColumn fx:id="nazivSakramentaOsobnogSakramentaTableColumn" prefWidth="100.0" text="Sakrament" />
-                <TableColumn fx:id="imeZupljaninaOsobnogSakramentaTableColumn" prefWidth="102.0" text="Zupljanin(IME)" />
-                <TableColumn fx:id="prezimeZupljaninaOsobnogSakramentaTableColumn" prefWidth="128.0" text="Zupljanin(PREZIME)" />
-                <TableColumn fx:id="datumOsobnogSakramentaTableColumn" prefWidth="172.0" text="DatumIVrijeme" />
+                <TableColumn fx:id="nazivSakramentaOsobnogSakramentaTableColumn" prefWidth="336.0" text="Sakrament" />
+                <TableColumn fx:id="imeZupljaninaOsobnogSakramentaTableColumn" prefWidth="362.0" text="Zupljanin(IME)" />
+                <TableColumn fx:id="prezimeZupljaninaOsobnogSakramentaTableColumn" prefWidth="283.0" text="Zupljanin(PREZIME)" />
+                <TableColumn fx:id="datumOsobnogSakramentaTableColumn" prefWidth="218.0" text="DatumIVrijeme" />
             </columns>
         </TableView>
         <Label text="Naziv Sakramenta:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">

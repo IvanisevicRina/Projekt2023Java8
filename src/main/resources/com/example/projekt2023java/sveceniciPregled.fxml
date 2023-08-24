@@ -46,13 +46,13 @@
             </GridPane.margin>
         </TextField>
         <Button mnemonicParsing="false" onAction="#dohvatiSvecenike" text="Dohvati svecenike" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-        <TableView fx:id="svecenikTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="8" GridPane.rowSpan="2">
+        <TableView fx:id="svecenikTableView" prefHeight="290.0" prefWidth="1200.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
             <columns>
             <TableColumn fx:id="idSvecenikaTableColumn" prefWidth="155.19998168945312" text="ID" />
                 <TableColumn fx:id="sifraSvecenikaTableColumn" prefWidth="164.79998779296875" text="Šifra" />
                 <TableColumn fx:id="prezimeSvecenikaTableColumn" prefWidth="173.60003662109375" text="Prezime" />
-                <TableColumn fx:id="imeSvecenikaTableColumn" maxWidth="260.800048828125" minWidth="5.0" prefWidth="168.0" text="Ime" />
-                <TableColumn fx:id="titulaSvecenikaTableColumn" prefWidth="292.800048828125" text="Titula" />
+                <TableColumn fx:id="imeSvecenikaTableColumn" prefWidth="315.0" text="Ime" />
+                <TableColumn fx:id="titulaSvecenikaTableColumn" prefWidth="389.0" text="Titula" />
             </columns>
         </TableView>
         <Label text="Šifra:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
@@ -60,7 +60,7 @@
                 <Insets right="5.0" />
             </GridPane.margin>
         </Label>
-        <TextField fx:id="sifraSvecenikaTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <TextField fx:id="sifraSvecenikaTextField" prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <opaqueInsets>
                 <Insets left="5.0" right="5.0" />
             </opaqueInsets>

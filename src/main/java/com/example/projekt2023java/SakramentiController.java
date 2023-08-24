@@ -94,8 +94,7 @@ public class SakramentiController {
         List<Sakrament> filtriraniSakramenti = sakramentiList.stream()
                 .filter(p -> p.getNaziv().toLowerCase().contains(naziv.toLowerCase()))
                 .filter(p -> p.getSifra().toLowerCase().contains(sifra.toLowerCase()))
-                .filter(p -> p.getZupljani().stream().anyMatch(z -> z.getSifra().equalsIgnoreCase(sifraZupljana)))
-
+                .filter(p -> sifraZupljana.isEmpty() ||p.getZupljani().stream().anyMatch(z -> z.getSifra().equalsIgnoreCase(sifraZupljana)))
                 .toList();
 
         sakramentiTableView.setItems(FXCollections.observableList(filtriraniSakramenti));
