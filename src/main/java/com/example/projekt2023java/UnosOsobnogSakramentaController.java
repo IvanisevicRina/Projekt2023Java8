@@ -11,10 +11,7 @@ import javafx.scene.control.TextField;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.OptionalLong;
+import java.util.*;
 
 public class UnosOsobnogSakramentaController {
 
@@ -145,11 +142,35 @@ public class UnosOsobnogSakramentaController {
         for (Sakrament sakrament:sakramenti) {
             if(Objects.equals(odabirSakramentaComboBox.getValue(), sakrament.getNaziv())){
                 Sakrament ovajSakrament= sakrament;
+                List<OsobniSakrament> osobniSakramenti = BazaPodataka.dohvatiSveOsobneSakramente();
+                Set<Zupljanin> zupljaniniSet = new HashSet<>();
+
+                for (OsobniSakrament osobniSakrament : osobniSakramenti) {
+                    if (osobniSakrament.getSakrament().getSifra().equals(ovajSakrament.getSifra())) {
+                        zupljaniniSet.add(osobniSakrament.getZupljanin());
+                    }
+                }
+                System.out.println("ZUPLJANI U SETU:");
+                for (Zupljanin zupljanin : zupljaniniSet) {
+                    System.out.println(zupljanin.getIme() + " " + zupljanin.getPrezime());
+                }
+
 
                 System.out.println("Zupljani sa sakramentom: "+ovajSakrament.getNaziv());
                 for (Zupljanin z:ovajSakrament.getZupljani()) {
-                    zupljaniNaSakramentu.add(z);
-                    System.out.println(z.getPrezime());
+                    boolean found = false;
+                    for (Zupljanin zupljanin : zupljaniniSet) {
+                        if (z.getIme().equals(zupljanin.getIme()) && z.getPrezime().equals(zupljanin.getPrezime())) {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        zupljaniNaSakramentu.add(z);
+                        System.out.println(z.getIme() + " " + z.getPrezime());
+                    }
+
                 }
 
             }
