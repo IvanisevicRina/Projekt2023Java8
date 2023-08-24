@@ -56,8 +56,15 @@ public class PotvrdaPrimljenihSakramenataController {
 
     @FXML
     private void downloadPDF(ActionEvent event) {
+        // Get selected župljanin's first name
+        String selectedZupljaninName = odabirZupljaninaComboBox.getValue();
+        String zupljaninFirstName = selectedZupljaninName.split(" ")[0];
+
+        // Create a personalized file name
+        String fileName = zupljaninFirstName + "_sakramenti.pdf";
+
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialFileName("sakramenti.pdf");
+        fileChooser.setInitialFileName(fileName);
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
 
         File selectedFile = fileChooser.showSaveDialog(null);
