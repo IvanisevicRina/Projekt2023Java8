@@ -13,7 +13,7 @@
 
     <Button layoutX="72.0" layoutY="736.0" onAction="#prikaziSlike" text="Početak" />
 
-    <Button layoutX="1055.0" layoutY="736.0" text="Sljedeća slika" />
+    <Button fx:id="nextButton" layoutX="1055.0" layoutY="736.0" onAction="#showNextImage" text="Sljedeća slika" />
    <ComboBox fx:id="odabirZupljaninaComboBox" layoutX="536.0" layoutY="195.0" prefWidth="150.0" />
    <Text layoutX="424.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Izaberite župljanina:" wrappingWidth="107.13671875" />
    <VBox fx:id="imageContainer" layoutX="57.0" layoutY="147.0" prefHeight="200.0" prefWidth="100.0" />
