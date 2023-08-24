@@ -45,17 +45,6 @@ public class PrikazSlikaZupljaninaController {
     private List<byte[]> imagesList;
     private int currentIndex;
 
-    private static Connection connectToDatabase() throws Exception {
-        Properties konfiguracijaBaze = new Properties();
-        konfiguracijaBaze.load(new FileInputStream("dat/bazaPodataka.properties"));
-
-        Connection con = DriverManager.getConnection(
-                konfiguracijaBaze.getProperty("bazaPodatakaUrl"),
-                konfiguracijaBaze.getProperty("korisnickoIme"),
-                konfiguracijaBaze.getProperty("lozinka"));
-        return con;
-    }
-
 
     public void initialize() {
         List<String> zupljaninList = BazaPodataka.dohvatiSveZupljane().stream().map(s -> s.getIme() + " " + s.getPrezime()).toList();

@@ -65,13 +65,6 @@ public class Izbornik {
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
     }
-    public void showDeletingZupljaninScreen() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("brisanjeZupljana.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
-        HelloApplication.getMainStage().setTitle("Brisanje studenta:");
-        HelloApplication.getMainStage().setScene(scene);
-        HelloApplication.getMainStage().show();
-    }
     public void showDeletingSvecenikScreen() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("brisanjeSvecenika.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
@@ -96,7 +89,7 @@ public class Izbornik {
     public void showGalerijaUnosScreen() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("unosGalerija.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
-        HelloApplication.getMainStage().setTitle("UnosSlika:");
+        HelloApplication.getMainStage().setTitle("Unos Slika:");
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
     }
@@ -108,6 +101,21 @@ public class Izbornik {
         HelloApplication.getMainStage().show();
     }
 
+    public void deleteZupljaniEnteringScreen() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("brisanjeZupljana.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        HelloApplication.getMainStage().setTitle("Brisanje zupljana:");
+        HelloApplication.getMainStage().setScene(scene);
+        HelloApplication.getMainStage().show();
+    }
+
+    public void ispisPotvrdaScreen() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("potvrdaPrimljenihSakramenata.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        HelloApplication.getMainStage().setTitle("Potvrde sakramenata:");
+        HelloApplication.getMainStage().setScene(scene);
+        HelloApplication.getMainStage().show();
+    }
 
 
 

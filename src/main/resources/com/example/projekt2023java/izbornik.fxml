@@ -24,6 +24,12 @@
 
                         <MenuItem mnemonicParsing="false" onAction="#showZupljaniEnteringScreen" text="Unos" />
 
+                        <MenuItem mnemonicParsing="false" onAction="#deleteZupljaniEnteringScreen" text="Brisanje" />
+
+                        <MenuItem mnemonicParsing="false" onAction="#ispisPotvrdaScreen" text="Izdavanje potvrda" />
+
+
+
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Sakrament">
