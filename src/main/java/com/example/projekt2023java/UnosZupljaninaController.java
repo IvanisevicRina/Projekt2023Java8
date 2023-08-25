@@ -3,8 +3,10 @@ package com.example.projekt2023java;
 import baza.BazaPodataka;
 import entitet.Sakrament;
 import entitet.Zupljanin;
+import iznimke.ZupljaninDuplikatException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -46,6 +48,21 @@ public class UnosZupljaninaController {
             bw.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    public void spremiZupljaninaButtonClicked(ActionEvent event) {
+        try {
+            spremiZupljanina();
+        } catch (ZupljaninDuplikatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Greška");
+            alert.setHeaderText("Greška prilikom spremanja župljanina");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -100,6 +117,12 @@ public class UnosZupljaninaController {
                 maksimalniId = OptionalLong.of(0L);
             }
 
+            for (Zupljanin zupljanin : zupljani) {
+                if (zupljanin.getSifra().equals(sifraZupljanina)) {
+                    throw new ZupljaninDuplikatException("Župljanin sa istom šifrom već postoji!");
+                }
+            }
+
 
             Zupljanin noviZupljanin = new Zupljanin( maksimalniId.getAsLong()+1,imeZupljanina,prezimeZupljanina,sifraZupljanina,datumRodjenjaStudenta);
 
@@ -111,7 +134,6 @@ public class UnosZupljaninaController {
                 throw new RuntimeException(e);
             }
             List<Sakrament> sviSakramenti = BazaPodataka.dohvatiSveSakramente();
-            List<Sakrament> oviSakramenti = new ArrayList<>();
             ObservableList<String> selectedItems = odabirSakramentaListView.getSelectionModel().getSelectedItems();
 
             for(Object o : selectedItems){
