@@ -137,6 +137,9 @@ public class BazaPodataka {
     public static void obrisiZupljanina(Integer id) throws Exception{
         Connection con = connectToDatabase();
 
+        PreparedStatement stmt0= con.prepareStatement("DELETE FROM ZUPLJANINSLIKE WHERE ZUPLJANIN_ID = ?");
+        stmt0.setInt(1, id);
+        stmt0.executeUpdate();
 
 
         PreparedStatement stmt1= con.prepareStatement("DELETE FROM SAKRAMENT_ZUPLJANIN WHERE ZUPLJANIN_ID = ?");

@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
@@ -16,16 +17,29 @@ public class BrisanjeZupljanaController {
     @FXML
     private ListView<String> odabirZupljaninaListView ;
 
+    @FXML
+    private Button botun;
+
 
     public void obrisiZupljane() throws Exception {
 
         List<Zupljanin> sviZupljani= BazaPodataka.dohvatiSveZupljane();
         List<Zupljanin> oviZupljani= new ArrayList<>();
         ObservableList<String> selectedItems = odabirZupljaninaListView.getSelectionModel().getSelectedItems();
+
+        if (selectedItems.isEmpty()) {
+            Alert noSelectionAlert = new Alert(Alert.AlertType.WARNING);
+            noSelectionAlert.setTitle("Nema odabranih župljana");
+            noSelectionAlert.setHeaderText(null);
+            noSelectionAlert.setContentText("Molimo odaberite župljane koje želite obrisati.");
+            noSelectionAlert.showAndWait();
+            return;
+        }
+
+
+
         for(Object o : selectedItems){
             for (Zupljanin zupljanin:sviZupljani) {
-                System.out.println("o.prezime = " + o);
-                System.out.println("student= " +zupljanin.getPrezime());
                 if(o.equals(zupljanin.getIme() + " " +zupljanin.getPrezime())){
                     oviZupljani.add(zupljanin);
                 }
@@ -34,6 +48,9 @@ public class BrisanjeZupljanaController {
         for (Zupljanin zupljanin:oviZupljani) {
             BazaPodataka.obrisiZupljanina(zupljanin.getId().intValue());
         }
+
+        initialize();
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Brisanje zupljanina");
         alert.setHeaderText("Uspješno obrisan zupljanin");
