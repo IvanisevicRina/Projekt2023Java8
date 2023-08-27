@@ -89,21 +89,33 @@ public class BazaPodataka {
         return Optional.empty();
     }
 
-    public static void spremiZupljanina(Zupljanin zupljanin) throws Exception{
-        Connection con = connectToDatabase();
+    public static int spremiZupljanina(Zupljanin zupljanin) throws Exception {
 
-        PreparedStatement pstmt = con.prepareStatement("INSERT INTO ZUPLJANIN(IME,PREZIME,SIFRA,DATUM_RODJENJA) VALUES(?,?,?,?)");
+        try (Connection con = connectToDatabase()) {
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO ZUPLJANIN(IME,PREZIME,SIFRA,DATUM_RODJENJA) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 
-        pstmt.setString(1,zupljanin.getIme());
-        pstmt.setString(2,zupljanin.getPrezime());
-        pstmt.setString(3, zupljanin.getSifra());
-        pstmt.setDate(4,Date.valueOf(zupljanin.getDatumRodjenja()));
+            pstmt.setString(1, zupljanin.getIme());
+            pstmt.setString(2, zupljanin.getPrezime());
+            pstmt.setString(3, zupljanin.getSifra());
+            pstmt.setDate(4, Date.valueOf(zupljanin.getDatumRodjenja()));
 
-        pstmt.executeUpdate();
+            pstmt.executeUpdate();
 
-        con.close();
-
+            ResultSet generatedKeys = pstmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int generatedId = generatedKeys.getInt(1);
+                con.close();
+                return generatedId;
+            } else {
+                con.close();
+                throw new SQLException("Failed to retrieve the generated ID.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
+
     public static void azurirajZupljane(Zupljanin zupljanin) throws Exception{
         Connection con = connectToDatabase();
 

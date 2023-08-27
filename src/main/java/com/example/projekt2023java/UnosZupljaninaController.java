@@ -128,8 +128,9 @@ public class UnosZupljaninaController {
 
             zupljani.add(noviZupljanin);
 
+            int savedZupljaninId;
             try {
-                BazaPodataka.spremiZupljanina(noviZupljanin);
+                savedZupljaninId =BazaPodataka.spremiZupljanina(noviZupljanin);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -139,10 +140,11 @@ public class UnosZupljaninaController {
             for(Object o : selectedItems){
                 for (Sakrament sakrament:sviSakramenti) {
                     if(o.equals(sakrament.getNaziv())){
-                        BazaPodataka.spojiZupljaninaNaSakrament(sakrament.getId().intValue(),noviZupljanin.getId().intValue());
+                        BazaPodataka.spojiZupljaninaNaSakrament(sakrament.getId().intValue(),savedZupljaninId);
                     }
                 }
             }
+
 
 
 
