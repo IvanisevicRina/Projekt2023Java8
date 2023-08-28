@@ -54,6 +54,14 @@
 
                </items>
             </Menu>
+                <Menu mnemonicParsing="false" text="LOGIN">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#registracijaScreen" text="Sign up" />
+                        <MenuItem mnemonicParsing="false" onAction="#logiranjeScreen" text="Log in" />
+
+
+                    </items>
+                </Menu>
 
 
             </menus>

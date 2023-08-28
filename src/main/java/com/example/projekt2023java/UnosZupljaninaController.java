@@ -202,7 +202,7 @@ public class UnosZupljaninaController {
         }
     }
 
-    private void provjeraSifri(String sifra){
+    private void provjeraSifri(String sifra) throws ZupljaninDuplikatException{
         List<Zupljanin> zupljani = BazaPodataka.dohvatiSveZupljane();
         for (Zupljanin zupljanin : zupljani) {
             if (zupljanin.getSifra().equals(sifra)) {

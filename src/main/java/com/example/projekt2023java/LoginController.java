@@ -25,32 +25,19 @@ public class LoginController {
     private PasswordField lozinkaPasswordField;
 
     @FXML
-    private void handlePrijava(ActionEvent event) {
+    private void handlePrijava(ActionEvent event) throws IOException {
         String korisnickoIme = korisnickoImeTextField.getText();
         String lozinka = lozinkaPasswordField.getText();
 
         if (autentifikacija(korisnickoIme, lozinka)) {
             prikaziPoruku("Prijava uspješna!", Alert.AlertType.INFORMATION);
-            // Ovdje možete izvršiti željenu akciju nakon uspješne prijave
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sveceniciPregled.fxml"));
-            Parent root;
-            try {
-                root = fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setTitle("Pregled svećenika");
-                stage.setScene(new Scene(root));
-                stage.show();
 
-                // Zatvaranje trenutnog prozora
-                Stage currentStage = (Stage) korisnickoImeTextField.getScene().getWindow();
-                currentStage.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            prikaziSveceniciPregled();
         } else {
             prikaziPoruku("Neuspješna prijava. Provjerite korisničko ime i lozinku.", Alert.AlertType.ERROR);
         }
     }
+
 
     private boolean autentifikacija(String korisnickoIme, String lozinka) {
         // Čitanje hashiranih lozinki iz tekstualne datoteke
@@ -68,6 +55,13 @@ public class LoginController {
 
         // Usporedba hashiranih lozinki
         return spremljeniHash.equals(uneseniHash);
+    }
+    private void prikaziSveceniciPregled() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("pregledGalerija.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        HelloApplication.getMainStage().setTitle("Pregled Slika:");
+        HelloApplication.getMainStage().setScene(scene);
+        HelloApplication.getMainStage().show();
     }
 
     private String procitajHashIzDatoteke(String putanjaDatoteke, String korisnickoIme) {
@@ -106,5 +100,13 @@ public class LoginController {
         alert.setHeaderText(null);
         alert.setContentText(poruka);
         alert.showAndWait();
+    }
+    @FXML
+    private void registracija() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("registracija.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        HelloApplication.getMainStage().setTitle("Pregled Slika:");
+        HelloApplication.getMainStage().setScene(scene);
+        HelloApplication.getMainStage().show();
     }
 }
