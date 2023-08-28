@@ -3,6 +3,7 @@ package com.example.projekt2023java;
 import baza.BazaPodataka;
 import entitet.Svecenik;
 import entitet.SvecenikBuilder;
+import iznimke.TekstualniZapisException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -45,12 +46,24 @@ public class UnosSvecenikaController implements Serializable {
 
         if(imeSvecenika.isEmpty()){
             errorMessages.append("Ime ne bi smjelo bit prazno!\n");
+        }else if (sadrziBrojeve(imeSvecenika)) {
+            try {
+                throw new TekstualniZapisException("Ime ne smije sadržavati brojeve.");
+            } catch (TekstualniZapisException e) {
+                errorMessages.append("Greška" + e.getMessage() + "\n");
+            }
         }
 
         String prezimeSvecenika = prezimeSvecenikaTextField.getText();
 
         if(prezimeSvecenika.isEmpty()){
             errorMessages.append("Prezime ne bi smjelo bit prazno!\n");
+        }else if (sadrziBrojeve(prezimeSvecenika)) {
+            try {
+                throw new TekstualniZapisException("Prezime ne smije sadržavati brojeve.");
+            } catch (TekstualniZapisException e) {
+                errorMessages.append("Greška" + e.getMessage()+ "\n");
+            }
         }
 
 
@@ -118,6 +131,15 @@ public class UnosSvecenikaController implements Serializable {
             alert.showAndWait();
         }
 
+    }
+
+    private boolean sadrziBrojeve(String text) {
+        for (char c : text.toCharArray()) {
+            if (Character.isDigit(c)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
