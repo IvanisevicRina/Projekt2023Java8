@@ -100,6 +100,14 @@ public class UnosZupljaninaController {
         if(sifraZupljanina.isEmpty()){
             errorMessages.append("Polje sifrane bi smjelo bit prazno!\n");
         }
+        try{
+            provjeraSifri(sifraZupljanina);
+        }catch(ZupljaninDuplikatException e){
+            errorMessages.append("Greška ").append(e.getMessage()).append("\n");
+        }
+
+
+
 
 
         if(datumRodjenjaDatePicker.getValue() == null){
@@ -127,7 +135,6 @@ public class UnosZupljaninaController {
             long maxId = maksimalniId.getAsLong() +1;
 
             BazaPodataka.fixAutoicrementaZupljnaId(maxId);
-
 
 
             for (Zupljanin zupljanin : zupljani) {
@@ -193,6 +200,17 @@ public class UnosZupljaninaController {
                 throw new TekstualniZapisException("Tekst ne smije sadržavati brojeve.");
             }
         }
+    }
+
+    private void provjeraSifri(String sifra){
+        List<Zupljanin> zupljani = BazaPodataka.dohvatiSveZupljane();
+        for (Zupljanin zupljanin : zupljani) {
+            if (zupljanin.getSifra().equals(sifra)) {
+                throw new ZupljaninDuplikatException("Župljanin sa istom šifrom već postoji!");
+            }
+        }
+
+
     }
 
 
