@@ -9,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalLong;
 
@@ -46,9 +45,9 @@ public class UnosSvecenikaController implements Serializable {
 
         if(imeSvecenika.isEmpty()){
             errorMessages.append("Ime ne bi smjelo bit prazno!\n");
-        }else if (sadrziBrojeve(imeSvecenika)) {
+        }else  {
             try {
-                throw new TekstualniZapisException("Ime ne smije sadržavati brojeve.");
+                sadrziBrojeve(imeSvecenika);
             } catch (TekstualniZapisException e) {
                 errorMessages.append("Greška" + e.getMessage() + "\n");
             }
@@ -58,9 +57,9 @@ public class UnosSvecenikaController implements Serializable {
 
         if(prezimeSvecenika.isEmpty()){
             errorMessages.append("Prezime ne bi smjelo bit prazno!\n");
-        }else if (sadrziBrojeve(prezimeSvecenika)) {
+        }else  {
             try {
-                throw new TekstualniZapisException("Prezime ne smije sadržavati brojeve.");
+                sadrziBrojeve(prezimeSvecenika);
             } catch (TekstualniZapisException e) {
                 errorMessages.append("Greška" + e.getMessage()+ "\n");
             }
@@ -133,13 +132,12 @@ public class UnosSvecenikaController implements Serializable {
 
     }
 
-    private boolean sadrziBrojeve(String text) {
+    private void sadrziBrojeve(String text) throws TekstualniZapisException {
         for (char c : text.toCharArray()) {
             if (Character.isDigit(c)) {
-                return true;
+                throw new TekstualniZapisException("Tekst ne smije sadržavati brojeve.");
             }
         }
-        return false;
     }
 
 
