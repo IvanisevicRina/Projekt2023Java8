@@ -69,29 +69,13 @@ public class UnosSvecenikaController implements Serializable {
 
 
 
-
-/*
-        writeResult("dat/profesori.txt",idProfesora);
-        writeResult("dat/profesori.txt",sifraProfesora);
-        writeResult("dat/profesori.txt",imeProfesora);
-        writeResult("dat/profesori.txt",prezimeProfesora);
-        writeResult("dat/profesori.txt",titulaProfesora);
-*/
-
-
         if(errorMessages.isEmpty()) {
 
 
 
-            //citam iz datoteke sto je bilo prijee
-            List<Svecenik> svecenik = new ArrayList<>();
-            try (ObjectInputStream objectReader = new ObjectInputStream(new FileInputStream("dat/sveceniciSerijalizirani.ser"))) {
-                svecenik = (List<Svecenik>) objectReader.readObject();
-            } catch (IOException | ClassNotFoundException e) {
-                svecenik = new ArrayList<>();
-            }
+            List<Svecenik> svecenici = BazaPodataka.dohvatiSveSvecenike();
 
-            OptionalLong maksimalniId =svecenik.stream()
+            OptionalLong maksimalniId =svecenici.stream()
                     .mapToLong(sveceniks -> sveceniks.getId()).max();
             long id;
             if(maksimalniId.isEmpty()){
@@ -99,6 +83,12 @@ public class UnosSvecenikaController implements Serializable {
             }else {
                 id = maksimalniId.getAsLong()+1;
             }
+
+
+
+            System.out.println("Maksimalni id grupe " + maksimalniId);
+            System.out.println("Maksimalni id svecenika ;" + id);
+            BazaPodataka.fixAutoicrementaSvecenikaId(id);
 
             Svecenik noviSvecenik= new SvecenikBuilder().setId(id).setSifra(sifraSvecenika).setIme(imeSvecenika).setPrezime(prezimeSvecenika).setTitula(titulaSvecenika).createSvecenik();
 
@@ -108,12 +98,11 @@ public class UnosSvecenikaController implements Serializable {
                     throw new RuntimeException(e);
                 }
 
-            //Serijaliziram(spremam) listu sa novim profesorima u file
-            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("dat/sveceniciSerijalizirani.ser"))) {
-                out.writeObject(svecenik);
-            } catch (IOException ex) {
-                System.err.println(ex);
-            }
+
+            imeSvecenikaTextField.clear();
+            prezimeSvecenikaTextField.clear();
+            sifraSvecenikaTextField.clear();
+            titulaSvecenikaTextField.clear();
 
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

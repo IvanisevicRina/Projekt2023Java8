@@ -350,7 +350,7 @@ public class BazaPodataka {
         con.close();
     }
 
-    public static List<OsobniSakrament> dohvatiSveOsobneSakramente(){
+    public static List<OsobniSakrament> dohvatiSveOsobneSakramente() {
         List<OsobniSakrament> listaOsobnihSakramenata = new ArrayList<>();
         try{Connection con = connectToDatabase();
             if(con!=null){
@@ -388,6 +388,27 @@ public class BazaPodataka {
 
         }
         return listaOsobnihSakramenata;
+    }
+
+    public static void fixAutoicrementaZupljnaId(Long id) throws Exception{
+        Connection con = connectToDatabase();
+
+        PreparedStatement pstmt = con.prepareStatement("ALTER TABLE ZUPLJANIN ALTER COLUMN ID RESTART WITH ?");
+        pstmt.setInt(1,id.intValue());
+        pstmt.executeUpdate();
+
+        con.close();
+
+    }
+    public static void fixAutoicrementaSvecenikaId(Long id) throws Exception{
+        Connection con = connectToDatabase();
+
+        PreparedStatement pstmt = con.prepareStatement("ALTER TABLE SVECENIK ALTER COLUMN ID RESTART WITH ?");
+        pstmt.setInt(1,id.intValue());
+        pstmt.executeUpdate();
+
+        con.close();
+
     }
 
 

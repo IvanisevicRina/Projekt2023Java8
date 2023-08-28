@@ -55,6 +55,11 @@ public class UnosZupljaninaController {
     public void spremiZupljaninaButtonClicked(ActionEvent event) {
         try {
             spremiZupljanina();
+            imeZupljaninaTextField.clear();
+            prezimeZupljaninaTextField.clear();
+            sifraZupljaninaTextField.clear();
+            datumRodjenjaDatePicker.setValue(null);
+            odabirSakramentaListView.getSelectionModel().clearSelection();
         } catch (ZupljaninDuplikatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Greška");
@@ -102,20 +107,26 @@ public class UnosZupljaninaController {
         if(errorMessages.isEmpty()) {
 
 
-            String datumRodjenjaStudentaString = datumRodjenjaDatePicker.getValue().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
+            String datumRodjenjaZupljanaString = datumRodjenjaDatePicker.getValue().format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
 
             DateTimeFormatter formatterDatumaIspita = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
 
-            LocalDate datumRodjenjaStudenta = LocalDate.parse(datumRodjenjaStudentaString, formatterDatumaIspita);
+            LocalDate datumRodjenjaZupljana = LocalDate.parse(datumRodjenjaZupljanaString, formatterDatumaIspita);
             List<Zupljanin> zupljani = BazaPodataka.dohvatiSveZupljane();
 
             OptionalLong maksimalniId = zupljani.stream()
-                    .mapToLong(students -> students.getId()).max();
+                    .mapToLong(zupljanin -> zupljanin.getId()).max();
 
 
             if(maksimalniId.isEmpty()){
                 maksimalniId = OptionalLong.of(0L);
             }
+
+            long maxId = maksimalniId.getAsLong() +1;
+
+            BazaPodataka.fixAutoicrementaZupljnaId(maxId);
+
+
 
             for (Zupljanin zupljanin : zupljani) {
                 if (zupljanin.getSifra().equals(sifraZupljanina)) {
@@ -124,7 +135,7 @@ public class UnosZupljaninaController {
             }
 
 
-            Zupljanin noviZupljanin = new Zupljanin( maksimalniId.getAsLong()+1,imeZupljanina,prezimeZupljanina,sifraZupljanina,datumRodjenjaStudenta);
+            Zupljanin noviZupljanin = new Zupljanin( maksimalniId.getAsLong()+1,imeZupljanina,prezimeZupljanina,sifraZupljanina,datumRodjenjaZupljana);
 
             zupljani.add(noviZupljanin);
 
