@@ -3,6 +3,7 @@ package com.example.projekt2023java;
 import baza.BazaPodataka;
 import entitet.Sakrament;
 import entitet.Zupljanin;
+import iznimke.TekstualniZapisException;
 import iznimke.ZupljaninDuplikatException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,27 +30,16 @@ public class UnosZupljaninaController {
     @FXML
     private TextField imeZupljaninaTextField;
 
-
     @FXML
     private TextField sifraZupljaninaTextField;
 
-
     @FXML
     private DatePicker datumRodjenjaDatePicker;
+
     @FXML
     private ListView<String> odabirSakramentaListView;
 
-    public static void writeResult(String writeFileName, String text)
-    {
-        File f = new File(writeFileName);
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
-            bw.append( "\n" +text);
-            bw.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+
 
     @FXML
     public void spremiZupljaninaButtonClicked(ActionEvent event) {
@@ -84,12 +74,24 @@ public class UnosZupljaninaController {
         String imeZupljanina = imeZupljaninaTextField.getText();
         if(imeZupljanina.isEmpty()){
             errorMessages.append("Ime ne bi smjelo bit prazno!\n");
+        }else  {
+            try {
+                sadrziBrojeve(imeZupljanina);
+            } catch (TekstualniZapisException e) {
+                errorMessages.append("Greška " + e.getMessage() + "\n");
+            }
         }
 
         String prezimeZupljanina = prezimeZupljaninaTextField.getText();
 
         if(prezimeZupljanina.isEmpty()){
             errorMessages.append("Prezime ne bi smjelo bit prazno!\n");
+        }else  {
+            try {
+                sadrziBrojeve(prezimeZupljanina);
+            } catch (TekstualniZapisException e) {
+                errorMessages.append("Greška " + e.getMessage()+ "\n");
+            }
         }
 
 
@@ -178,13 +180,21 @@ public class UnosZupljaninaController {
     }
     public void initialize(){
         List<Sakrament> sakramenti = BazaPodataka.dohvatiSveSakramente();
-        System.out.println("sakramentii");
+        System.out.println("sakramenti");
         sakramenti.stream().map(p->p.getNaziv()).forEach(System.out::println);
         List<String> predmetList = sakramenti.stream().map(s -> s.getNaziv()).toList();
         odabirSakramentaListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         odabirSakramentaListView.setItems(FXCollections.observableList(predmetList));
 
     }
+    private void sadrziBrojeve(String text) throws TekstualniZapisException {
+        for (char c : text.toCharArray()) {
+            if (Character.isDigit(c)) {
+                throw new TekstualniZapisException("Tekst ne smije sadržavati brojeve.");
+            }
+        }
+    }
+
 
 
 
