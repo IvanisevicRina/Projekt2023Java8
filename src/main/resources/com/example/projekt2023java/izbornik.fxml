@@ -5,66 +5,50 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="0.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.Izbornik">
-    <children>
-        <MenuBar layoutY="2.0" prefHeight="26.0" prefWidth="1200.0">
-            <menus>
-                <Menu mnemonicParsing="false" text="Svecenik">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showSveceniciSearchScreen" text="Pretraga" />
-
-                        <MenuItem mnemonicParsing="false" onAction="#sveceniciUnosScreen" text="Unos" />
-                        <MenuItem mnemonicParsing="false" onAction="#showDeletingSvecenikScreen" text="Brisanje" />
-                        <MenuItem mnemonicParsing="false" onAction="#showIzmjenaSvecenikScreen" text="Izmjena" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Zupljani">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showZupljaniSearchScreen" text="Pretraga" />
-
-                        <MenuItem mnemonicParsing="false" onAction="#showZupljaniEnteringScreen" text="Unos" />
-
-                        <MenuItem mnemonicParsing="false" onAction="#deleteZupljaniEnteringScreen" text="Brisanje" />
-
-                        <MenuItem mnemonicParsing="false" onAction="#ispisPotvrdaScreen" text="Izdavanje potvrda" />
+<AnchorPane prefHeight="0.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.projekt2023java.Izbornik">
+    <MenuBar layoutY="2.0" prefHeight="26.0" prefWidth="1200.0">
+        <Menu mnemonicParsing="false" text="LOGIN">
+            <MenuItem mnemonicParsing="false" onAction="#registracijaScreen" text="Sign up"/>
+            <MenuItem mnemonicParsing="false" onAction="#logiranjeScreen" text="Log in"/>
 
 
+        </Menu>
+        <Menu mnemonicParsing="false" text="Svecenik">
+            <MenuItem mnemonicParsing="false" onAction="#showSveceniciSearchScreen" text="Pretraga"/>
 
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Sakrament">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showSakramentiSearchScreen" text="Pretraga" />
+            <MenuItem mnemonicParsing="false" onAction="#sveceniciUnosScreen" text="Unos"/>
+            <MenuItem mnemonicParsing="false" onAction="#showDeletingSvecenikScreen" text="Brisanje"/>
+            <MenuItem mnemonicParsing="false" onAction="#showIzmjenaSvecenikScreen" text="Izmjena"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Zupljani">
+            <MenuItem mnemonicParsing="false" onAction="#showZupljaniSearchScreen" text="Pretraga"/>
 
-                        <MenuItem mnemonicParsing="false" onAction="#showSakramentiEnteringScreen" text="Unos" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="OsobniSakrament">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiSearchScreen" text="Pretraga" />
+            <MenuItem mnemonicParsing="false" onAction="#showZupljaniEnteringScreen" text="Unos"/>
 
-                        <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiEnteringScreen" text="Unos" />
-                    </items>
-                </Menu>
-            <Menu mnemonicParsing="false" text="Galerija">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#showGalerijaScreen" text="Prikaz" />
-                  <MenuItem mnemonicParsing="false" onAction="#showGalerijaUnosScreen" text="Unos" />
-                   <MenuItem mnemonicParsing="false" onAction="#showGalerijaZupljanina" text="SlikeZupljanina" />
+            <MenuItem mnemonicParsing="false" onAction="#deleteZupljaniEnteringScreen" text="Brisanje"/>
 
-               </items>
-            </Menu>
-                <Menu mnemonicParsing="false" text="LOGIN">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#registracijaScreen" text="Sign up" />
-                        <MenuItem mnemonicParsing="false" onAction="#logiranjeScreen" text="Log in" />
+            <MenuItem mnemonicParsing="false" onAction="#ispisPotvrdaScreen" text="Izdavanje potvrda"/>
 
 
-                    </items>
-                </Menu>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Sakrament">
+            <MenuItem mnemonicParsing="false" onAction="#showSakramentiSearchScreen" text="Pretraga"/>
+
+            <MenuItem mnemonicParsing="false" onAction="#showSakramentiEnteringScreen" text="Unos"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="OsobniSakrament">
+            <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiSearchScreen" text="Pretraga"/>
+
+            <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiEnteringScreen" text="Unos"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Galerija">
+            <MenuItem mnemonicParsing="false" onAction="#showGalerijaScreen" text="Prikaz"/>
+            <MenuItem mnemonicParsing="false" onAction="#showGalerijaUnosScreen" text="Unos"/>
+            <MenuItem mnemonicParsing="false" onAction="#showGalerijaZupljanina" text="SlikeZupljanina"/>
+
+        </Menu>
 
 
-            </menus>
-        </MenuBar>
-    </children>
+    </MenuBar>
 </AnchorPane>

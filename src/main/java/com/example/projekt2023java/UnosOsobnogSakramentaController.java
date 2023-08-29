@@ -2,6 +2,7 @@ package com.example.projekt2023java;
 
 import baza.BazaPodataka;
 import entitet.*;
+import iznimke.NeispravanFormatVremenaException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -50,6 +51,12 @@ public class UnosOsobnogSakramentaController {
 
         if(vrijemeOdrzavanja.isEmpty()){
             errorMessages.append("Vrijeme ne bi smjelo bit prazno!\n");
+        }else {
+            try {
+                validateVrijemeFormat(vrijemeOdrzavanja);
+            } catch (NeispravanFormatVremenaException e) {
+                errorMessages.append("Greška: " + e.getMessage() + "\n");
+            }
         }
 
         if(datumOdrzavanjaDatePicker.getValue() == null){
@@ -181,6 +188,13 @@ public class UnosOsobnogSakramentaController {
 
 
 
+    }
+    private void validateVrijemeFormat(String vrijeme) throws NeispravanFormatVremenaException {
+        // Implement your validation logic here
+        // You can use regular expressions to match the desired time format
+        if (!vrijeme.matches("^\\d{2}:\\d{2}$")) {
+            throw new NeispravanFormatVremenaException("Neispravan format vremena. Očekivani format: HH:mm");
+        }
     }
 
 

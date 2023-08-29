@@ -1,6 +1,6 @@
 package iznimke;
 
-public class ZupljaninDuplikatException extends RuntimeException {
+public class ZupljaninDuplikatException extends Exception {
     public ZupljaninDuplikatException(String message) {
         super("ZupljaniDuplikatException "+message);
     }
