@@ -37,6 +37,11 @@ public class RegistracijaController {
             prikaziPoruku("Molimo unesite korisničko ime i lozinku.", Alert.AlertType.WARNING);
             return;
         }
+        if (roleChoiceBox.getValue() ==null) {
+            prikaziPoruku("Molimo odaberite korisnicku rolu.", Alert.AlertType.WARNING);
+            return;
+        }
+
         if (korisnickoImeExists(korisnickoIme)) {
             prikaziPoruku("Korisničko ime već postoji. Molimo odaberite drugo ime.", Alert.AlertType.ERROR);
             return;
@@ -69,7 +74,7 @@ public class RegistracijaController {
             String linija;
             while ((linija = citac.readLine()) != null) {
                 String[] dijelovi = linija.split(":");
-                if (dijelovi.length == 2 && dijelovi[0].equals(korisnickoIme)) {
+                if (dijelovi.length == 3 && dijelovi[0].equals(korisnickoIme)) {
                     return true; // Username already exists
                 }
             }
