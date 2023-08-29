@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -19,11 +20,18 @@ public class RegistracijaController {
 
     @FXML
     private PasswordField lozinkaPasswordField;
+    @FXML
+    private ChoiceBox<String> roleChoiceBox;
+
+    @FXML
+    private PasswordField svecenikPasswordField;
 
     @FXML
     private void handleRegistracija(ActionEvent event) {
         String korisnickoIme = korisnickoImeTextField.getText();
         String lozinka = lozinkaPasswordField.getText();
+        String selectedRole = roleChoiceBox.getValue();
+
 
         if (korisnickoIme.isEmpty() || lozinka.isEmpty()) {
             prikaziPoruku("Molimo unesite korisničko ime i lozinku.", Alert.AlertType.WARNING);
@@ -33,6 +41,19 @@ public class RegistracijaController {
             prikaziPoruku("Korisničko ime već postoji. Molimo odaberite drugo ime.", Alert.AlertType.ERROR);
             return;
         }
+        if ("Svecenik".equals(selectedRole)) {
+            String svecenikPassword = svecenikPasswordField.getText();
+            if (!"13579".equals(svecenikPassword)) {
+                prikaziPoruku("Unesite ispravan password za Svecenik ulogu.", Alert.AlertType.ERROR);
+                return;
+            }
+            // Proceed with registration and password hashing
+        }
+        if (selectedRole == null || selectedRole.isEmpty()) {
+            prikaziPoruku("Molimo odaberite ulogu.", Alert.AlertType.WARNING);
+            return;
+        }
+
         String hashiranaLozinka = hashirajLozinku(lozinka);
         if (hashiranaLozinka != null) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("dat/lozinke.txt", true))) {
