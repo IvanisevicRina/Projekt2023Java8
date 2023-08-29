@@ -29,6 +29,7 @@ public class BrisanjeSvecenikaController {
         for (Svecenik svecenik:oviSvecenici) {
             BazaPodataka.obrisiSvecenika(svecenik.getId().intValue());
         }
+        initialize();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Brisanje svecenika");
         alert.setHeaderText("Uspješno obrisan svecenik");

@@ -3,6 +3,7 @@ package com.example.projekt2023java;
 import baza.BazaPodataka;
 import entitet.Svecenik;
 import entitet.SvecenikBuilder;
+import iznimke.PrekoracenjeBrojaZnakovaException;
 import iznimke.TekstualniZapisException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -25,17 +26,6 @@ public class UnosSvecenikaController implements Serializable {
     private TextField titulaSvecenikaTextField;
 
 
-    public static void writeResult(String writeFileName, String text)
-    {
-        File f = new File(writeFileName);
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
-            bw.append( "\n" +text);
-            bw.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public void spremiSvecenika() throws Exception {
 
@@ -70,6 +60,12 @@ public class UnosSvecenikaController implements Serializable {
 
         if(sifraSvecenika.isEmpty()){
             errorMessages.append("Polje sifra ne bi smjelo bit prazno!\n");
+        }else {
+            try {
+                validateSifraSvecenika(sifraSvecenika);
+            } catch (PrekoracenjeBrojaZnakovaException e) {
+                errorMessages.append("Greška: " + e.getMessage() + "\n");
+            }
         }
 
         String titulaSvecenika = titulaSvecenikaTextField.getText();
@@ -137,6 +133,11 @@ public class UnosSvecenikaController implements Serializable {
             if (Character.isDigit(c)) {
                 throw new TekstualniZapisException("Tekst ne smije sadržavati brojeve.");
             }
+        }
+    }
+    private void validateSifraSvecenika(String sifra) throws PrekoracenjeBrojaZnakovaException {
+        if (sifra.length() > 10) {
+            throw new PrekoracenjeBrojaZnakovaException("Prekoračenje dozvoljenog broja znakova za sifru svecenika.");
         }
     }
 
