@@ -1,14 +1,16 @@
 package com.example.projekt2023java;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import entitet.Zupljanin;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+
 public class PDFGenerator {
 
     public static void generatePDF(String fileName, List<String> sakramenti, Zupljanin zupljanin) {
@@ -18,14 +20,33 @@ public class PDFGenerator {
             PdfWriter.getInstance(document, new FileOutputStream(fileName));
             document.open();
 
-            // Dodajte sadržaj u PDF
-            Paragraph paragraph = new Paragraph("Popis sakramenata za župljanina" + zupljanin.getIme() + " " + zupljanin.getPrezime() +":\n");
+            // Read and load CSS styles from file
+            String css = new String(Files.readAllBytes(Paths.get("css/style.css")));
 
+            // Register the custom font from Google Fonts
+            FontFactory.register("css/NoticiaText-Italic.ttf", "custom_font");
+
+            // Apply header style
+            Font headerFont = FontFactory.getFont("custom_font", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 20);
+            Paragraph header = new Paragraph("Popis sakramenata za župljanina " + zupljanin.getIme() + " " + zupljanin.getPrezime(), headerFont);
+            header.setAlignment(Paragraph.ALIGN_CENTER);
+            document.add(header);
+
+            // Apply content style
+            Font contentFont = FontFactory.getFont("custom_font", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
+            Paragraph content = new Paragraph();
+            content.add(new Paragraph("\n\n\n\n                     Sakramenti:", contentFont));
             for (String sakrament : sakramenti) {
-                paragraph.add(sakrament + "\n");
+                content.add(new Paragraph("                                                " +sakrament, contentFont));
             }
 
-            document.add(paragraph);
+            Image image = Image.getInstance("css/image2.png");
+            image.scaleAbsolute(100, 100);  // Set the image size
+            image.setAbsolutePosition(411, 420);  // Set the position of the image
+            document.add(image);
+
+
+            document.add(content);
 
             document.close();
             System.out.println("PDF je generiran.");

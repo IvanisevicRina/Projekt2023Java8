@@ -3,21 +3,17 @@ package com.example.projekt2023java;
 import baza.BazaPodataka;
 import entitet.Sakrament;
 import entitet.Zupljanin;
+import iznimke.PrekoracenjeBrojaZnakovaException;
 import iznimke.TekstualniZapisException;
-import iznimke.ZupljaninDuplikatException;
+import iznimke.DuplikatSifreException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalLong;
 
@@ -50,7 +46,7 @@ public class UnosZupljaninaController {
             sifraZupljaninaTextField.clear();
             datumRodjenjaDatePicker.setValue(null);
             odabirSakramentaListView.getSelectionModel().clearSelection();
-        } catch (ZupljaninDuplikatException e) {
+        } catch (DuplikatSifreException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Greška");
             alert.setHeaderText("Greška prilikom spremanja župljanina");
@@ -77,7 +73,8 @@ public class UnosZupljaninaController {
         }else  {
             try {
                 sadrziBrojeve(imeZupljanina);
-            } catch (TekstualniZapisException e) {
+                validateImeZupljanina(imeZupljanina);
+            } catch (TekstualniZapisException | PrekoracenjeBrojaZnakovaException e) {
                 errorMessages.append("Greška " + e.getMessage() + "\n");
             }
         }
@@ -89,7 +86,8 @@ public class UnosZupljaninaController {
         }else  {
             try {
                 sadrziBrojeve(prezimeZupljanina);
-            } catch (TekstualniZapisException e) {
+                validateImeZupljanina(prezimeZupljanina);
+            } catch (TekstualniZapisException | PrekoracenjeBrojaZnakovaException e) {
                 errorMessages.append("Greška " + e.getMessage()+ "\n");
             }
         }
@@ -98,11 +96,11 @@ public class UnosZupljaninaController {
         String sifraZupljanina = sifraZupljaninaTextField.getText();
 
         if(sifraZupljanina.isEmpty()){
-            errorMessages.append("Polje sifrane bi smjelo bit prazno!\n");
+            errorMessages.append("Polje sifre bi smjelo bit prazno!\n");
         }
         try{
             provjeraSifri(sifraZupljanina);
-        }catch(ZupljaninDuplikatException e){
+        }catch(DuplikatSifreException e){
             errorMessages.append("Greška ").append(e.getMessage()).append("\n");
         }
 
@@ -135,13 +133,6 @@ public class UnosZupljaninaController {
             long maxId = maksimalniId.getAsLong() +1;
 
             BazaPodataka.fixAutoicrementaZupljnaId(maxId);
-
-
-            for (Zupljanin zupljanin : zupljani) {
-                if (zupljanin.getSifra().equals(sifraZupljanina)) {
-                    throw new ZupljaninDuplikatException("Župljanin sa istom šifrom već postoji!");
-                }
-            }
 
 
             Zupljanin noviZupljanin = new Zupljanin( maksimalniId.getAsLong()+1,imeZupljanina,prezimeZupljanina,sifraZupljanina,datumRodjenjaZupljana);
@@ -202,15 +193,19 @@ public class UnosZupljaninaController {
         }
     }
 
-    private void provjeraSifri(String sifra) throws ZupljaninDuplikatException{
+    private void provjeraSifri(String sifra) throws DuplikatSifreException {
         List<Zupljanin> zupljani = BazaPodataka.dohvatiSveZupljane();
         for (Zupljanin zupljanin : zupljani) {
             if (zupljanin.getSifra().equals(sifra)) {
-                throw new ZupljaninDuplikatException("Župljanin sa istom šifrom već postoji!");
+                throw new DuplikatSifreException("Župljanin sa istom šifrom već postoji!");
             }
         }
+    }
 
-
+    private void validateImeZupljanina(String ime) throws PrekoracenjeBrojaZnakovaException {
+        if (ime.length() > 30) {
+            throw new PrekoracenjeBrojaZnakovaException("Prekoračenje dozvoljenog broja znakova za ime/prezime zupljanina.");
+        }
     }
 
 

@@ -52,7 +52,7 @@ public class IzmjenaSvecenikaController {
         }
         for(Object o : selectedItems){
             for (Svecenik svecenik:sviSvecenici) {
-                if(o.equals(svecenik.getIme() + " " +svecenik.getPrezime())){
+                if(o.equals(svecenik.getSifra() + "-----"+svecenik.getIme() + " " +svecenik.getPrezime())){
                     ovajSvecenik = svecenik;}}}
         String ime,prezime,sifra,titula;
         if(imeSvecenika.isEmpty()){
@@ -76,7 +76,7 @@ public class IzmjenaSvecenikaController {
     }
     public void initialize(){
         List<Svecenik> listaSvecenika= BazaPodataka.dohvatiSveSvecenike();
-        List<String> svecenikList = listaSvecenika.stream().map(p -> p.getIme() + " " + p.getPrezime()).toList();
+        List<String> svecenikList = listaSvecenika.stream().map(p -> p.getSifra() + "-----"+p.getIme() + " " + p.getPrezime()).toList();
         odabirSvecenikaListView.setItems(FXCollections.observableList(svecenikList));
 
     }

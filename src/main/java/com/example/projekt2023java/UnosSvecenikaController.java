@@ -3,6 +3,8 @@ package com.example.projekt2023java;
 import baza.BazaPodataka;
 import entitet.Svecenik;
 import entitet.SvecenikBuilder;
+import entitet.Zupljanin;
+import iznimke.DuplikatSifreException;
 import iznimke.PrekoracenjeBrojaZnakovaException;
 import iznimke.TekstualniZapisException;
 import javafx.fxml.FXML;
@@ -38,7 +40,8 @@ public class UnosSvecenikaController implements Serializable {
         }else  {
             try {
                 sadrziBrojeve(imeSvecenika);
-            } catch (TekstualniZapisException e) {
+                validateImeSvecenika(imeSvecenika);
+            } catch (TekstualniZapisException  | PrekoracenjeBrojaZnakovaException e) {
                 errorMessages.append("Greška" + e.getMessage() + "\n");
             }
         }
@@ -50,7 +53,8 @@ public class UnosSvecenikaController implements Serializable {
         }else  {
             try {
                 sadrziBrojeve(prezimeSvecenika);
-            } catch (TekstualniZapisException e) {
+                validateImeSvecenika(prezimeSvecenika);
+            } catch (TekstualniZapisException | PrekoracenjeBrojaZnakovaException e) {
                 errorMessages.append("Greška" + e.getMessage()+ "\n");
             }
         }
@@ -63,7 +67,8 @@ public class UnosSvecenikaController implements Serializable {
         }else {
             try {
                 validateSifraSvecenika(sifraSvecenika);
-            } catch (PrekoracenjeBrojaZnakovaException e) {
+                provjeraSifri(sifraSvecenika);
+            } catch (PrekoracenjeBrojaZnakovaException | DuplikatSifreException e) {
                 errorMessages.append("Greška: " + e.getMessage() + "\n");
             }
         }
@@ -73,6 +78,12 @@ public class UnosSvecenikaController implements Serializable {
 
         if(titulaSvecenika.isEmpty()){
             errorMessages.append("Polje titula ne bi smjelo bit prazno!\n");
+        }else {
+            try {
+                validateTitulaSvecenika(sifraSvecenika);
+            } catch (PrekoracenjeBrojaZnakovaException e) {
+                errorMessages.append("Greška: " + e.getMessage() + "\n");
+            }
         }
 
 
@@ -140,6 +151,25 @@ public class UnosSvecenikaController implements Serializable {
             throw new PrekoracenjeBrojaZnakovaException("Prekoračenje dozvoljenog broja znakova za sifru svecenika.");
         }
     }
+    private void validateImeSvecenika(String ime) throws PrekoracenjeBrojaZnakovaException {
+        if (ime.length() > 30) {
+            throw new PrekoracenjeBrojaZnakovaException("Prekoračenje dozvoljenog broja znakova za ime/prezime svecenika.");
+        }
+    }
+    private void validateTitulaSvecenika(String titula) throws PrekoracenjeBrojaZnakovaException {
+        if (titula.length() > 50) {
+            throw new PrekoracenjeBrojaZnakovaException("Prekoračenje dozvoljenog broja znakova za titulu svecenika.");
+        }
+    }
+    private void provjeraSifri(String sifra) throws DuplikatSifreException {
+        List<Svecenik> svecenici = BazaPodataka.dohvatiSveSvecenike();
+        for (Svecenik svecenik : svecenici) {
+            if (svecenik.getSifra().equals(sifra)) {
+                throw new DuplikatSifreException("Svecenik sa istom šifrom već postoji!");
+            }
+        }
+    }
+
 
 
 

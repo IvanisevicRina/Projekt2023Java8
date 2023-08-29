@@ -21,7 +21,7 @@ public class BrisanjeSvecenikaController {
         ObservableList<String> selectedItems = odabirSvecenikaListView.getSelectionModel().getSelectedItems();
         for(Object o : selectedItems){
             for (Svecenik svecenik:sviSvecenici) {
-                if(o.equals(svecenik.getIme() + " " +svecenik.getPrezime())){
+                if(o.equals(svecenik.getSifra()+ "-----"+ svecenik.getIme() + " " + svecenik.getPrezime())){
                     oviSvecenici.add(svecenik);
                 }
             }
@@ -38,7 +38,7 @@ public class BrisanjeSvecenikaController {
     }
     public void initialize(){
         List<Svecenik> listaSvecenika = BazaPodataka.dohvatiSveSvecenike();
-        List<String> svecenikList = listaSvecenika.stream().map(p -> p.getIme() + " " + p.getPrezime()).toList();
+        List<String> svecenikList = listaSvecenika.stream().map(p -> p.getSifra()+ "-----"+ p.getIme() + " " + p.getPrezime()).toList();
         odabirSvecenikaListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         odabirSvecenikaListView.setItems(FXCollections.observableList(svecenikList));
 
