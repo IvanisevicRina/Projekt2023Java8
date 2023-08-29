@@ -49,15 +49,11 @@ public class RegistracijaController {
             }
             // Proceed with registration and password hashing
         }
-        if (selectedRole == null || selectedRole.isEmpty()) {
-            prikaziPoruku("Molimo odaberite ulogu.", Alert.AlertType.WARNING);
-            return;
-        }
 
         String hashiranaLozinka = hashirajLozinku(lozinka);
         if (hashiranaLozinka != null) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("dat/lozinke.txt", true))) {
-                writer.write(korisnickoIme + ":" + hashiranaLozinka + "\n");
+                writer.write(korisnickoIme + ":" + hashiranaLozinka + ":" + selectedRole + "\n");
                 prikaziPoruku("Registracija uspješna!", Alert.AlertType.INFORMATION);
 
                 prebaciNaEkranPrijave();

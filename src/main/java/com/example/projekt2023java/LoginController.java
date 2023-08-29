@@ -6,9 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -28,6 +26,16 @@ public class LoginController {
 
         if (autentifikacija(korisnickoIme, lozinka)) {
             prikaziPoruku("Prijava uspješna!", Alert.AlertType.INFORMATION);
+            String userRole = extractUserRoleFromDatabase("dat/lozinke.txt", korisnickoIme);
+            saveUserRoleToFile(korisnickoIme, userRole);
+            if ("Svecenik".equals(userRole)) {
+                // Redirect to Svecenik-specific screen/menu
+                prikaziSveceniciPregled();
+            } else if ("Zupljanin".equals(userRole)) {
+                // Redirect to Zupljanin-specific screen/menu
+                // Add your implementation here
+            }
+            System.out.println(userRole);
 
             prikaziSveceniciPregled();
         } else {
@@ -53,6 +61,14 @@ public class LoginController {
         // Usporedba hashiranih lozinki
         return spremljeniHash.equals(uneseniHash);
     }
+
+    private void saveUserRoleToFile(String korisnickoIme, String role) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("dat/rola.txt", false))) {
+            writer.write(role);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void prikaziSveceniciPregled() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("pregledGalerija.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
@@ -66,7 +82,7 @@ public class LoginController {
             String linija;
             while ((linija = citac.readLine()) != null) {
                 String[] dijelovi = linija.split(":");
-                if (dijelovi.length == 2 && dijelovi[0].equals(korisnickoIme)) {
+                if (dijelovi.length == 3 && dijelovi[0].equals(korisnickoIme)) {
                     return dijelovi[1];
                 }
             }
@@ -105,5 +121,19 @@ public class LoginController {
         HelloApplication.getMainStage().setTitle("Registracija:");
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
+    }
+    private String extractUserRoleFromDatabase(String putanjaDatoteke, String korisnickoIme) {
+        try (BufferedReader citac = new BufferedReader(new FileReader(putanjaDatoteke))) {
+            String linija;
+            while ((linija = citac.readLine()) != null) {
+                String[] dijelovi = linija.split(":");
+                if (dijelovi.length == 3 && dijelovi[0].equals(korisnickoIme)) {
+                    return dijelovi[2];
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

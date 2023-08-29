@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="0.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.Izbornik">
+    <children>
+        <MenuBar layoutY="2.0" prefHeight="26.0" prefWidth="1200.0">
+            <menus>
+
+                <Menu mnemonicParsing="false" text="Zupljani">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#ispisPotvrdaScreen" text="Izdavanje potvrda" />
+                    </items>
+                </Menu>
+
+                <Menu mnemonicParsing="false" text="OsobniSakrament">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiSearchScreen" text="Pretraga" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Galerija">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showGalerijaScreen" text="Prikaz" />
+                        <MenuItem mnemonicParsing="false" onAction="#showGalerijaZupljanina" text="SlikeZupljanina" />
+
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="LOGIN">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#registracijaScreen" text="Sign up" />
+                        <MenuItem mnemonicParsing="false" onAction="#logiranjeScreen" text="Log in" />
+
+
+                    </items>
+                </Menu>
+
+
+            </menus>
+        </MenuBar>
+    </children>
+</AnchorPane>

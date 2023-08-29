@@ -6,8 +6,10 @@ import entitet.Zupljanin;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 import java.io.*;
@@ -20,11 +22,20 @@ public class PotvrdaPrimljenihSakramenataController {
 
     @FXML
     private ComboBox<String> odabirZupljaninaComboBox;
+    @FXML
+    private Node izbornikInclude;
+
+    @FXML
+    private Node izbornikZupljaninaInclude;
 
 
     public void initialize() {
         List<String> zupljaninList = BazaPodataka.dohvatiSveZupljane().stream().map(s -> s.getIme() + " " + s.getPrezime()).toList();
         odabirZupljaninaComboBox.setItems(FXCollections.observableList(zupljaninList));
+        boolean useIzbornikZupljanina = !getUserRole().equals("Svecenik");
+        System.out.println("rola: " + getUserRole());
+        izbornikInclude.setVisible(!useIzbornikZupljanina);
+        izbornikZupljaninaInclude.setVisible(useIzbornikZupljanina);
 
     }
 
@@ -102,6 +113,15 @@ public class PotvrdaPrimljenihSakramenataController {
         alert.setContentText("Failed to download the PDF file.");
         alert.showAndWait();
     }
+    private String getUserRole() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
+            return reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
 }

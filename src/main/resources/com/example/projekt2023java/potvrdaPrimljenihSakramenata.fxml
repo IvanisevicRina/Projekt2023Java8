@@ -5,8 +5,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.PotvrdaPrimljenihSakramenataController">
-    <fx:include source="izbornik.fxml" />
-   <ComboBox fx:id="odabirZupljaninaComboBox" layoutX="295.0" layoutY="153.0" prefWidth="150.0" />
+    <!-- Include content from izbornik.fxml -->
+    <fx:include fx:id="izbornikInclude" source="izbornik.fxml" visible="true" />
+
+    <!-- Include content from izbornikZupljanina.fxml -->
+    <fx:include fx:id="izbornikZupljaninaInclude" source="izbornikZupljanina.fxml" visible="false" />
+
+    <ComboBox fx:id="odabirZupljaninaComboBox" layoutX="295.0" layoutY="153.0" prefWidth="150.0" />
    <Button layoutX="585.0" layoutY="153.0" mnemonicParsing="false" onAction="#izdajPotvrdu" text="Button" />
    <Button layoutX="362.0" layoutY="294.0" mnemonicParsing="false" onAction="#downloadPDF" text="Download PDF" />
 

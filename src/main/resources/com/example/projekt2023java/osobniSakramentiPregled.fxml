@@ -30,7 +30,12 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <fx:include source="izbornik.fxml" />
+        <!-- Include content from izbornik.fxml -->
+        <fx:include fx:id="izbornikInclude" source="izbornik.fxml" visible="true" />
+
+        <!-- Include content from izbornikZupljanina.fxml -->
+        <fx:include fx:id="izbornikZupljaninaInclude" source="izbornikZupljanina.fxml" visible="false" />
+
         <Label text="Pretraga Osobnih Sakramenata" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <font>
                 <Font size="36.0" />

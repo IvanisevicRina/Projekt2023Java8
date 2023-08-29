@@ -5,6 +5,7 @@ import entitet.OsobniSakrament;
 import entitet.Sakrament;
 import entitet.Svecenik;
 import entitet.Zupljanin;
+import javafx.scene.Node;
 import util.Datoteke;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,6 +14,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 public class OsobniSakramentController {
@@ -30,6 +34,11 @@ public class OsobniSakramentController {
 
     @FXML
     private TextField datumOsobnogSakramentaTextField;
+    @FXML
+    private Node izbornikInclude;
+
+    @FXML
+    private Node izbornikZupljaninaInclude;
 
 
 
@@ -82,6 +91,11 @@ public class OsobniSakramentController {
 
         osobniSakramentiTableView.setItems(FXCollections.observableList(osobniSakramentiList));
 
+        boolean useIzbornikZupljanina = !getUserRole().equals("Svecenik");
+        System.out.println("rola: " + getUserRole());
+        izbornikInclude.setVisible(!useIzbornikZupljanina);
+        izbornikZupljaninaInclude.setVisible(useIzbornikZupljanina);
+
     }
 
 
@@ -104,6 +118,15 @@ public class OsobniSakramentController {
 
         osobniSakramentiTableView.setItems(FXCollections.observableList(filtriraniOsobniSakramenti));
     }
+    private String getUserRole() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
+            return reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
 

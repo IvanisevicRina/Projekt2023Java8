@@ -3,6 +3,8 @@ package com.example.projekt2023java;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class Izbornik {
@@ -96,6 +98,7 @@ public class Izbornik {
     public void showGalerijaZupljanina() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prikazSlikaZupljanina.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+
         HelloApplication.getMainStage().setTitle("Prikaz Slika Zupljanina:");
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
@@ -130,6 +133,14 @@ public class Izbornik {
         HelloApplication.getMainStage().setTitle("Potvrde sakramenata:");
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
+    }
+    private String getUserRole() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("dat/userRole.txt"))) {
+            return reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

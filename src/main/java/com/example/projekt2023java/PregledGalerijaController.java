@@ -1,10 +1,10 @@
 package com.example.projekt2023java;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
+import java.io.*;
 import java.net.URL;
 import java.sql.*;
 import java.util.Properties;
@@ -15,6 +15,12 @@ public class PregledGalerijaController {
     private ImageView imageView;
 
     private ResultSet resultSet;
+    @FXML
+    private Node izbornikInclude;
+
+    @FXML
+    private Node izbornikZupljaninaInclude;
+
     private static Connection connectToDatabase() throws Exception {
         Properties konfiguracijaBaze = new Properties();
         konfiguracijaBaze.load(new FileInputStream("dat/bazaPodataka.properties"));
@@ -27,6 +33,11 @@ public class PregledGalerijaController {
     }
     public void initialize() {
         prikaziSlike();
+        boolean useIzbornikZupljanina = !getUserRole().equals("Svecenik");
+        System.out.println("rola: " + getUserRole());
+        izbornikInclude.setVisible(!useIzbornikZupljanina);
+        izbornikZupljaninaInclude.setVisible(useIzbornikZupljanina);
+
     }
 
     public void prikaziSlike() {
@@ -62,6 +73,15 @@ public class PregledGalerijaController {
             e.printStackTrace();
         }
     }
+    private String getUserRole() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
+            return reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
 }

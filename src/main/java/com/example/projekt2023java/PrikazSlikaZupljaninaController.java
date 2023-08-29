@@ -6,15 +6,14 @@ import entitet.Zupljanin;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -41,6 +40,11 @@ public class PrikazSlikaZupljaninaController {
 
     @FXML
     private Button nextButton;
+    @FXML
+    private Node izbornikInclude;
+
+    @FXML
+    private Node izbornikZupljaninaInclude;
 
     private List<byte[]> imagesList;
     private int currentIndex;
@@ -50,6 +54,11 @@ public class PrikazSlikaZupljaninaController {
         List<String> zupljaninList = BazaPodataka.dohvatiSveZupljane().stream().map(s -> s.getIme() + " " + s.getPrezime()).toList();
         odabirZupljaninaComboBox.setItems(FXCollections.observableList(zupljaninList));
         nextButton.setDisable(true); // Disable the "Next" button initially
+
+        boolean useIzbornikZupljanina = !getUserRole().equals("Svecenik");
+        System.out.println("rola: " + getUserRole());
+        izbornikInclude.setVisible(!useIzbornikZupljanina);
+        izbornikZupljaninaInclude.setVisible(useIzbornikZupljanina);
 
     }
 
@@ -104,6 +113,14 @@ public class PrikazSlikaZupljaninaController {
         byte[] slikaBytes = imagesList.get(currentIndex);
         Image image = new Image(new ByteArrayInputStream(slikaBytes));
         imageView.setImage(image);
+    }
+    private String getUserRole() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
+            return reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

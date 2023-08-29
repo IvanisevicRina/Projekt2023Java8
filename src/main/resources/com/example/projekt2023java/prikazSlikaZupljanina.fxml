@@ -8,7 +8,11 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.PrikazSlikaZupljaninaController">
-    <fx:include source="izbornik.fxml" />
+    <!-- Include content from izbornik.fxml -->
+    <fx:include fx:id="izbornikInclude" source="izbornik.fxml" visible="true" />
+
+    <!-- Include content from izbornikZupljanina.fxml -->
+    <fx:include fx:id="izbornikZupljaninaInclude" source="izbornikZupljanina.fxml" visible="false" />
     <ImageView fx:id="imageView" fitHeight="637.0" fitWidth="809.0" layoutX="209.0" layoutY="107.0" nodeOrientation="INHERIT" preserveRatio="true" />
 
     <Button layoutX="722.0" layoutY="52.0" onAction="#prikaziSlike" text="Početak" />
