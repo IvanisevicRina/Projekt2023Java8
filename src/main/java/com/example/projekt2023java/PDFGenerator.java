@@ -7,8 +7,6 @@ import entitet.Zupljanin;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class PDFGenerator {
@@ -20,19 +18,17 @@ public class PDFGenerator {
             PdfWriter.getInstance(document, new FileOutputStream(fileName));
             document.open();
 
-            // Read and load CSS styles from file
-            String css = new String(Files.readAllBytes(Paths.get("css/style.css")));
 
-            // Register the custom font from Google Fonts
+
             FontFactory.register("css/NoticiaText-Italic.ttf", "custom_font");
 
-            // Apply header style
+
             Font headerFont = FontFactory.getFont("custom_font", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 20);
             Paragraph header = new Paragraph("Popis sakramenata za župljanina " + zupljanin.getIme() + " " + zupljanin.getPrezime(), headerFont);
             header.setAlignment(Paragraph.ALIGN_CENTER);
             document.add(header);
 
-            // Apply content style
+
             Font contentFont = FontFactory.getFont("custom_font", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12);
             Paragraph content = new Paragraph();
             content.add(new Paragraph("\n\n\n\n                     Sakramenti:", contentFont));
