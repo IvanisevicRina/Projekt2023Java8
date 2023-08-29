@@ -46,6 +46,8 @@ public class IzmjenaSvecenikaController {
             sadrziBrojeve(prezimeSvecenika);
 
         } catch (TekstualniZapisException e) {
+            imeSvecenika = "";
+            prezimeSvecenika = "";
             displayAlert("Greška", e.getMessage());
         }
         for(Object o : selectedItems){

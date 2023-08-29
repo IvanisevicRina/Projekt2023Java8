@@ -10,5 +10,6 @@
       <TextField fx:id="korisnickoImeTextField" layoutX="151.0" layoutY="80.0" />
       <PasswordField fx:id="lozinkaPasswordField" layoutX="152.0" layoutY="122.0" />
       <Button layoutX="361.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleRegistracija" text="Registriraj" />
+      <Button layoutX="568.0" layoutY="110.0" mnemonicParsing="false" onAction="#prebaciNaEkranPrijave" text="Vrati me na LOGIN" />
    </children>
 </AnchorPane>

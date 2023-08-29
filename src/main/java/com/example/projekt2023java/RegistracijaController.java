@@ -3,16 +3,12 @@ package com.example.projekt2023java;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -33,7 +29,10 @@ public class RegistracijaController {
             prikaziPoruku("Molimo unesite korisničko ime i lozinku.", Alert.AlertType.WARNING);
             return;
         }
-
+        if (korisnickoImeExists(korisnickoIme)) {
+            prikaziPoruku("Korisničko ime već postoji. Molimo odaberite drugo ime.", Alert.AlertType.ERROR);
+            return;
+        }
         String hashiranaLozinka = hashirajLozinku(lozinka);
         if (hashiranaLozinka != null) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("dat/lozinke.txt", true))) {
@@ -48,10 +47,24 @@ public class RegistracijaController {
     }
 
 
+    private boolean korisnickoImeExists(String korisnickoIme) {
+        try (BufferedReader citac = new BufferedReader(new FileReader("dat/lozinke.txt"))) {
+            String linija;
+            while ((linija = citac.readLine()) != null) {
+                String[] dijelovi = linija.split(":");
+                if (dijelovi.length == 2 && dijelovi[0].equals(korisnickoIme)) {
+                    return true; // Username already exists
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false; // Username does not exist
+    }
     private void prebaciNaEkranPrijave() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
-        HelloApplication.getMainStage().setTitle("Pregled Slika:");
+        HelloApplication.getMainStage().setTitle("Login:");
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
     }

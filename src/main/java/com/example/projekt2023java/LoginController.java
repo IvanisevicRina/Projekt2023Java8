@@ -1,13 +1,10 @@
 package com.example.projekt2023java;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -25,7 +22,7 @@ public class LoginController {
     private PasswordField lozinkaPasswordField;
 
     @FXML
-    private void handlePrijava(ActionEvent event) throws IOException {
+    private void handlePrijava() throws IOException {
         String korisnickoIme = korisnickoImeTextField.getText();
         String lozinka = lozinkaPasswordField.getText();
 
@@ -105,7 +102,7 @@ public class LoginController {
     private void registracija() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("registracija.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
-        HelloApplication.getMainStage().setTitle("Pregled Slika:");
+        HelloApplication.getMainStage().setTitle("Registracija:");
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
     }

@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.PrikazSlikaZupljaninaController">
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.PrikazSlikaZupljaninaController">
     <fx:include source="izbornik.fxml" />
-    <ImageView fx:id="imageView" fitHeight="396.0" fitWidth="849.0" layoutX="196.0" layoutY="322.0" preserveRatio="true" />
+    <ImageView fx:id="imageView" fitHeight="637.0" fitWidth="809.0" layoutX="209.0" layoutY="107.0" nodeOrientation="INHERIT" preserveRatio="true" />
 
-    <Button layoutX="72.0" layoutY="736.0" onAction="#prikaziSlike" text="Početak" />
+    <Button layoutX="722.0" layoutY="52.0" onAction="#prikaziSlike" text="Početak" />
 
-    <Button fx:id="nextButton" layoutX="1055.0" layoutY="736.0" onAction="#showNextImage" text="Sljedeća slika" />
-   <ComboBox fx:id="odabirZupljaninaComboBox" layoutX="536.0" layoutY="195.0" prefWidth="150.0" />
-   <Text layoutX="424.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Izaberite župljanina:" wrappingWidth="107.13671875" />
+    <Button fx:id="nextButton" layoutX="1036.0" layoutY="383.0" onAction="#showNextImage" prefHeight="9.0" prefWidth="100.0" text="Sljedeća slika" />
+   <ComboBox fx:id="odabirZupljaninaComboBox" layoutX="525.0" layoutY="52.0" prefWidth="150.0" />
+   <Text layoutX="378.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Izaberite župljanina:" wrappingWidth="107.13671875" />
    <VBox fx:id="imageContainer" layoutX="57.0" layoutY="147.0" prefHeight="200.0" prefWidth="100.0" />
 </AnchorPane>
