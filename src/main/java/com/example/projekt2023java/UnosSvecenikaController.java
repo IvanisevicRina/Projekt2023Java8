@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.OptionalLong;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 public class UnosSvecenikaController implements Serializable {
 
@@ -29,8 +30,10 @@ public class UnosSvecenikaController implements Serializable {
     @FXML
     private TextField titulaSvecenikaTextField;
 
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
     private final PromjeneManager promjeneManager = new PromjeneManager();
+
+    private final Semaphore semaphore = new Semaphore(1);
 
 
 
@@ -116,19 +119,18 @@ public class UnosSvecenikaController implements Serializable {
             BazaPodataka.fixAutoicrementaSvecenikaId(id);
 
             Svecenik noviSvecenik= new SvecenikBuilder().setId(id).setSifra(sifraSvecenika).setIme(imeSvecenika).setPrezime(prezimeSvecenika).setTitula(titulaSvecenika).createSvecenik();
-            executorService.submit(() -> {
-                try {
-                    BazaPodataka.spremiSvecenika(noviSvecenik);
-                    recordPromjenaPriestAdded(noviSvecenik);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
+
+
 
                 try {
+                    SemaphoreManager.acquire();
+                    recordPromjenaPriestAdded(noviSvecenik);
                     BazaPodataka.spremiSvecenika(noviSvecenik);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
+                } finally {
+                    // Oslobodi dozvolu
+                    SemaphoreManager.release();
                 }
 
 
