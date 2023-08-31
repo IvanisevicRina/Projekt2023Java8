@@ -13,6 +13,9 @@ public class Promjene<T, U> implements Serializable {
     private String rola;
     private String datumIVrijeme;
 
+    public Promjene() {
+    }
+
     public Promjene(T staraVrijednost, T novaVrijednost, U objektPromjene, String opis, String rola, String datumIVrijeme) {
         this.staraVrijednost = staraVrijednost;
         this.novaVrijednost = novaVrijednost;

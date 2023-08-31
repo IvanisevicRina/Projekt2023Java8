@@ -35,6 +35,7 @@ public class UnosSvecenikaController implements Serializable {
 
     private final Semaphore semaphore = new Semaphore(1);
 
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
 
 
@@ -121,6 +122,19 @@ public class UnosSvecenikaController implements Serializable {
             Svecenik noviSvecenik= new SvecenikBuilder().setId(id).setSifra(sifraSvecenika).setIme(imeSvecenika).setPrezime(prezimeSvecenika).setTitula(titulaSvecenika).createSvecenik();
 
 
+            executorService.submit(() -> {
+                try {
+                    BazaPodataka.spremiSvecenika(noviSvecenik);
+                    recordPromjenaPriestAdded(noviSvecenik);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+
+
+
+/*                                          SEMAFORI
 
                 try {
                     SemaphoreManager.acquire();
@@ -132,7 +146,7 @@ public class UnosSvecenikaController implements Serializable {
                     // Oslobodi dozvolu
                     SemaphoreManager.release();
                 }
-
+*/
 
 
 
@@ -200,7 +214,7 @@ public class UnosSvecenikaController implements Serializable {
                 promjenaOpis, promjenaRola, formattedDatumIVrijeme
         );
 
-        promjeneManager.spremiPromjenu(novaPromjena);
+        promjeneManager.dodajNovuPromjenu(novaPromjena);
 
 
     }
@@ -235,6 +249,7 @@ public class UnosSvecenikaController implements Serializable {
         }
         return null;
     }
+
 
 
 

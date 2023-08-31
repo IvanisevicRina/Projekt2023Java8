@@ -8,23 +8,30 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import niti.*;
 
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class  HelloApplication extends Application {
     private static Stage mainStage;
+    private static final Object lock = new Object();
 
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
+
+        ReadLastChangeThread readLastChangeThread = new ReadLastChangeThread();
+        readLastChangeThread.start();
+
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
         stage.setTitle("Aplikacija Župne zajednice!");
         stage.setScene(scene);
         stage.show();
+
 
         // Pokreni osvježavanje svakih 5 minuta
         Timer timer = new Timer();
@@ -33,7 +40,7 @@ public class  HelloApplication extends Application {
             public void run() {
                 refreshData(); // Metoda za osvježavanje podataka
             }
-        }, 0, 1 * 60 * 1000); // Počni odmah i ponavljaj svakih 5 minuta
+        }, 0, 1 * 60 * 1000); // Počni odmah i ponavljaj svakih 1 minuta
     }
 
     public static void main(String[] args) {

@@ -1,8 +1,12 @@
 package baza;
 
 import entitet.*;
+import niti.WriteAChangeThread;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -30,7 +34,38 @@ public class BazaPodataka {
         };
 
     }
-
+    private static String getUserKorisnickoIme() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
+            String line = reader.readLine();
+            if (line != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    return parts[0]; // Return the role part
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private static String getUserRole() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
+            String line = reader.readLine();
+            if (line != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    return parts[1]; // Return the role part
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private static void writeChangeToBinaryFile(Promjene<?,?> promjena) {
+        WriteAChangeThread writeThread = new WriteAChangeThread(promjena);
+        writeThread.start();
+    }
     public static List<Zupljanin> dohvatiSveZupljane(){
         List<Zupljanin> listaZupljana = new ArrayList<>();
         try{
@@ -245,8 +280,22 @@ public class BazaPodataka {
         pstmt.setString(3,svecenik.getSifra());
         pstmt.setString(4,svecenik.getTitula());
 
-
         pstmt.executeUpdate();
+
+        String promjenaOpis = "Dodan novi svećenik: " + svecenik.getPrezime() + " " + svecenik.getIme();
+        String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
+        LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
+
+        Promjene<String, Svecenik> novaPromjena = new Promjene<>(
+                null, svecenik.toString(), svecenik,
+                promjenaOpis, promjenaRola, formattedDatumIVrijeme
+        );
+
+        writeChangeToBinaryFile(novaPromjena);
+
 
         con.close();
     }
