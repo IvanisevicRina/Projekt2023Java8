@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.PrikazPromjenaController">
+
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="160.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints />
+    </rowConstraints>
+    <children>
+        <fx:include source="izbornik.fxml" />
+        
+
+        <TableView fx:id="promjeneTableView" GridPane.columnSpan="6" GridPane.rowIndex="1">
+            <columns>
+                <TableColumn fx:id="staraVrijednostColumn" prefWidth="122.0" text="Stara Vrijednost" />
+                <TableColumn fx:id="novaVrijednostColumn" prefWidth="132.0" text="Nova Vrijednost" />
+                <TableColumn fx:id="objektPromjeneColumn" prefWidth="176.0" text="Objekt Promjene" />
+                <TableColumn fx:id="opisColumn" prefWidth="409.0" text="Opis" />
+                <TableColumn fx:id="rolaColumn" prefWidth="190.0" text="Rola" />
+                <TableColumn fx:id="datumIVrijemeColumn" prefWidth="170.0" text="Datum i Vrijeme" />
+            </columns>
+        </TableView>
+    </children>
+
+
+</GridPane>

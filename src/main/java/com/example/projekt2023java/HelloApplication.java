@@ -15,10 +15,16 @@ import java.util.*;
 
 public class  HelloApplication extends Application {
     private static Stage mainStage;
-
+    private static ChangeLog changeLog;
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
+        try {
+            changeLog = ChangeLog.loadFromFile("promjeneSerijalizirane.ser");
+        } catch (IOException | ClassNotFoundException e) {
+            // Ako datoteka nije pronađena ili se ne može de-serijalizirati, stvori novu instancu
+            changeLog = new ChangeLog();
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
         stage.setTitle("Aplikacija Župne zajednice!");
@@ -34,7 +40,12 @@ public class  HelloApplication extends Application {
             }
         }, 0, 1 * 60 * 1000); // Počni odmah i ponavljaj svakih 5 minuta
     }
-
+    public static void shutdown(ChangeLog changeLog) throws IOException {
+        // Spremi changeLog u datoteku pri zatvaranju aplikacije
+        if (changeLog != null) {
+            changeLog.saveToFile("promjeneSerijalizirane.ser");
+        }
+    }
     public static void main(String[] args) {
         launch();
     }

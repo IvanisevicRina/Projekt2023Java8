@@ -75,7 +75,13 @@ public class PregledGalerijaController {
     }
     private String getUserRole() {
         try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
-            return reader.readLine();
+            String line = reader.readLine();
+            if (line != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    return parts[1]; // Return the role part
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

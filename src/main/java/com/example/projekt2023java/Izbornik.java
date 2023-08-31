@@ -134,14 +134,14 @@ public class Izbornik {
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
     }
-    private String getUserRole() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("dat/userRole.txt"))) {
-            return reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public void showPromjeneScreen() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("prikazPromjena.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        HelloApplication.getMainStage().setTitle("Promjene:");
+        HelloApplication.getMainStage().setScene(scene);
+        HelloApplication.getMainStage().show();
     }
+
 
 
 

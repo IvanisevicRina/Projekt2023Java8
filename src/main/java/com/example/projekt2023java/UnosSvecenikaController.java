@@ -1,9 +1,7 @@
 package com.example.projekt2023java;
 
 import baza.BazaPodataka;
-import entitet.Svecenik;
-import entitet.SvecenikBuilder;
-import entitet.Zupljanin;
+import entitet.*;
 import iznimke.DuplikatSifreException;
 import iznimke.PrekoracenjeBrojaZnakovaException;
 import iznimke.TekstualniZapisException;
@@ -12,8 +10,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.OptionalLong;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class UnosSvecenikaController implements Serializable {
 
@@ -26,6 +28,10 @@ public class UnosSvecenikaController implements Serializable {
     private TextField prezimeSvecenikaTextField;
     @FXML
     private TextField titulaSvecenikaTextField;
+
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private final PromjeneManager promjeneManager = new PromjeneManager();
+
 
 
 
@@ -110,12 +116,22 @@ public class UnosSvecenikaController implements Serializable {
             BazaPodataka.fixAutoicrementaSvecenikaId(id);
 
             Svecenik noviSvecenik= new SvecenikBuilder().setId(id).setSifra(sifraSvecenika).setIme(imeSvecenika).setPrezime(prezimeSvecenika).setTitula(titulaSvecenika).createSvecenik();
+            executorService.submit(() -> {
+                try {
+                    BazaPodataka.spremiSvecenika(noviSvecenik);
+                    recordPromjenaPriestAdded(noviSvecenik);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
                 try {
                     BazaPodataka.spremiSvecenika(noviSvecenik);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
+
+
 
 
             imeSvecenikaTextField.clear();
@@ -168,6 +184,54 @@ public class UnosSvecenikaController implements Serializable {
                 throw new DuplikatSifreException("Svecenik sa istom šifrom već postoji!");
             }
         }
+    }
+    private void recordPromjenaPriestAdded(Svecenik noviSvecenik) throws InterruptedException {
+        String promjenaOpis = "Dodan novi svećenik: " + noviSvecenik.getPrezime() + " " + noviSvecenik.getIme();
+        String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
+        LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
+
+        Promjene<String, Svecenik> novaPromjena = new Promjene<>(
+                null, noviSvecenik.toString(), noviSvecenik,
+                promjenaOpis, promjenaRola, formattedDatumIVrijeme
+        );
+
+        promjeneManager.spremiPromjenu(novaPromjena);
+
+
+    }
+
+
+
+    private String getUserRole() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
+            String line = reader.readLine();
+            if (line != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    return parts[1]; // Return the role part
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String getUserKorisnickoIme() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
+            String line = reader.readLine();
+            if (line != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    return parts[0]; // Return the role part
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

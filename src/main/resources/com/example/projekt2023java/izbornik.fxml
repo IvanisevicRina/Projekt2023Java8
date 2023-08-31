@@ -48,6 +48,11 @@
             <MenuItem mnemonicParsing="false" onAction="#showGalerijaZupljanina" text="SlikeZupljanina"/>
 
         </Menu>
+        <Menu mnemonicParsing="false" text="Promjene">
+            <MenuItem mnemonicParsing="false" onAction="#showPromjeneScreen" text="Promjene"/>
+
+
+        </Menu>
 
 
     </MenuBar>
