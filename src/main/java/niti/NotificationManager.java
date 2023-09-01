@@ -20,11 +20,16 @@ public class NotificationManager {
 
     public synchronized void registerController(PrikazPromjenaController controller) {
         registeredControllers.add(controller);
+
     }
 
     public synchronized void notifyControllers() {
         changesOccurred = true;
         notifyAll();
+        // Change the button color to black when notified
+        for (PrikazPromjenaController controller : registeredControllers) {
+            controller.setButtonColor("#000000"); // Black color
+        }
     }
 
     public synchronized void waitForNotification() throws InterruptedException {

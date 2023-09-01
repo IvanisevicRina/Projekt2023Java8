@@ -52,7 +52,16 @@ public class PrikazPromjenaController   {
     @FXML
     private Button notificationButton;
 
-
+    private final String[] colors = {
+            "#003cff", // Blue
+            "#ff0000", // Red
+            "#00ff00", // Green
+            "#ffff00", // Yellow
+            "#ff00ff", // Purple
+    };
+    public void setButtonColor(String color) {
+        Platform.runLater(() -> notificationButton.setStyle("-fx-background-color: " + color));
+    }
 
     public void initialize() throws Exception {
         notificationButton.setStyle("-fx-background-color: #00FF00;"); // Green color
@@ -60,12 +69,18 @@ public class PrikazPromjenaController   {
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         lastRefreshLabel.setText("Last Refresh: " + currentTime);
         NotificationManager.getInstance().registerController(this);
+
         notificationButton.setOnAction(event -> {
             // Call the refreshTableContent method when the button is clicked
             refreshTableContent();
-            // Change the button's style back to green
-            notificationButton.setStyle("-fx-background-color: #00FF00;"); // Green color
+            // Generate a random color from the array
+            String randomColor = colors[(int) (Math.random() * colors.length)];
+
+            // Set the button's style to the random color
+            notificationButton.setStyle("-fx-background-color: " + randomColor);
+
         });
+
 
         try{
             List<Promjene<?,?>> promjeneList = promjeneManager.dohvatiSvePromjene();
@@ -88,9 +103,9 @@ public class PrikazPromjenaController   {
             refreshTimeline.play();
 
             addChangesWaitThread(10000, "Pavao", "PrviĆ");
-            addChangesWaitThread(30000, "Drago", "Drugić");
-            addChangesWaitThread(50000, "Tvrtko", "Trečić");
-            addChangesWaitThread(70000, "Čiril", "Četvrtić");
+            addChangesWaitThread(20000, "Drago", "Drugić");
+            addChangesWaitThread(30000, "Tvrtko", "Trečić");
+            addChangesWaitThread(40000, "Čiril", "Četvrtić");
 
 
 
@@ -106,8 +121,8 @@ public class PrikazPromjenaController   {
                             Platform.runLater(() -> {
                                 try {
                                     System.out.println(ANSI_PURPLE +"I have been notify! Promjena obrađena, Sada cu refreshati tablicu sadrzaja promjena");
-                                    Thread.sleep(5000);
                                     refreshTableContent();
+                                    Thread.sleep(1000);
                                     System.out.println("jesam");
                                 } catch (Exception e) {
                                     e.printStackTrace(); // Print the exception for debugging
@@ -135,6 +150,9 @@ public class PrikazPromjenaController   {
             List<Promjene<?, ?>> newPromjeneList = promjeneManager.dohvatiSvePromjene();
             promjeneTableView.getItems().setAll(newPromjeneList);
             updateLastRefreshLabel();
+            String randomColor = colors[(int) (Math.random() * colors.length)];
+
+            notificationButton.setStyle("-fx-background-color: " + randomColor);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

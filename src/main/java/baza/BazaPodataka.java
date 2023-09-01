@@ -303,7 +303,7 @@ public class BazaPodataka {
         String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
         LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
 
         Promjene<String, Svecenik> novaPromjena = new Promjene<>(
