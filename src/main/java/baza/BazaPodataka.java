@@ -3,6 +3,7 @@ package baza;
 import com.example.projekt2023java.PrikazPromjenaController;
 import com.example.projekt2023java.PrikazSlikaZupljaninaController;
 import entitet.*;
+import niti.NotificationManager;
 import niti.WriteAChangeThread;
 
 import java.io.BufferedReader;
@@ -16,7 +17,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static niti.ThreadColor.ANSI_BLUE;
+import static niti.ThreadColor.ANSI_GREEN;
+
 public class BazaPodataka {
+    private static PrikazPromjenaController prikazPromjenaController;
+
+    public BazaPodataka(PrikazPromjenaController prikazPromjenaController) {
+        this.prikazPromjenaController = prikazPromjenaController;
+    }
+
     private static Connection connectToDatabase() throws Exception {
         Properties konfiguracijaBaze = new Properties();
         konfiguracijaBaze.load(new FileInputStream("dat/bazaPodataka.properties"));
@@ -66,8 +76,8 @@ public class BazaPodataka {
     }
     private static void writeChangeToBinaryFile(Promjene<?,?> promjena) {
         WriteAChangeThread writeThread = new WriteAChangeThread(promjena);
-        PrikazPromjenaController prikazPromjenaController = new PrikazPromjenaController();
-        prikazPromjenaController.signalChangesAdded();
+        System.out.println(ANSI_GREEN +"Pozdrav iz baze, trenutno smo u procesu dodavanja promjene, čekaj da te obavjestim kad je gotovo");
+        NotificationManager.getInstance().notifyControllers();
         writeThread.start();
     }
     public static List<Zupljanin> dohvatiSveZupljane(){

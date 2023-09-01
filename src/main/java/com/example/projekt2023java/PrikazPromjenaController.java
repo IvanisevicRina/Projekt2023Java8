@@ -13,11 +13,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import niti.NotificationManager;
 
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+
+import static niti.ThreadColor.ANSI_BLUE;
+import static niti.ThreadColor.ANSI_PURPLE;
+
 public class PrikazPromjenaController   {
 
     @FXML
@@ -43,15 +49,15 @@ public class PrikazPromjenaController   {
     private PromjeneManager promjeneManager = new PromjeneManager();
     @FXML
     private Label lastRefreshLabel;
-    private static volatile boolean changesAdded = false; // Flag to signal new changes
 
 
+    private static final CountDownLatch latch = new CountDownLatch(1);
 
 
     public void initialize() throws Exception {
-        changesAdded = false;
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         lastRefreshLabel.setText("Last Refresh: " + currentTime);
+        NotificationManager.getInstance().registerController(this);
 
 
         try{
@@ -77,8 +83,8 @@ public class PrikazPromjenaController   {
 
             Thread changesWaitThread2 = new Thread(() -> {
                 try {
-                    BazaPodataka.spremiSvecenika(new Svecenik(599L,"Rina","Ivanišević", "22276","POP", null));
-
+                    Thread.sleep(10000);
+                    BazaPodataka.spremiSvecenika(new Svecenik(599L,"Nisam","Perić", "22276","POP", null));
 
                 } catch (Exception e) {
                     throw new RuntimeException(e);
@@ -91,37 +97,30 @@ public class PrikazPromjenaController   {
 
             Thread changesWaitThread = new Thread(() -> {
                 synchronized (this) {
-                    long startTime = System.currentTimeMillis();
-                    long timeout = 10000; // Timeout in milliseconds
-                    while (!changesAdded) {
-                        try {
-                            long elapsedTime = System.currentTimeMillis() - startTime;
-                            long remainingTime = timeout - elapsedTime;
+                    try {
 
-                            if (remainingTime <= 0) {
-                                break; // Break out of the loop if the timeout is reached
-                            }
+                        while (true) {
+                            System.out.println(ANSI_BLUE +"CHANGESWAIT THREAD OVDJE vama na usluzi");
+                            NotificationManager.getInstance().waitForNotification();
+                            System.out.println(ANSI_BLUE +"Nisam dobio nikakvu uzbunu, tako da ću biti na stand by dok me ne obavjestiš da imam posla");
+                            Platform.runLater(() -> {
+                                try {
+                                    System.out.println(ANSI_PURPLE +"I have been notify! Promjena obrađena, Sada cu refreshati tablicu sadrzaja promjena");
+                                    refreshTableContent();
+                                } catch (Exception e) {
+                                    e.printStackTrace(); // Print the exception for debugging
 
-                            wait(remainingTime);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                                }
+                            });
+
                         }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
 
-                    Platform.runLater(() -> {
-                        try {
-                            List<Promjene<?, ?>> newPromjeneList = promjeneManager.dohvatiSvePromjene();
-                            promjeneTableView.getItems().setAll(newPromjeneList);
-                            updateLastRefreshLabel();
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
                 }
             });
-            changesWaitThread.setDaemon(true); // Set the thread as daemon to allow it to exit when the application exits
             changesWaitThread.start();
-            updateLastRefreshLabel();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -141,8 +140,6 @@ public class PrikazPromjenaController   {
             SemaphoreManager.release();
         }
  */
-
-        changesAdded = false;
     }
     private void refreshTableContent() {
         try {
@@ -163,10 +160,7 @@ public class PrikazPromjenaController   {
         promjeneTableView.getItems().setAll(promjeneList);
     }
 
-    public synchronized void signalChangesAdded() {
-        changesAdded = true;
-        notifyAll(); // Notify the waiting thread
-    }
+
     private void updateLastRefreshLabel() {
         Platform.runLater(() -> {
             String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
