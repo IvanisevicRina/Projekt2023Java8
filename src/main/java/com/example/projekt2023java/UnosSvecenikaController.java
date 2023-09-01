@@ -125,7 +125,7 @@ public class UnosSvecenikaController implements Serializable {
             executorService.submit(() -> {
                 try {
                     BazaPodataka.spremiSvecenika(noviSvecenik);
-                    recordPromjenaPriestAdded(noviSvecenik);
+                  //  recordPromjenaPriestAdded(noviSvecenik);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

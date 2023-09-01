@@ -16,7 +16,6 @@ public class ReadLastChangeThread extends Thread {
         while (true) {
 
             List<Promjene<?,?>> listaPromjena = promjeneManager.dohvatiSvePromjene();
-            listaPromjena.forEach(System.out::println);
 
             try {
                 Thread.sleep(INTERVAL_SECONDS * 1000);

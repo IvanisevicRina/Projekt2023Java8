@@ -1,5 +1,6 @@
 package niti;
 
+import com.example.projekt2023java.PrikazPromjenaController;
 import entitet.Promjene;
 import entitet.PromjeneManager;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class WriteAChangeThread extends Thread {
     private Promjene<?,?> promjena;
+
     public WriteAChangeThread(Promjene<?,?> promjena) {
         this.promjena=promjena;
     }
@@ -17,6 +19,7 @@ public class WriteAChangeThread extends Thread {
     public void run() {
         PromjeneManager promjeneManager = new PromjeneManager();
         promjeneManager.dodajNovuPromjenu(promjena);
+
 
     }
 

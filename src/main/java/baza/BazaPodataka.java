@@ -1,5 +1,7 @@
 package baza;
 
+import com.example.projekt2023java.PrikazPromjenaController;
+import com.example.projekt2023java.PrikazSlikaZupljaninaController;
 import entitet.*;
 import niti.WriteAChangeThread;
 
@@ -64,6 +66,8 @@ public class BazaPodataka {
     }
     private static void writeChangeToBinaryFile(Promjene<?,?> promjena) {
         WriteAChangeThread writeThread = new WriteAChangeThread(promjena);
+        PrikazPromjenaController prikazPromjenaController = new PrikazPromjenaController();
+        prikazPromjenaController.signalChangesAdded();
         writeThread.start();
     }
     public static List<Zupljanin> dohvatiSveZupljane(){
@@ -210,7 +214,10 @@ public class BazaPodataka {
         stmt5.setInt(1, id);
         stmt5.executeUpdate();
 
+
         con.close();
+
+
     }
 
     public static List<Svecenik> dohvatiSveSvecenike(){
@@ -286,7 +293,7 @@ public class BazaPodataka {
         String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
         LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
 
         Promjene<String, Svecenik> novaPromjena = new Promjene<>(

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -35,6 +36,7 @@
                 <TableColumn fx:id="datumIVrijemeColumn" prefWidth="170.0" text="Datum i Vrijeme" />
             </columns>
         </TableView>
+      <Label fx:id="lastRefreshLabel" prefHeight="30.0" prefWidth="181.0" text="Label" GridPane.columnIndex="5" />
     </children>
 
 
