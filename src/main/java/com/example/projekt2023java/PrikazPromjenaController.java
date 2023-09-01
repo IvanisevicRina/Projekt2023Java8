@@ -3,12 +3,11 @@ import baza.BazaPodataka;
 import entitet.Promjene;
 import entitet.PromjeneManager;
 import entitet.Svecenik;
+import entitet.SvecenikBuilder;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -47,18 +46,26 @@ public class PrikazPromjenaController   {
     @FXML
     private TableColumn<Promjene<?, ?>, ?> datumIVrijemeColumn;
     private PromjeneManager promjeneManager = new PromjeneManager();
+
     @FXML
     private Label lastRefreshLabel;
+    @FXML
+    private Button notificationButton;
 
-
-    private static final CountDownLatch latch = new CountDownLatch(1);
 
 
     public void initialize() throws Exception {
+        notificationButton.setStyle("-fx-background-color: #00FF00;"); // Green color
+
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         lastRefreshLabel.setText("Last Refresh: " + currentTime);
         NotificationManager.getInstance().registerController(this);
-
+        notificationButton.setOnAction(event -> {
+            // Call the refreshTableContent method when the button is clicked
+            refreshTableContent();
+            // Change the button's style back to green
+            notificationButton.setStyle("-fx-background-color: #00FF00;"); // Green color
+        });
 
         try{
             List<Promjene<?,?>> promjeneList = promjeneManager.dohvatiSvePromjene();
@@ -80,19 +87,11 @@ public class PrikazPromjenaController   {
             refreshTimeline.setCycleCount(Timeline.INDEFINITE); // Repeat indefinitely
             refreshTimeline.play();
 
+            addChangesWaitThread(10000, "Pavao", "PrviĆ");
+            addChangesWaitThread(30000, "Drago", "Drugić");
+            addChangesWaitThread(50000, "Tvrtko", "Trečić");
+            addChangesWaitThread(70000, "Čiril", "Četvrtić");
 
-            Thread changesWaitThread2 = new Thread(() -> {
-                try {
-                    Thread.sleep(10000);
-                    BazaPodataka.spremiSvecenika(new Svecenik(599L,"Nisam","Perić", "22276","POP", null));
-
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-
-            });
-            changesWaitThread2.start();
-            System.out.println("Unio sam novog svecenika, izbroji 10 sekundi dok vidis promjenu na ekranu!");
 
 
             Thread changesWaitThread = new Thread(() -> {
@@ -102,11 +101,14 @@ public class PrikazPromjenaController   {
                         while (true) {
                             System.out.println(ANSI_BLUE +"CHANGESWAIT THREAD OVDJE vama na usluzi");
                             NotificationManager.getInstance().waitForNotification();
-                            System.out.println(ANSI_BLUE +"Nisam dobio nikakvu uzbunu, tako da ću biti na stand by dok me ne obavjestiš da imam posla");
+                            Thread.sleep(5000); // Adjust the sleep duration as needed
+
                             Platform.runLater(() -> {
                                 try {
                                     System.out.println(ANSI_PURPLE +"I have been notify! Promjena obrađena, Sada cu refreshati tablicu sadrzaja promjena");
+                                    Thread.sleep(5000);
                                     refreshTableContent();
+                                    System.out.println("jesam");
                                 } catch (Exception e) {
                                     e.printStackTrace(); // Print the exception for debugging
 
@@ -127,19 +129,6 @@ public class PrikazPromjenaController   {
 
 
 
-/*                  SEMAFOR
-        try {
-            SemaphoreManager.acquire();
-
-            // Update the display of promjene
-            promjeneTableView.getItems().addAll(promjene);
-
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        } finally {
-            SemaphoreManager.release();
-        }
- */
     }
     private void refreshTableContent() {
         try {
@@ -167,7 +156,26 @@ public class PrikazPromjenaController   {
             lastRefreshLabel.setText("Last Refresh: " + currentTime);
         });
     }
+    @FXML
+    private void handleNotificationButtonClick(ActionEvent event) {
+        // Call the refreshTableContent method when the button is clicked
+        refreshTableContent();
+        // Change the button's style back to green
+        notificationButton.setStyle("-fx-background-color: #00FF00;"); // Green color
+    }
 
+    private void addChangesWaitThread(int sleepDuration, String firstName, String lastName) {
+        Thread changesWaitThread = new Thread(() -> {
+            try {
+                Thread.sleep(sleepDuration);
+                BazaPodataka.spremiSvecenika(new SvecenikBuilder().setIme(firstName).setPrezime(lastName).setSifra("sifra").setTitula("titula").createSvecenik());
+                System.out.println("Unio sam novog svecenika, izbroji " + sleepDuration / 1000 + " sekundi dok vidis promjenu na ekranu!");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        changesWaitThread.start();
+    }
 
 }
 

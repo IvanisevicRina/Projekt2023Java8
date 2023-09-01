@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -25,6 +27,7 @@ public class RegistracijaController {
 
     @FXML
     private PasswordField svecenikPasswordField;
+
 
     @FXML
     private void handleRegistracija(ActionEvent event) {
@@ -69,6 +72,7 @@ public class RegistracijaController {
     }
 
 
+
     private boolean korisnickoImeExists(String korisnickoIme) {
         try (BufferedReader citac = new BufferedReader(new FileReader("dat/lozinke.txt"))) {
             String linija;
@@ -83,6 +87,7 @@ public class RegistracijaController {
         }
         return false; // Username does not exist
     }
+
     private void prebaciNaEkranPrijave() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);

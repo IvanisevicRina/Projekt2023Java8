@@ -40,7 +40,7 @@ public class  HelloApplication extends Application {
             public void run() {
                 refreshData(); // Metoda za osvježavanje podataka
             }
-        }, 0, 1 * 60 * 1000); // Počni odmah i ponavljaj svakih 1 minuta
+        }, 0, 2 * 60 * 1000); // Počni odmah i ponavljaj svakih 1 minuta
     }
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -19,8 +20,8 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="160.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints />
+        <RowConstraints maxHeight="392.0" minHeight="10.0" prefHeight="113.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="687.0" minHeight="408.0" prefHeight="687.0" />
     </rowConstraints>
     <children>
         <fx:include source="izbornik.fxml" />
@@ -36,7 +37,8 @@
                 <TableColumn fx:id="datumIVrijemeColumn" prefWidth="170.0" text="Datum i Vrijeme" />
             </columns>
         </TableView>
-      <Label fx:id="lastRefreshLabel" prefHeight="30.0" prefWidth="181.0" text="Label" GridPane.columnIndex="5" />
+      <Label fx:id="lastRefreshLabel" prefHeight="28.0" prefWidth="207.0" text="Label" GridPane.columnIndex="5" />
+      <Button fx:id="notificationButton" mnemonicParsing="false" onAction="#handleNotificationButtonClick" prefHeight="47.0" prefWidth="125.0" text="Button" GridPane.columnIndex="4" />
     </children>
 
 
