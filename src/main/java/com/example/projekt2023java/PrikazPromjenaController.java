@@ -48,6 +48,8 @@ public class PrikazPromjenaController   {
     private Label lastRefreshLabel;
     @FXML
     private Button notificationButton;
+    @FXML
+    private Button botunZaNitiSimulaciju;
 
     private final String[] colors = {
             "#003cff", // Blue
@@ -59,6 +61,8 @@ public class PrikazPromjenaController   {
     public void setButtonColor(String color) {
         Platform.runLater(() -> notificationButton.setStyle("-fx-background-color: " + color));
     }
+
+
 
     public void initialize() throws Exception {
         notificationButton.setStyle("-fx-background-color: #00FF00;"); // Green color
@@ -98,12 +102,6 @@ public class PrikazPromjenaController   {
             Timeline refreshTimeline = new Timeline(refreshKeyFrame);
             refreshTimeline.setCycleCount(Timeline.INDEFINITE); // Repeat indefinitely
             refreshTimeline.play();
-
-            addChangesWaitThread(10000, "Pavao", "PrviĆ");
-            addChangesWaitThread(20000, "Drago", "Drugić");
-            addChangesWaitThread(30000, "Tvrtko", "Trečić");
-            addChangesWaitThread(40000, "Čiril", "Četvrtić");
-
 
 
             Thread changesWaitThread = new Thread(() -> {
@@ -172,12 +170,15 @@ public class PrikazPromjenaController   {
         });
     }
     @FXML
-    private void handleNotificationButtonClick(ActionEvent event) {
-        // Call the refreshTableContent method when the button is clicked
-        refreshTableContent();
-        // Change the button's style back to green
-        notificationButton.setStyle("-fx-background-color: #00FF00;"); // Green color
+    private void handleSimulacijaClick(ActionEvent event) {
+        addChangesWaitThread(10000, "Pavao", "Prvić");
+        addChangesWaitThread(20000, "Drago", "Drugić");
+        addChangesWaitThread2(30000, "Pavao", "Prvić");
+        addChangesWaitThread2(40000, "Drago", "Drugić");
+
+
     }
+
 
     private void addChangesWaitThread(int sleepDuration, String firstName, String lastName) {
         Thread changesWaitThread = new Thread(() -> {
@@ -191,6 +192,24 @@ public class PrikazPromjenaController   {
         });
         changesWaitThread.start();
     }
+    private void addChangesWaitThread2(int sleepDuration, String firstName, String lastName) {
+        Thread changesWaitThread = new Thread(() -> {
+            try {
+                Thread.sleep(sleepDuration);
+                List<Svecenik> svecenikList = BazaPodataka.dohvatiSveSvecenike();
+                for (Svecenik svecenik:svecenikList) {
+                    if(svecenik.getIme().equals(firstName) && svecenik.getPrezime().equals(lastName)) {
+                        BazaPodataka.obrisiSvecenika(svecenik.getId().intValue());
+                        System.out.println("Obrisao sam svecenika " + sleepDuration / 1000 + " sekundi dok vidis promjenu na ekranu!");
+                    }
+
+                }} catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        changesWaitThread.start();
+    }
+
     @FXML
     private void obrisiPromjenu(ActionEvent event) {
         Promjene<?, ?> odabranaPromjena = promjeneTableView.getSelectionModel().getSelectedItem();
