@@ -22,9 +22,6 @@ public class  HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         mainStage = stage;
 
-        ReadLastChangeThread readLastChangeThread = new ReadLastChangeThread();
-        readLastChangeThread.start();
-
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);

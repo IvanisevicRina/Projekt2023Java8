@@ -150,6 +150,20 @@ public class BazaPodataka {
 
             pstmt.executeUpdate();
 
+            String promjenaOpis = "Dodan novi zupljanin: " + zupljanin.getPrezime() + " " + zupljanin.getIme();
+            String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
+            LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
+
+            Promjene<String, Zupljanin> novaPromjena = new Promjene<>(
+                    null, zupljanin.toString(), zupljanin,
+                    promjenaOpis, promjenaRola, formattedDatumIVrijeme
+            );
+
+            writeChangeToBinaryFile(novaPromjena);
+
             ResultSet generatedKeys = pstmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int generatedId = generatedKeys.getInt(1);
@@ -163,6 +177,8 @@ public class BazaPodataka {
             e.printStackTrace();
             throw e;
         }
+
+
     }
 
     public static void azurirajZupljane(Zupljanin zupljanin) throws Exception{
@@ -183,7 +199,17 @@ public class BazaPodataka {
     }
     public static void azurirajSvecenika(Svecenik svecenik) throws Exception{
         Connection con = connectToDatabase();
+        System.out.println("Ušao sam u azurirajSvecenika");
 
+        Svecenik stariSvecenik = new SvecenikBuilder().createSvecenik();
+        List<Svecenik> svecenikList = BazaPodataka.dohvatiSveSvecenike();
+        for (Svecenik svecenik1: svecenikList) {
+            if(svecenik.getId() == svecenik1.getId()){
+                stariSvecenik=svecenik1;
+                System.out.println("nasao sam ga");
+            }
+
+        }
         PreparedStatement pstmt = con.prepareStatement("UPDATE SVECENIK SET IME = ?, PREZIME = ?, SIFRA =?, TITULA = ? WHERE ID = ?");
         pstmt.setString(1,svecenik.getIme());
         pstmt.setString(2,svecenik.getPrezime());
@@ -192,11 +218,73 @@ public class BazaPodataka {
         pstmt.setLong(5,svecenik.getId());
 
         pstmt.executeUpdate();
+
+        String promjenaOpis = "Azuriran svecenik: " + svecenik.getPrezime() + " " + svecenik.getIme() +":";
+        System.out.println( "Svecenik: " + stariSvecenik.getPrezime() + " " + stariSvecenik.getIme() +":");
+        System.out.println( "Novisvecenik: " + svecenik.getPrezime() + " " + svecenik.getIme() +":");
+
+        Integer brojPromjena=0;
+        if(!Objects.equals(svecenik.getSifra(), stariSvecenik.getSifra())){
+            promjenaOpis=promjenaOpis + " šifra ";
+            System.out.println("drugacija sifra");
+            brojPromjena=1;
+        }
+        if(!Objects.equals(svecenik.getPrezime(), stariSvecenik.getPrezime())){
+            promjenaOpis=promjenaOpis + " prezime ";
+            brojPromjena=1;
+            System.out.println("drugacije prezime");
+        }
+        if(!Objects.equals(svecenik.getIme(),stariSvecenik.getIme())){
+            promjenaOpis=promjenaOpis + " ime ";
+            brojPromjena=1;
+            System.out.println("drugacije ime");
+
+        }
+        if(!Objects.equals(svecenik.getTitula(),stariSvecenik.getTitula())){
+            promjenaOpis=promjenaOpis + " titula ";
+            brojPromjena=1;
+            System.out.println("drugacija Titula");
+
+        }
+
+        String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
+        LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
+
+        Promjene<String, Svecenik> novaPromjena = new Promjene<>(
+                null, svecenik.toString(), svecenik,
+                promjenaOpis, promjenaRola, formattedDatumIVrijeme
+        );
+        if(brojPromjena!=0) {
+            writeChangeToBinaryFile(novaPromjena);
+        }
+
         con.close();
 
     }
     public static void obrisiZupljanina(Integer id) throws Exception{
         Connection con = connectToDatabase();
+        List<Zupljanin> zupljaniList=BazaPodataka.dohvatiSveZupljane();
+        Zupljanin zupljanin = new ZupljaninBuilder().createZupljanin();
+        for (Zupljanin zupljanink:zupljaniList) {
+            if(zupljanink.getId()==id.longValue()){
+                zupljanin=zupljanink;
+            }
+
+        }
+        String promjenaOpis = "Izbrisan župljanin: " + zupljanin.getPrezime() + " " + zupljanin.getIme();
+        String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
+        LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
+
+        Promjene<String, Zupljanin> novaPromjena = new Promjene<>(
+                null, zupljanin.toString(), zupljanin,
+                promjenaOpis, promjenaRola, formattedDatumIVrijeme
+        );
 
         PreparedStatement stmt0= con.prepareStatement("DELETE FROM ZUPLJANINSLIKE WHERE ZUPLJANIN_ID = ?");
         stmt0.setInt(1, id);
@@ -214,15 +302,42 @@ public class BazaPodataka {
         PreparedStatement stmt3= con.prepareStatement("DELETE FROM ZUPLJANIN WHERE ID = ?");
         stmt3.setInt(1, id);
         stmt3.executeUpdate();
+        writeChangeToBinaryFile(novaPromjena);
+
 
         con.close();
     }
     public static void obrisiSvecenika(Integer id) throws Exception{
         Connection con = connectToDatabase();
 
+        List<Svecenik> svecenikList=BazaPodataka.dohvatiSveSvecenike();
+        Svecenik svecenik= new SvecenikBuilder().createSvecenik();
+        for (Svecenik sveceniks:svecenikList) {
+            if(sveceniks.getId()==id.longValue()){
+                svecenik=sveceniks;
+            }
+
+        }
+        String promjenaOpis = "Izbrisan svećenik: " + svecenik.getPrezime() + " " + svecenik.getIme();
+        String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
+        LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
+
+        Promjene<String, Svecenik> novaPromjena = new Promjene<>(
+                null, svecenik.toString(), svecenik,
+                promjenaOpis, promjenaRola, formattedDatumIVrijeme
+        );
+
+
+
         PreparedStatement stmt5= con.prepareStatement("DELETE FROM SVECENIK WHERE ID = ?");
         stmt5.setInt(1, id);
         stmt5.executeUpdate();
+
+        writeChangeToBinaryFile(novaPromjena);
+
 
 
         con.close();
@@ -412,6 +527,19 @@ public class BazaPodataka {
         pstmt.setTimestamp(3,Timestamp.valueOf(osobniSakrament.getDatumIVrijeme()));
 
         pstmt.executeUpdate();
+        String promjenaOpis = "Dodan novi osobni sakrament za zupljanina: " + osobniSakrament.getZupljanin().getIme()+osobniSakrament.getZupljanin().getPrezime()+ " (" + osobniSakrament.getSakrament().getNaziv()+")";
+        String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
+        LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
+
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter1);
+
+        Promjene<String, OsobniSakrament> novaPromjena = new Promjene<>(
+                null, osobniSakrament.toString(), osobniSakrament,
+                promjenaOpis, promjenaRola, formattedDatumIVrijeme
+        );
+
+        writeChangeToBinaryFile(novaPromjena);
 
         con.close();
     }
