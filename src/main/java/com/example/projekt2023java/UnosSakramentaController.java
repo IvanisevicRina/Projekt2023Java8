@@ -18,24 +18,10 @@ public class UnosSakramentaController {
     @FXML
     private ComboBox<String> odabirSakramentaComboBox;
 
-    @FXML
-    private TextField liturgijaTextField;
-
 
     @FXML
     private ListView<String> odabirZupljanaListView ;
 
-
-
-    public static LiturgijskoRazdoblje liturgija(int broj_liturgije) {
-
-        return switch (broj_liturgije) {
-            case 1 -> LiturgijskoRazdoblje.DOSASCE;
-            case 2 -> LiturgijskoRazdoblje.KORIZMA;
-            default -> LiturgijskoRazdoblje.OSTATAK;
-        };
-
-    }
 
 
 
@@ -49,15 +35,10 @@ public class UnosSakramentaController {
             errorMessages.append("Morate odabrati sakrament!\n");
         }
 
-        String liturgijaSakramentaString = liturgijaTextField.getText();
-        if (liturgijaSakramentaString.isEmpty()) {
-            errorMessages.append("Polje liturgije ne bi smjelo bit prazno!\n");
-        }
 
 
         if (errorMessages.isEmpty()) {
 
-            LiturgijskoRazdoblje liturgijskoRazdoblje = liturgija(Integer.parseInt(liturgijaSakramentaString));
 
             List<Sakrament> sviSakramenti=BazaPodataka.dohvatiSveSakramente();
             Sakrament ovajSakrament=sviSakramenti.get(0);
@@ -97,14 +78,14 @@ public class UnosSakramentaController {
 
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Spremanje sakramenta");
-            alert.setHeaderText("Uspješno dodan novi sakrament");
-            alert.setContentText("Sakrament " + ovajSakrament + " je uspješno dodan u aplikaciju!");
+            alert.setTitle("Spremanje župljana na sakrament");
+            alert.setHeaderText("Uspješno dodani župljani na sakrament");
+            alert.setContentText("Župljanin "+oviZupljani.stream().map(m ->m.getIme()+ " "+m.getPrezime()) +" dodan na sakrament " + ovajSakrament.getNaziv());
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Spremanje sakramenta NEUSPJELO");
-            alert.setHeaderText("Neuspješno dodan novi sakrament");
+            alert.setTitle("Spremanje župljana na sakrament NEUSPJELO");
+            alert.setHeaderText("Neuspješno dodavanje župljana na sakrament");
             alert.setContentText(errorMessages.toString());
             alert.showAndWait();
         }

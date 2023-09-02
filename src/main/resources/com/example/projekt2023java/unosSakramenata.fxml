@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -34,35 +33,23 @@
     <children>
         <fx:include source="izbornik.fxml" />
 
-        <Label text="Odabir zupljana:" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="TOP">
+        <Label text="Odabir zupljana:" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="TOP">
             <GridPane.margin>
                 <Insets right="5.0" top="15.0" />
             </GridPane.margin>
         </Label>
-        <ListView fx:id="odabirZupljanaListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.rowSpan="2">
+        <ListView fx:id="odabirZupljanaListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.rowSpan="4">
             <GridPane.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </GridPane.margin>
         </ListView>
-
-        <Label text="Liturgija sakramenta:" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
-            <GridPane.margin>
-                <Insets right="5.0" />
-            </GridPane.margin>
-        </Label>
-
-        <TextField fx:id="liturgijaTextField" GridPane.columnIndex="1" GridPane.rowIndex="9">
-            <GridPane.margin>
-                <Insets left="10.0" right="10.0" />
-            </GridPane.margin>
-        </TextField>
-        <Label text="Unos sakramenta" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label text="Unos župljanina na sakrament" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Button mnemonicParsing="false" onAction="#unesiSakrament" text="POSALJI" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-      <ComboBox fx:id="odabirSakramentaComboBox" onAction="#initialize" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sakrament:  " GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+        <Button mnemonicParsing="false" onAction="#unesiSakrament" text="POSALJI" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+      <ComboBox fx:id="odabirSakramentaComboBox" onAction="#initialize" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sakrament:  " GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
     </children>
 </GridPane>

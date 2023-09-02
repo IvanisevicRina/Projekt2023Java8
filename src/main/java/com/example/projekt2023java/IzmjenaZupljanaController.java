@@ -4,6 +4,7 @@ import baza.BazaPodataka;
 import entitet.Svecenik;
 import entitet.Zupljanin;
 import entitet.ZupljaninBuilder;
+import iznimke.DuplikatSifreException;
 import iznimke.TekstualniZapisException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,6 +42,7 @@ public class IzmjenaZupljanaController {
         Zupljanin ovajZupljanin = new ZupljaninBuilder().createZupljanin();
         ObservableList<String> selectedItems = odabirZupljaninaListView.getSelectionModel().getSelectedItems();
 
+        Boolean errorOccured = false;
         if (selectedItems.isEmpty()) {
             displayAlert("Greška", "Morate odabrati župljanina za ažuriranje.");
             return;
@@ -53,6 +55,7 @@ public class IzmjenaZupljanaController {
         } catch (TekstualniZapisException e) {
             imeZupljana = "";
             prezimeZupljanina = "";
+            errorOccured=true;
             displayAlert("Greška", e.getMessage());
         }
         for(Object o : selectedItems){
@@ -69,12 +72,23 @@ public class IzmjenaZupljanaController {
         }else{prezime = prezimeZupljanina;}
         if(sifraZupljanina.isEmpty()){
             sifra = ovajZupljanin.getSifra();
-        }else{sifra = sifraZupljanina;}
+        }else{
+            try{
+                ovajZupljanin.provjeraSifre(sifraZupljanina);
+                sifra = sifraZupljanina;
+            } catch (DuplikatSifreException e) {
+                sifra="";
+                displayAlert("Greška", e.getMessage());
+                errorOccured=true;
+            }
+          }
 
 
-        Zupljanin noviZupljanin= new ZupljaninBuilder().id(ovajZupljanin.getId()).ime(ime).prezime(prezime).sifra(sifra).datumRodjenja(ovajZupljanin.getDatumRodjenja()).createZupljanin();
+        if(!errorOccured) {
+            Zupljanin noviZupljanin = new ZupljaninBuilder().id(ovajZupljanin.getId()).ime(ime).prezime(prezime).sifra(sifra).datumRodjenja(ovajZupljanin.getDatumRodjenja()).createZupljanin();
 
-        BazaPodataka.azurirajZupljane(noviZupljanin);
+            BazaPodataka.azurirajZupljane(noviZupljanin);
+        }
         initialize();
     }
     /**
@@ -112,5 +126,6 @@ public class IzmjenaZupljanaController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 
 }

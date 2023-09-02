@@ -1,7 +1,6 @@
 package baza;
 
 import com.example.projekt2023java.PrikazPromjenaController;
-import com.example.projekt2023java.PrikazSlikaZupljaninaController;
 import entitet.*;
 import niti.NotificationManager;
 import niti.WriteAChangeThread;
@@ -528,7 +527,7 @@ public class BazaPodataka {
                 Set<Zupljanin> setOdabranihZupljana =BazaPodataka.dohvatiZupljaneSakramenta(idSakramenta);
 
 
-                Sakrament noviSakrament = new Sakrament(idSakramenta,sifra,naziv,setOdabranihZupljana,liturgija(1));
+                Sakrament noviSakrament = new Sakrament(idSakramenta,sifra,naziv,setOdabranihZupljana);
                 listaSakramenata.add(noviSakrament);
             }
             con.close();
@@ -557,7 +556,7 @@ public class BazaPodataka {
 
                 Set<Zupljanin> setOdabranihZupljana =BazaPodataka.dohvatiZupljaneSakramenta(idSakramenta);
 
-                Sakrament noviSakrament = new Sakrament(idSakramenta, sifra, naziv,setOdabranihZupljana,liturgija(liturgijsko_razdoblje));
+                Sakrament noviSakrament = new Sakrament(idSakramenta, sifra, naziv,setOdabranihZupljana);
                 return noviSakrament;
 
             }
@@ -573,12 +572,14 @@ public class BazaPodataka {
     public static void spremiOsobniSakrament(OsobniSakrament osobniSakrament) throws Exception{
         Connection con = connectToDatabase();
 
-        PreparedStatement pstmt = con.prepareStatement("INSERT INTO OSOBNI_SAKRAMENT(SAKRAMENT_ID, ZUPLJANIN_ID, DATUM_I_VRIJEME) VALUES(?,?,?)");
+        PreparedStatement pstmt = con.prepareStatement("INSERT INTO OSOBNI_SAKRAMENT(SAKRAMENT_ID, ZUPLJANIN_ID, DATUM_I_VRIJEME,LITURGIJA,CRKVA) VALUES(?,?,?,?,?)");
         pstmt.setInt(1,osobniSakrament.getSakrament().getId().intValue());
         pstmt.setInt(2,osobniSakrament.getZupljanin().getId().intValue());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss.SS");
         osobniSakrament.getDatumIVrijeme().format(formatter);
         pstmt.setTimestamp(3,Timestamp.valueOf(osobniSakrament.getDatumIVrijeme()));
+        pstmt.setString(4,osobniSakrament.getLiturgijskoRazdoblje().toString());
+        pstmt.setString(5,osobniSakrament.getCrkva().nazivCrkve());
 
         pstmt.executeUpdate();
         String promjenaOpis = "Dodan novi osobni sakrament za zupljanina: " + osobniSakrament.getZupljanin().getIme()+osobniSakrament.getZupljanin().getPrezime()+ " (" + osobniSakrament.getSakrament().getNaziv()+")";
@@ -611,6 +612,10 @@ public class BazaPodataka {
                 Integer sakrament_id = rs.getInt("sakrament_id");
                 Integer zupljanin_id = rs.getInt("zupljanin_id");
                 LocalDateTime datumIvrijeme= rs.getTimestamp("datum_i_vrijeme").toLocalDateTime();
+                String crkva = rs.getString("crkva");
+                String liturgijaSakramentaString = rs.getString("liturgija");
+                LiturgijskoRazdoblje liturgijskoRazdoblje = convertStringToEnum(liturgijaSakramentaString);
+
                 List<Sakrament> sakramenti = BazaPodataka.dohvatiSveSakramente();
                 Sakrament ovajSakrament=sakramenti.get(0);
                 for (Sakrament sakrament:sakramenti) {
@@ -625,7 +630,7 @@ public class BazaPodataka {
                         ovajZupljanin=zupljanin;
                     }
                 }
-                OsobniSakrament noviOsobniSakrament = new OsobniSakrament(id.longValue(),ovajSakrament,ovajZupljanin,datumIvrijeme,new Crkva("sveti Roko"));
+                OsobniSakrament noviOsobniSakrament = new OsobniSakrament(id.longValue(),ovajSakrament,ovajZupljanin,datumIvrijeme,new Crkva(crkva), liturgijskoRazdoblje);
                 listaOsobnihSakramenata.add(noviOsobniSakrament);
             }
             con.close();
@@ -637,8 +642,21 @@ public class BazaPodataka {
         }
         return listaOsobnihSakramenata;
     }
+    public static LiturgijskoRazdoblje convertStringToEnum(String input) {
+        for (LiturgijskoRazdoblje razdoblje : LiturgijskoRazdoblje.values()) {
+            if (razdoblje.name().equals(input)) {
+                return razdoblje;
+            }
+        }
+        return null;
+    }
 
-    public static void fixAutoicrementaZupljnaId(Long id) throws Exception{
+
+
+
+
+
+public static void fixAutoicrementaZupljnaId(Long id) throws Exception{
         Connection con = connectToDatabase();
 
         PreparedStatement pstmt = con.prepareStatement("ALTER TABLE ZUPLJANIN ALTER COLUMN ID RESTART WITH ?");

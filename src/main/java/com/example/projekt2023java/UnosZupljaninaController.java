@@ -3,6 +3,7 @@ package com.example.projekt2023java;
 import baza.BazaPodataka;
 import entitet.Sakrament;
 import entitet.Zupljanin;
+import entitet.ZupljaninBuilder;
 import iznimke.PrekoracenjeBrojaZnakovaException;
 import iznimke.TekstualniZapisException;
 import iznimke.DuplikatSifreException;
@@ -102,7 +103,8 @@ public class UnosZupljaninaController {
             errorMessages.append("Polje sifre bi smjelo bit prazno!\n");
         }
         try{
-            provjeraSifri(sifraZupljanina);
+            Zupljanin zupljanin = new ZupljaninBuilder().createZupljanin();
+            zupljanin.provjeraSifre(sifraZupljanina);
             logger.info("unesena sifra:" + sifraZupljanina);
         }catch(DuplikatSifreException e){
             logger.error("Krivi unos!", e);
@@ -198,14 +200,6 @@ public class UnosZupljaninaController {
         }
     }
 
-    private void provjeraSifri(String sifra) throws DuplikatSifreException {
-        List<Zupljanin> zupljani = BazaPodataka.dohvatiSveZupljane();
-        for (Zupljanin zupljanin : zupljani) {
-            if (zupljanin.getSifra().equals(sifra)) {
-                throw new DuplikatSifreException("Župljanin sa istom šifrom već postoji!");
-            }
-        }
-    }
 
     private void validateImeZupljanina(String ime) throws PrekoracenjeBrojaZnakovaException {
         if (ime.length() > 30) {

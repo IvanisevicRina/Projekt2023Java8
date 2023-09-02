@@ -2,9 +2,8 @@ package entitet;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
-public class OsobniSakrament extends Entitet  implements Serializable {
+public non-sealed class OsobniSakrament extends Entitet  implements Serializable, VanjskoOdrzavanje {
 
     private Sakrament sakrament;
 
@@ -12,16 +11,19 @@ public class OsobniSakrament extends Entitet  implements Serializable {
 
     private LocalDateTime datumIVrijeme;
 
+    private LiturgijskoRazdoblje liturgijskoRazdoblje;
+
     private Crkva crkva;
 
 
 
-    public OsobniSakrament(Long id, Sakrament sakrament, Zupljanin zupljanin, LocalDateTime datumIVrijeme, Crkva crkva) {
+    public OsobniSakrament(Long id, Sakrament sakrament, Zupljanin zupljanin, LocalDateTime datumIVrijeme, Crkva crkva, LiturgijskoRazdoblje liturgija) {
         super(id);
         this.sakrament = sakrament;
         this.zupljanin = zupljanin;
         this.datumIVrijeme = datumIVrijeme;
         this.crkva = crkva;
+        this.liturgijskoRazdoblje=liturgija;
     }
 
     @Override
@@ -66,4 +68,17 @@ public class OsobniSakrament extends Entitet  implements Serializable {
         this.crkva = crkva;
     }
 
+    public LiturgijskoRazdoblje getLiturgijskoRazdoblje() {
+        return liturgijskoRazdoblje;
+    }
+
+    public void setLiturgijskoRazdoblje(LiturgijskoRazdoblje liturgijskoRazdoblje) {
+        this.liturgijskoRazdoblje = liturgijskoRazdoblje;
+    }
+
+
+    @Override
+    public void lokacijaDvorista(String adresaDvorista) {
+
+    }
 }

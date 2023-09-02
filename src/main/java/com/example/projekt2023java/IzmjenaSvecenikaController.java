@@ -2,6 +2,7 @@ package com.example.projekt2023java;
 
 import baza.BazaPodataka;
 import entitet.Svecenik;
+import iznimke.DuplikatSifreException;
 import iznimke.TekstualniZapisException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,7 +42,7 @@ public class IzmjenaSvecenikaController {
         List<Svecenik> sviSvecenici = BazaPodataka.dohvatiSveSvecenike();
         Svecenik ovajSvecenik = null;
         ObservableList<String> selectedItems = odabirSvecenikaListView.getSelectionModel().getSelectedItems();
-
+        Boolean errorOccured = false;
         if (selectedItems.isEmpty()) {
             displayAlert("Greška", "Morate odabrati svećenika za ažuriranje.");
             return;
@@ -70,14 +71,24 @@ public class IzmjenaSvecenikaController {
         }else{prezime = prezimeSvecenika;}
         if(sifraSvecenika.isEmpty()){
             sifra = ovajSvecenik.getSifra();
-        }else{sifra = sifraSvecenika;}
+        }else {
+            try {
+                ovajSvecenik.provjeraSifre(sifraSvecenika);
+                sifra = sifraSvecenika;
+            } catch (DuplikatSifreException e) {
+                sifra = "";
+                displayAlert("Greška", e.getMessage());
+                errorOccured = true;
+            }
+        }
         if(titulaSvecenika.isEmpty()){
             titula = ovajSvecenik.getTitula();
         }else{titula = titulaSvecenika;}
+        if(!errorOccured) {
+            Svecenik noviSvecenik = new Svecenik(ovajSvecenik.getId(), ime, prezime, sifra, titula, ovajSvecenik.getDatumRodjenja());
 
-        Svecenik noviSvecenik = new Svecenik(ovajSvecenik.getId(),ime, prezime,sifra,titula,ovajSvecenik.getDatumRodjenja());
-
-        BazaPodataka.azurirajSvecenika(noviSvecenik);
+            BazaPodataka.azurirajSvecenika(noviSvecenik);
+        }
         initialize();
     }
     /**

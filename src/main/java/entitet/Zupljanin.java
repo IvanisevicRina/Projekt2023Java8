@@ -1,11 +1,14 @@
 package entitet;
 
+import baza.BazaPodataka;
+import iznimke.DuplikatSifreException;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Zupljanin extends Osoba  implements Serializable {
+public class Zupljanin extends Osoba  implements Serializable, SifraProvjerljiv {
 
     private String sifra;
     private LocalDate datumRodjenja;
@@ -54,4 +57,13 @@ public class Zupljanin extends Osoba  implements Serializable {
         this.datumRodjenja = datumRodjenja;
     }
 
+    @Override
+    public void provjeraSifre(String sifra) throws DuplikatSifreException {
+        List<Zupljanin> zupljani = BazaPodataka.dohvatiSveZupljane();
+        for (Zupljanin zupljanin : zupljani) {
+            if (zupljanin.getSifra().equals(sifra)) {
+                throw new DuplikatSifreException("Župljanin sa istom šifrom već postoji!");
+            }
+        }
+    }
 }

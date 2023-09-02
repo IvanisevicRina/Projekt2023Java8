@@ -77,7 +77,8 @@ public class UnosSvecenikaController implements Serializable {
         }else {
             try {
                 validateSifraSvecenika(sifraSvecenika);
-                provjeraSifri(sifraSvecenika);
+                Svecenik newSvecenik = new SvecenikBuilder().createSvecenik();
+                newSvecenik.provjeraSifre(sifraSvecenika);
             } catch (PrekoracenjeBrojaZnakovaException | DuplikatSifreException e) {
                 errorMessages.append("Greška: " + e.getMessage() + "\n");
             }
@@ -193,14 +194,7 @@ public class UnosSvecenikaController implements Serializable {
             throw new PrekoracenjeBrojaZnakovaException("Prekoračenje dozvoljenog broja znakova za titulu svecenika.");
         }
     }
-    private void provjeraSifri(String sifra) throws DuplikatSifreException {
-        List<Svecenik> svecenici = BazaPodataka.dohvatiSveSvecenike();
-        for (Svecenik svecenik : svecenici) {
-            if (svecenik.getSifra().equals(sifra)) {
-                throw new DuplikatSifreException("Svecenik sa istom šifrom već postoji!");
-            }
-        }
-    }
+
     private void recordPromjenaPriestAdded(Svecenik noviSvecenik) throws InterruptedException {
         String promjenaOpis = "Dodan novi svećenik: " + noviSvecenik.getPrezime() + " " + noviSvecenik.getIme();
         String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();

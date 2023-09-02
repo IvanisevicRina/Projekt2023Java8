@@ -1,9 +1,15 @@
 package entitet;
 
+import baza.BazaPodataka;
+import iznimke.DuplikatSifreException;
+
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
-public class Svecenik extends Osoba  implements Serializable {
+public class Svecenik extends Osoba  implements Serializable, SifraProvjerljiv {
+    private static final long serialVersionUID = -4717525006694345544L;
+
 
     private String sifra;
     private String titula;
@@ -20,6 +26,7 @@ public class Svecenik extends Osoba  implements Serializable {
     public static SvecenikBuilder builder() {
         return new SvecenikBuilder();
     }
+
 
 
     @Override
@@ -54,5 +61,15 @@ public class Svecenik extends Osoba  implements Serializable {
 
     public void setDatumRodjenja(LocalDate datumRodjenja) {
         this.datumRodjenja = datumRodjenja;
+    }
+
+    @Override
+    public void provjeraSifre(String sifra) throws DuplikatSifreException {
+        List<Svecenik> svecenici = BazaPodataka.dohvatiSveSvecenike();
+        for (Svecenik svecenik : svecenici) {
+            if (svecenik.getSifra().equals(sifra)) {
+                throw new DuplikatSifreException("Svecenik sa istom šifrom već postoji!");
+            }
+        }
     }
 }

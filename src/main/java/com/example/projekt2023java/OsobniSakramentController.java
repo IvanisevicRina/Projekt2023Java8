@@ -1,10 +1,7 @@
 package com.example.projekt2023java;
 
 import baza.BazaPodataka;
-import entitet.OsobniSakrament;
-import entitet.Sakrament;
-import entitet.Svecenik;
-import entitet.Zupljanin;
+import entitet.*;
 import javafx.scene.Node;
 import util.Datoteke;
 import javafx.beans.property.SimpleStringProperty;
@@ -31,9 +28,17 @@ public class OsobniSakramentController {
     @FXML
     private TextField prezimeZupljaninaOsobnogSakramentaTextField;
 
-
     @FXML
     private TextField datumOsobnogSakramentaTextField;
+
+    @FXML
+    private TextField lokacijaSakramentaTextField;
+
+    @FXML
+    private TextField liturgijaSakramentaTextField;
+
+
+
     @FXML
     private Node izbornikInclude;
 
@@ -58,6 +63,13 @@ public class OsobniSakramentController {
     @FXML
     private TableColumn<OsobniSakrament, String> datumOsobnogSakramentaTableColumn;
 
+    @FXML
+    private TableColumn<OsobniSakrament, String> liturgijaOsobnogSakramentaTableColumn;
+
+
+    @FXML
+    private TableColumn<OsobniSakrament, String> lokacijaSakramentaTableColumn;
+
 
 
     private List<OsobniSakrament> osobniSakramentiList;
@@ -81,11 +93,22 @@ public class OsobniSakramentController {
                 .setCellValueFactory(cellData ->
                         new SimpleStringProperty(cellData.getValue().getZupljanin().getPrezime()));
 
-
-
         datumOsobnogSakramentaTableColumn
                 .setCellValueFactory(cellData ->
                         new SimpleStringProperty(cellData.getValue().getDatumIVrijeme().toString()));
+
+        liturgijaOsobnogSakramentaTableColumn.setCellValueFactory(cellData -> {
+            LiturgijskoRazdoblje liturgijskoRazdoblje = cellData.getValue().getLiturgijskoRazdoblje();
+            if (liturgijskoRazdoblje != null) {
+                return new SimpleStringProperty(liturgijskoRazdoblje.toString());
+            } else {
+                return new SimpleStringProperty(""); // Or any default value you prefer
+            }
+        });
+        lokacijaSakramentaTableColumn
+                .setCellValueFactory(cellData ->
+                        new SimpleStringProperty(cellData.getValue().getCrkva().nazivCrkve()));
+
 
 
 
@@ -106,6 +129,9 @@ public class OsobniSakramentController {
         String imeStudenta = imeZupljaninaOsobnogSakramentaTextField.getText();
         String prezimeStudenta = prezimeZupljaninaOsobnogSakramentaTextField.getText();
         String datumIVrijeme =datumOsobnogSakramentaTextField.getText();
+        String liturgija = liturgijaSakramentaTextField.getText();
+        String crkva = lokacijaSakramentaTextField.getText();
+
 
 
 
@@ -114,6 +140,8 @@ public class OsobniSakramentController {
                 .filter(p -> p.getZupljanin().getIme().toLowerCase().contains(imeStudenta.toLowerCase()))
                 .filter(p -> p.getZupljanin().getPrezime().toLowerCase().contains(prezimeStudenta.toLowerCase()))
                 .filter(p -> p.getDatumIVrijeme().toString().contains(datumIVrijeme))
+                .filter(p->p.getLiturgijskoRazdoblje().toString().contains(liturgija))
+                .filter(p->p.getCrkva().nazivCrkve().contains(crkva))
                 .toList();
 
         osobniSakramentiTableView.setItems(FXCollections.observableList(filtriraniOsobniSakramenti));

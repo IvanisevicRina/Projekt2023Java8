@@ -10,10 +10,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-          minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"
-          xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.UnosOsobnogSakramentaController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.UnosOsobnogSakramentaController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -50,7 +49,7 @@
             </GridPane.margin>
         </Label>
 
-        <Label alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="179.0" text="Vrijeme odrzavanja:" wrapText="true" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+        <Label alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="179.0" text="Vrijeme odrzavanja:" wrapText="true" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets left="10.0" right="10.0" />
             </GridPane.margin>
@@ -71,7 +70,7 @@
             </GridPane.margin>
         </ComboBox>
 
-        <TextField fx:id="vrijemeOdrzavanjaTextField" GridPane.columnIndex="1" GridPane.rowIndex="6">
+        <TextField fx:id="vrijemeOdrzavanjaTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
             </GridPane.margin>
@@ -82,15 +81,21 @@
             </GridPane.margin>
         </TextField>
         <Button mnemonicParsing="false" onAction="#unesiOsobnogSakramenta" text="Spremi" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-        <Label text="Datum odrzavanja:" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+        <Label text="Datum odrzavanja:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
             <GridPane.margin>
                 <Insets left="10.0" right="10.0" />
             </GridPane.margin>
         </Label>
-        <DatePicker fx:id="datumOdrzavanjaDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7">
+        <DatePicker fx:id="datumOdrzavanjaDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6">
             <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
             </GridPane.margin>
         </DatePicker>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Liturgijsko razdoblje" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </Text>
+      <TextField fx:id="liturgijaTextField" prefHeight="25.0" prefWidth="288.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
     </children>
 </GridPane>

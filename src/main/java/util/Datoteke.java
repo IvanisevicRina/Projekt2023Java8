@@ -147,7 +147,7 @@ public class Datoteke {
                 Integer liturgijaBroj = Integer.parseInt(liturgijaString);
                 LiturgijskoRazdoblje liturgijskoRazdoblje = liturgija(liturgijaBroj);
 
-                sakramenti.add(new Sakrament(id,sifra,naziv,zupljaniSet,liturgijskoRazdoblje));
+                sakramenti.add(new Sakrament(id,sifra,naziv,zupljaniSet));
 
 
 
@@ -199,7 +199,7 @@ public class Datoteke {
                 String crkvaNaziv = datotekaOsobnihSakramenata.get(i * BROJ_ZAPISA_OSOBNIH_SAKRAMENATA+4);
                 Crkva crkva = new Crkva(crkvaNaziv);
 
-                osobniSakramenti.add(new OsobniSakrament(id, sakramentOsobnogSakramenta,zupljaninOsobnohSakramenta, datumIVrijeme,crkva));
+                osobniSakramenti.add(new OsobniSakrament(id, sakramentOsobnogSakramenta,zupljaninOsobnohSakramenta, datumIVrijeme,crkva, liturgija(1)));
 
 
 
@@ -242,7 +242,7 @@ public class Datoteke {
             LiturgijskoRazdoblje liturgijskoRazdoblje = liturgija(unos.nextInt());
             unos.nextLine();
 
-            sakramenti.add(new Sakrament(id, sifra, naziv, zupljani, liturgijskoRazdoblje));
+            sakramenti.add(new Sakrament(id, sifra, naziv, zupljani));
 
 
 
