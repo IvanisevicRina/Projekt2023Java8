@@ -3,8 +3,10 @@ package entitet;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 public class Promjene<T, U> implements Serializable {
+    private static final long serialVersionUID = -2691492564381033481L;
     private T staraVrijednost;
     private T novaVrijednost;
     private U objektPromjene;
@@ -16,6 +18,18 @@ public class Promjene<T, U> implements Serializable {
     public Promjene() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Promjene<?, ?> promjene = (Promjene<?, ?>) o;
+        return Objects.equals(datumIVrijeme, promjene.datumIVrijeme);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(datumIVrijeme);
+    }
     public Promjene(T staraVrijednost, T novaVrijednost, U objektPromjene, String opis, String rola, String datumIVrijeme) {
         this.staraVrijednost = staraVrijednost;
         this.novaVrijednost = novaVrijednost;

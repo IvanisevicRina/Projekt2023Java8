@@ -1,9 +1,6 @@
 package com.example.projekt2023java;
 import baza.BazaPodataka;
-import entitet.Promjene;
-import entitet.PromjeneManager;
-import entitet.Svecenik;
-import entitet.SvecenikBuilder;
+import entitet.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -194,6 +191,27 @@ public class PrikazPromjenaController   {
         });
         changesWaitThread.start();
     }
+    @FXML
+    private void obrisiPromjenu(ActionEvent event) {
+        Promjene<?, ?> odabranaPromjena = promjeneTableView.getSelectionModel().getSelectedItem();
+
+        if (odabranaPromjena != null) {
+            // Izbrišite odabranu promjenu iz vaše liste promjena
+            promjeneManager.izbrisiPromjenu(odabranaPromjena);
+
+            // Ažurirajte tablicu kako biste reflektirali promjene
+            refreshTableContent();
+        } else {
+            // Ako nije odabrana promjena, prikažite poruku ili upozorenje
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Nema odabrane promjene");
+            alert.setHeaderText("Upozorenje");
+            alert.setContentText("Molimo odaberite promjenu koju želite izbrisati.");
+            alert.showAndWait();
+        }
+    }
+
+
 
 }
 

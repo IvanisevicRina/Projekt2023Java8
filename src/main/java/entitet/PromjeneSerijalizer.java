@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PromjeneSerijalizer {
+public class PromjeneSerijalizer implements Serializable{
 
 
 
@@ -29,9 +29,6 @@ public class PromjeneSerijalizer {
             }
             return listaPromjena;
 
-    }
-    public static List<Promjene<?, ?>> dohvatiPromjene(String putanja) {
-        return citajPromjene(putanja);
     }
 
 }
