@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * služi za upravljanje prikazom i izdavanjem potvrda o primljenim sakramentima.
+ */
 public class PotvrdaPrimljenihSakramenataController {
 
     @FXML
@@ -28,7 +30,9 @@ public class PotvrdaPrimljenihSakramenataController {
     @FXML
     private Node izbornikZupljaninaInclude;
 
-
+    /**
+     * Inicijalizira controller.
+     */
     public void initialize() {
         List<String> zupljaninList = BazaPodataka.dohvatiSveZupljane().stream().map(s -> s.getIme() + " " + s.getPrezime()).toList();
         odabirZupljaninaComboBox.setItems(FXCollections.observableList(zupljaninList));
@@ -38,7 +42,9 @@ public class PotvrdaPrimljenihSakramenataController {
         izbornikZupljaninaInclude.setVisible(useIzbornikZupljanina);
 
     }
-
+    /**
+     * Izdaje potvrdu o primljenim sakramentima za odabranog župljanina i generira PDF dokument.
+     */
     public void izdajPotvrdu() {
         List<Zupljanin> sviZupljani = BazaPodataka.dohvatiSveZupljane();
 
@@ -61,7 +67,11 @@ public class PotvrdaPrimljenihSakramenataController {
         PDFGenerator.generatePDF("dat/sakramenti.pdf", popisSakramenata, ovajZupljanin);
 
     }
-
+    /**
+     * Preuzima generirani PDF dokument i sprema ga na lokalno računalo korisnika.
+     *
+     * @param event Akcija preuzimanja PDF dokumenta.
+     */
     @FXML
     private void downloadPDF(ActionEvent event) {
         // Get selected župljanin's first name
@@ -97,7 +107,9 @@ public class PotvrdaPrimljenihSakramenataController {
             }
         }
     }
-
+    /**
+     * Prikazuje obavijest o uspješnom preuzimanju PDF dokumenta.
+     */
     private void showDownloadSuccessfulAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Download Successful");
@@ -105,7 +117,9 @@ public class PotvrdaPrimljenihSakramenataController {
         alert.setContentText("PDF file downloaded successfully.");
         alert.showAndWait();
     }
-
+    /**
+     * Prikazuje obavijest o neuspješnom preuzimanju PDF dokumenta.
+     */
     private void showDownloadFailedAlert() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Download Failed");
@@ -113,6 +127,11 @@ public class PotvrdaPrimljenihSakramenataController {
         alert.setContentText("Failed to download the PDF file.");
         alert.showAndWait();
     }
+    /**
+     * Dohvaća korisničku ulogu (Svecenik ili Zupljanin) iz datoteke.
+     *
+     * @return Korisnička uloga ili null ako se ne može pročitati.
+     */
     private String getUserRole() {
         try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
             String line = reader.readLine();

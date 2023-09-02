@@ -21,9 +21,12 @@ public class Svecenik extends Osoba  implements Serializable {
         return new SvecenikBuilder();
     }
 
+
     @Override
     public String toString() {
         return "Svecenik{" +
+                "ime=" + getIme() +
+                "prezime="+getPrezime()+
                 "sifra='" + sifra + '\'' +
                 ", titula='" + titula + '\'' +
                 '}';

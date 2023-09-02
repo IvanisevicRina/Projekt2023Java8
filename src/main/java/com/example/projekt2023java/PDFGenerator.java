@@ -8,9 +8,17 @@ import entitet.Zupljanin;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-
+/**
+ * služi generiranje PDF dokumenata s popisom sakramenata za župljane.
+ */
 public class PDFGenerator {
-
+    /**
+     * Generira PDF dokument s popisom sakramenata za župljana i sprema ga u datoteku.
+     *
+     * @param fileName    Naziv datoteke u koju će se spremiti PDF.
+     * @param sakramenti  Lista sakramenata za koje se generira popis.
+     * @param zupljanin  Župljanin čiji se sakramenti ispisuju u PDF-u.
+     */
     public static void generatePDF(String fileName, List<String> sakramenti, Zupljanin zupljanin) {
         Document document = new Document();
 

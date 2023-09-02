@@ -1,23 +1,32 @@
 package com.example.projekt2023java;
 
 import baza.BazaPodataka;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import entitet.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import niti.*;
-
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Služi za pokretanje aplikacije
+ */
+
 public class  HelloApplication extends Application {
     private static Stage mainStage;
-    private static final Object lock = new Object();
 
+    private static final Logger logger = LoggerFactory.getLogger(HelloApplication.class);
+
+    /**
+     * Služi za postavljanje logina kao sljedeće scene
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
@@ -41,11 +50,18 @@ public class  HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+
+        logger.info("Exampe log from {}", HelloApplication.class.getSimpleName());
         launch();
     }
     public static Stage getMainStage(){
         return mainStage;
     }
+
+    /**
+     * Osvježava podatke za imendan
+     */
+
     private void refreshData() {
         Platform.runLater(() -> {
             // Ovdje osvježite podatke na ekranu

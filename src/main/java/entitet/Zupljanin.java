@@ -23,6 +23,8 @@ public class Zupljanin extends Osoba  implements Serializable {
     @Override
     public String toString() {
         return "Zupljanin{" +
+                "ime=" + getIme() +
+                "prezime="+getPrezime()+
                 "sifra='" + sifra + '\'' +
                 ", datumRodjenja=" + datumRodjenja +
                 '}';

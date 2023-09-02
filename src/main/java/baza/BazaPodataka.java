@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static niti.ThreadColor.ANSI_BLUE;
 import static niti.ThreadColor.ANSI_GREEN;
 
 public class BazaPodataka {
@@ -183,7 +182,15 @@ public class BazaPodataka {
 
     public static void azurirajZupljane(Zupljanin zupljanin) throws Exception{
         Connection con = connectToDatabase();
+        Zupljanin stariZupljanin = new ZupljaninBuilder().createZupljanin();
+        List<Zupljanin> zupljaninList = BazaPodataka.dohvatiSveZupljane();
+        for (Zupljanin zupljanin1 : zupljaninList) {
+            if(Objects.equals(zupljanin.getId(), zupljanin1.getId())){
+                stariZupljanin=zupljanin1;
+                System.out.println("nasao sam ga");
+            }
 
+        }
         PreparedStatement pstmt = con.prepareStatement("UPDATE ZUPLJANIN SET IME = ?, PREZIME = ?, SIFRA =?, DATUM_RODJENJA = ? WHERE ID = ?");
 
         pstmt.setString(1,zupljanin.getIme());
@@ -193,20 +200,57 @@ public class BazaPodataka {
         pstmt.setLong(5, zupljanin.getId());
 
         pstmt.executeUpdate();
+        String promjenaOpis = "Azuriran zupljanin: " + zupljanin.getPrezime() + " " + zupljanin.getIme() +":";
+
+        Integer brojPromjena=0;
+        String staraVrijednost="";
+        String novaVrijednost = "";
+        if(!Objects.equals(zupljanin.getSifra(), stariZupljanin.getSifra())){
+            promjenaOpis=promjenaOpis + " šifra ";
+            staraVrijednost=staraVrijednost +"  "+ stariZupljanin.getSifra();
+            novaVrijednost=novaVrijednost + " " + zupljanin.getSifra();
+            brojPromjena=1;
+        }
+        if(!Objects.equals(zupljanin.getPrezime(), stariZupljanin.getPrezime())){
+            promjenaOpis=promjenaOpis + " prezime ";
+            staraVrijednost=staraVrijednost +"  "+ stariZupljanin.getPrezime();
+            novaVrijednost=novaVrijednost + " " + zupljanin.getPrezime();
+            brojPromjena=1;
+        }
+        if(!Objects.equals(zupljanin.getIme(),stariZupljanin.getIme())){
+            promjenaOpis=promjenaOpis + " ime ";
+            staraVrijednost=staraVrijednost +"  "+ stariZupljanin.getIme();
+            novaVrijednost=novaVrijednost + " " + zupljanin.getIme();
+            brojPromjena=1;
+
+        }
+
+        String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
+        LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
+
+        Promjene<String, Zupljanin> novaPromjena = new Promjene<>(
+                staraVrijednost, novaVrijednost, zupljanin,
+                promjenaOpis, promjenaRola, formattedDatumIVrijeme
+        );
+        if(brojPromjena!=0) {
+            writeChangeToBinaryFile(novaPromjena);
+        }
 
         con.close();
 
     }
     public static void azurirajSvecenika(Svecenik svecenik) throws Exception{
         Connection con = connectToDatabase();
-        System.out.println("Ušao sam u azurirajSvecenika");
 
         Svecenik stariSvecenik = new SvecenikBuilder().createSvecenik();
         List<Svecenik> svecenikList = BazaPodataka.dohvatiSveSvecenike();
         for (Svecenik svecenik1: svecenikList) {
-            if(svecenik.getId() == svecenik1.getId()){
+            if(Objects.equals(svecenik.getId(), svecenik1.getId())){
                 stariSvecenik=svecenik1;
-                System.out.println("nasao sam ga");
+                System.out.println("------------nasao sam ga-------");
             }
 
         }
@@ -224,23 +268,33 @@ public class BazaPodataka {
         System.out.println( "Novisvecenik: " + svecenik.getPrezime() + " " + svecenik.getIme() +":");
 
         Integer brojPromjena=0;
+        String staraVrijednost="";
+        String novaVrijednost = "";
         if(!Objects.equals(svecenik.getSifra(), stariSvecenik.getSifra())){
             promjenaOpis=promjenaOpis + " šifra ";
+            staraVrijednost=staraVrijednost +"  "+ stariSvecenik.getSifra();
+            novaVrijednost=novaVrijednost + " " + svecenik.getSifra();
             System.out.println("drugacija sifra");
             brojPromjena=1;
         }
         if(!Objects.equals(svecenik.getPrezime(), stariSvecenik.getPrezime())){
             promjenaOpis=promjenaOpis + " prezime ";
+            staraVrijednost=staraVrijednost +"  "+ stariSvecenik.getPrezime();
+            novaVrijednost=novaVrijednost + " " + svecenik.getPrezime();
             brojPromjena=1;
             System.out.println("drugacije prezime");
         }
         if(!Objects.equals(svecenik.getIme(),stariSvecenik.getIme())){
+            staraVrijednost=staraVrijednost +"  "+ stariSvecenik.getIme();
+            novaVrijednost=novaVrijednost + " " + svecenik.getIme();
             promjenaOpis=promjenaOpis + " ime ";
             brojPromjena=1;
             System.out.println("drugacije ime");
 
         }
         if(!Objects.equals(svecenik.getTitula(),stariSvecenik.getTitula())){
+            staraVrijednost=staraVrijednost +"  "+ stariSvecenik.getTitula();
+            novaVrijednost=novaVrijednost + " " + svecenik.getTitula();
             promjenaOpis=promjenaOpis + " titula ";
             brojPromjena=1;
             System.out.println("drugacija Titula");
@@ -254,7 +308,7 @@ public class BazaPodataka {
         String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
 
         Promjene<String, Svecenik> novaPromjena = new Promjene<>(
-                null, svecenik.toString(), svecenik,
+                staraVrijednost, novaVrijednost, svecenik,
                 promjenaOpis, promjenaRola, formattedDatumIVrijeme
         );
         if(brojPromjena!=0) {

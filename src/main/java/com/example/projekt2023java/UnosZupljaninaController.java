@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +21,7 @@ import java.util.OptionalLong;
 
 public class UnosZupljaninaController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UnosZupljaninaController.class);
 
 
     @FXML
@@ -100,7 +103,9 @@ public class UnosZupljaninaController {
         }
         try{
             provjeraSifri(sifraZupljanina);
+            logger.info("unesena sifra:" + sifraZupljanina);
         }catch(DuplikatSifreException e){
+            logger.error("Krivi unos!", e);
             errorMessages.append("Greška ").append(e.getMessage()).append("\n");
         }
 

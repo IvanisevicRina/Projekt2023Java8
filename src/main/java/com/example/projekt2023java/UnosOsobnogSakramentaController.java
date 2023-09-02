@@ -9,12 +9,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class UnosOsobnogSakramentaController {
+    private static final Logger logger = LoggerFactory.getLogger(UnosOsobnogSakramentaController.class);
 
 
     @FXML
@@ -55,6 +58,7 @@ public class UnosOsobnogSakramentaController {
             try {
                 validateVrijemeFormat(vrijemeOdrzavanja);
             } catch (NeispravanFormatVremenaException e) {
+                logger.error("Krivi format vremena!", e);
                 errorMessages.append("Greška: " + e.getMessage() + "\n");
             }
         }

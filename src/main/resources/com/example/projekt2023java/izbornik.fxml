@@ -28,7 +28,10 @@
 
             <MenuItem mnemonicParsing="false" onAction="#deleteZupljaniEnteringScreen" text="Brisanje"/>
 
+            <MenuItem mnemonicParsing="false" onAction="#showIzmjenaZupljaninScreen" text="Izmjena"/>
+
             <MenuItem mnemonicParsing="false" onAction="#ispisPotvrdaScreen" text="Izdavanje potvrda"/>
+
 
 
         </Menu>

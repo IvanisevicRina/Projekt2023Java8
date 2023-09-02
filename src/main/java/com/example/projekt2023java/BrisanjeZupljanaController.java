@@ -13,14 +13,19 @@ import javafx.scene.control.SelectionMode;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Služi za brisanje zupljanina
+ */
 public class BrisanjeZupljanaController {
     @FXML
     private ListView<String> odabirZupljaninaListView ;
 
-    @FXML
-    private Button botun;
 
-
+    /**
+     * Metoda za brisanje župljana.
+     *
+     * @throws Exception Ako se dogodi greška pri brisanju župljana.
+     */
     public void obrisiZupljane() throws Exception {
 
         List<Zupljanin> sviZupljani= BazaPodataka.dohvatiSveZupljane();
@@ -58,8 +63,9 @@ public class BrisanjeZupljanaController {
 
     }
 
-
-
+    /**
+     * Inicijalizira kontroler i priprema početni prikaz.
+     */
     public void initialize(){
         List<Zupljanin> zupljanin = BazaPodataka.dohvatiSveZupljane();
         List<String> zupljaninList = zupljanin.stream().map(s -> s.getIme() + " " + s.getPrezime()).toList();

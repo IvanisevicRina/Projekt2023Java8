@@ -10,7 +10,9 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+/**
+ * Controller klasa za ekran prijave korisnika.
+ */
 public class LoginController {
 
     @FXML
@@ -19,6 +21,11 @@ public class LoginController {
     @FXML
     private PasswordField lozinkaPasswordField;
 
+    /**
+     * Metoda za obradu događaja prijave korisnika.
+     *
+     * @throws IOException Ako dođe do greške pri prikazu drugog ekrana ili učitavanju datoteka.
+     */
     @FXML
     private void handlePrijava() throws IOException {
         String korisnickoIme = korisnickoImeTextField.getText();
@@ -118,6 +125,13 @@ public class LoginController {
         return null;
     }
 
+    /**
+     * Metoda za prikazivanje poruke (Alert) korisniku.
+     *
+     * @param poruka   Tekst poruke.
+     * @param tipPoruke Tip poruke (INFORMATION, ERROR, itd.).
+     */
+
     private void prikaziPoruku(String poruka, Alert.AlertType tipPoruke) {
         Alert alert = new Alert(tipPoruke);
         alert.setTitle("Obavijest o prijavi");
@@ -125,6 +139,12 @@ public class LoginController {
         alert.setContentText(poruka);
         alert.showAndWait();
     }
+
+    /**
+     * Metoda za preusmjeravanje korisnika na ekran za registraciju.
+     *
+     * @throws IOException Ako dođe do greške pri prikazu ekrana za registraciju.
+     */
     @FXML
     private void registracija() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("registracija.fxml"));
