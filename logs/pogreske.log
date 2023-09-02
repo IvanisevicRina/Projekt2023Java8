@@ -26,3 +26,5 @@
 2023-09-03 00:39:42,496 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
 2023-09-03 00:48:19,322 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
 2023-09-03 01:00:13,830 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 01:27:47,495 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 01:45:46,461 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication

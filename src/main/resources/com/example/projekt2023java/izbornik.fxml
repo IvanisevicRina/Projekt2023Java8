@@ -44,6 +44,9 @@
             <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiSearchScreen" text="Pretraga"/>
 
             <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiEnteringScreen" text="Unos"/>
+
+            <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiDeleteScreen" text="Brisanje"/>
+
         </Menu>
         <Menu mnemonicParsing="false" text="Galerija">
             <MenuItem mnemonicParsing="false" onAction="#showGalerijaScreen" text="Prikaz"/>

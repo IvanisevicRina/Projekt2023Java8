@@ -112,7 +112,7 @@ public class BazaPodataka {
                 System.out.println("Uspješno smo se spojili na bazu!");
             }
             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM ZUPLJANIN WHERE ID = ?");
-            pstmt.setLong(1,id); ////// provjeri jel trebalo 1L?
+            pstmt.setLong(1,id); //////
             ResultSet rs = pstmt.executeQuery();
 
             while(rs.next()){
@@ -507,6 +507,20 @@ public class BazaPodataka {
 
         con.close();
     }
+    public static void odspojiZupljaninaOdSakramenta(Integer sakrament_id, Integer zupljanin_id) throws Exception {
+        Connection con = connectToDatabase();
+
+
+            PreparedStatement deleteStmt = con.prepareStatement("DELETE FROM SAKRAMENT_ZUPLJANIN WHERE SAKRAMENT_ID = ? AND ZUPLJANIN_ID = ?");
+            deleteStmt.setInt(1, sakrament_id);
+            deleteStmt.setInt(2, zupljanin_id);
+            deleteStmt.executeUpdate();
+
+
+        con.close();
+    }
+
+
 
     public static List<Sakrament> dohvatiSveSakramente(){
         List<Sakrament> listaSakramenata = new ArrayList<>();
@@ -598,6 +612,18 @@ public class BazaPodataka {
 
         con.close();
     }
+    public static void obrisiOsobniSakrament(Integer osobniSakramentId) throws Exception {
+        Connection con = connectToDatabase();
+
+            PreparedStatement deleteStmt = con.prepareStatement("DELETE FROM OSOBNI_SAKRAMENT WHERE ID = ?");
+            deleteStmt.setInt(1, osobniSakramentId);
+            deleteStmt.executeUpdate();
+            System.out.println("Osobni sakrament je uspješno obrisan.");
+
+
+        con.close();
+    }
+
 
     public static List<OsobniSakrament> dohvatiSveOsobneSakramente() {
         List<OsobniSakrament> listaOsobnihSakramenata = new ArrayList<>();

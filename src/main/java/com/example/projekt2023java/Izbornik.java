@@ -239,7 +239,17 @@ public class Izbornik {
         HelloApplication.getMainStage().show();
     }
 
-
-
+    /**
+     * Prikazuje zaslon za brisanje osobnog sakramenta.
+     *
+     * @throws IOException Ako se pojavi greška pri učitavanju FXML-a ili prikazu scene.
+     */
+    public void showOsobniSakramentiDeleteScreen() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("brisanjeOsobnogSakramenta.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        HelloApplication.getMainStage().setTitle("Brisanje:");
+        HelloApplication.getMainStage().setScene(scene);
+        HelloApplication.getMainStage().show();
+    }
 
 }
