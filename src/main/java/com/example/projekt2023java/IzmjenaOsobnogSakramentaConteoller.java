@@ -23,8 +23,7 @@ public class IzmjenaOsobnogSakramentaConteoller {
 
     @FXML
     private DatePicker datumOdrzavanjaDatePicker;
-    @FXML
-    private TextField liturgijaTextField;
+
     @FXML
     private TextField crkvaTextField;
     @FXML

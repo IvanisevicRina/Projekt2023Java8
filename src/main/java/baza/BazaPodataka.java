@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.spec.ECField;
 import java.sql.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -586,8 +587,15 @@ public class BazaPodataka {
         con.close();
     }
 
+
     public static void odspojiZupljaninaOdSakramenta(Integer sakrament_id, Integer zupljanin_id) throws Exception {
         Connection con = connectToDatabase();
+
+
+        PreparedStatement deleteStmt1 = con.prepareStatement("DELETE FROM OSOBNI_SAKRAMENT WHERE SAKRAMENT_ID = ? AND ZUPLJANIN_ID = ?");
+        deleteStmt1.setInt(1, sakrament_id);
+        deleteStmt1.setInt(2, zupljanin_id);
+        deleteStmt1.executeUpdate();
 
 
         PreparedStatement deleteStmt = con.prepareStatement("DELETE FROM SAKRAMENT_ZUPLJANIN WHERE SAKRAMENT_ID = ? AND ZUPLJANIN_ID = ?");

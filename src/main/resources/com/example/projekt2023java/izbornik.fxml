@@ -39,6 +39,9 @@
             <MenuItem mnemonicParsing="false" onAction="#showSakramentiSearchScreen" text="Pretraga"/>
 
             <MenuItem mnemonicParsing="false" onAction="#showSakramentiEnteringScreen" text="Unos"/>
+
+            <MenuItem mnemonicParsing="false" onAction="#showDeletingEnteringScreen" text="Brisanje"/>
+
         </Menu>
         <Menu mnemonicParsing="false" text="OsobniSakrament">
             <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiSearchScreen" text="Pretraga"/>

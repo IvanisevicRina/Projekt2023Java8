@@ -264,4 +264,14 @@ public class Izbornik {
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
     }
+
+
+    public void  showDeletingEnteringScreen() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("brisanjeSakramentaZupljanina.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        HelloApplication.getMainStage().setTitle("Brisanje:");
+        HelloApplication.getMainStage().setScene(scene);
+        HelloApplication.getMainStage().show();
+    }
+
 }
