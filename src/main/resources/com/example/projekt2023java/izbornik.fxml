@@ -67,7 +67,10 @@
         </Menu>
 
         <Menu mnemonicParsing="false" text="Obavijesti">
-            <MenuItem mnemonicParsing="false" onAction="#showObavijestiScreen" text="Obavijesti"/>
+            <MenuItem mnemonicParsing="false" onAction="#showObavijestiScreen" text="Prikaz"/>
+            <MenuItem mnemonicParsing="false" onAction="#showSaveObavijestiScreen" text="Uredi"/>
+
+
 
 
         </Menu>

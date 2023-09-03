@@ -78,19 +78,17 @@ public class LoginController {
         }
     }
     private void prikaziSveceniciPregled() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("pregledGalerija.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zupneObavijesti.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
-        HelloApplication.getMainStage().setTitle("Pregled Slika:");
+        HelloApplication.getMainStage().setTitle("Obavijesti:");
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
     }
     private void prikaziZupljaniPregled() throws IOException {
 
-        //Tu ih trebam prebaciti na ekran dobrodoslice sa zupnim obavijestima
-
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("pregledGalerija.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("zupneObavijesti.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
-        HelloApplication.getMainStage().setTitle("Pregled Slika:");
+        HelloApplication.getMainStage().setTitle("Obavijesti:");
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
     }

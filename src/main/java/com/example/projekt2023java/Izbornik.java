@@ -280,5 +280,12 @@ public class Izbornik {
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
     }
+    public void  showSaveObavijestiScreen() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("unosObavijesti.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        HelloApplication.getMainStage().setTitle("Obavijesti:");
+        HelloApplication.getMainStage().setScene(scene);
+        HelloApplication.getMainStage().show();
+    }
 
 }

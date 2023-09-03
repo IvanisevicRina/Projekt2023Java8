@@ -39,19 +39,19 @@
          </font>
       </Text>
       <Text layoutX="455.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*četvrtkom klanjanje pred Presvetim  (nakon svete mise)" wrappingWidth="472.4970703125" />
-      <Label fx:id="label1" layoutX="617.0" layoutY="281.0" prefHeight="28.0" prefWidth="164.0" text="NIJE ZABILJEŽENO">
+      <Label fx:id="label1" layoutX="617.0" layoutY="281.0" prefHeight="28.0" prefWidth="208.0" text="NIJE ZABILJEŽENO">
          <font>
-            <Font size="18.0" />
+            <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="label2" layoutX="622.0" layoutY="363.0" prefHeight="28.0" prefWidth="154.0" text="NIJE ZABILJEŽENO">
+      <Label fx:id="label2" layoutX="622.0" layoutY="363.0" prefHeight="28.0" prefWidth="199.0" text="NIJE ZABILJEŽENO">
          <font>
-            <Font size="18.0" />
+            <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Label>
       <Label fx:id="label3" layoutX="622.0" layoutY="425.0" prefHeight="28.0" prefWidth="236.0" text="NIJE ZABILJEŽENO">
          <font>
-            <Font size="18.0" />
+            <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Label>
       <Text layoutX="480.0" layoutY="720.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ŽUPA GOSPE U SITI" textAlignment="CENTER" wrappingWidth="274.13671875">
