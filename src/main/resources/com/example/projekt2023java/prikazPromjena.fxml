@@ -30,12 +30,11 @@
 
         <TableView fx:id="promjeneTableView" GridPane.columnSpan="6" GridPane.rowIndex="1">
             <columns>
-                <TableColumn fx:id="staraVrijednostColumn" prefWidth="122.0" text="Stara Vrijednost" />
-                <TableColumn fx:id="novaVrijednostColumn" prefWidth="132.0" text="Nova Vrijednost" />
-                <TableColumn fx:id="objektPromjeneColumn" prefWidth="176.0" text="Objekt Promjene" />
-                <TableColumn fx:id="opisColumn" prefWidth="409.0" text="Opis" />
-                <TableColumn fx:id="rolaColumn" prefWidth="190.0" text="Rola" />
-                <TableColumn fx:id="datumIVrijemeColumn" prefWidth="170.0" text="Datum i Vrijeme" />
+                <TableColumn fx:id="staraVrijednostColumn" prefWidth="166.0" text="Stara Vrijednost" />
+                <TableColumn fx:id="novaVrijednostColumn" prefWidth="183.0" text="Nova Vrijednost" />
+                <TableColumn fx:id="opisColumn" prefWidth="452.0" text="Opis" />
+                <TableColumn fx:id="rolaColumn" prefWidth="163.0" text="Rola" />
+                <TableColumn fx:id="datumIVrijemeColumn" prefWidth="235.0" text="Datum i Vrijeme" />
             </columns>
         </TableView>
       <Label fx:id="lastRefreshLabel" prefHeight="28.0" prefWidth="218.0" text="Label" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" />

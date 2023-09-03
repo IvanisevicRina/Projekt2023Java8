@@ -31,8 +31,6 @@ public class PrikazPromjenaController   {
     @FXML
     private TableColumn<Promjene<?, ?>, ?> novaVrijednostColumn;
 
-    @FXML
-    private TableColumn<Promjene<?, ?>, ?> objektPromjeneColumn;
 
     @FXML
     private TableColumn<Promjene<?, ?>, ?> opisColumn;
@@ -155,7 +153,6 @@ public class PrikazPromjenaController   {
     private void setupUI(List<Promjene<?, ?>> promjeneList) {
         staraVrijednostColumn.setCellValueFactory(new PropertyValueFactory<>("staraVrijednost"));
         novaVrijednostColumn.setCellValueFactory(new PropertyValueFactory<>("novaVrijednost"));
-        objektPromjeneColumn.setCellValueFactory(new PropertyValueFactory<>("objektPromjene"));
         opisColumn.setCellValueFactory(new PropertyValueFactory<>("opis"));
         rolaColumn.setCellValueFactory(new PropertyValueFactory<>("rola"));
         datumIVrijemeColumn.setCellValueFactory(new PropertyValueFactory<>("datumIVrijeme"));

@@ -105,7 +105,6 @@ public class UnosZupljaninaController {
         try{
             Zupljanin zupljanin = new ZupljaninBuilder().createZupljanin();
             zupljanin.provjeraSifre(sifraZupljanina);
-            logger.info("unesena sifra:" + sifraZupljanina);
         }catch(DuplikatSifreException e){
             logger.error("Krivi unos!", e);
             errorMessages.append("Greška ").append(e.getMessage()).append("\n");

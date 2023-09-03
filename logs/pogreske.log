@@ -56,3 +56,12 @@
 2023-09-03 13:40:28,060 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
 2023-09-03 13:43:50,393 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
 2023-09-03 13:54:54,801 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 14:02:42,809 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 14:51:13,728 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 15:03:49,239 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 15:04:50,421 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 15:07:31,276 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 15:13:46,830 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 15:16:45,241 INFO [JavaFX Application Thread] c.e.p.UnosZupljaninaController [UnosZupljaninaController.java:108] unesena sifra:Ž1011
+2023-09-03 15:26:48,376 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 15:37:48,890 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication

@@ -111,7 +111,7 @@ public class BazaPodataka {
         return listaZupljana;
     }
 
-    public static Optional<Zupljanin> dohvatiZupljane(Long id) {
+    public static Zupljanin dohvatiZupljana(Long id) {
         try {
             Connection con = connectToDatabase();
 
@@ -131,7 +131,7 @@ public class BazaPodataka {
 
                 Zupljanin noviZupljanin = new Zupljanin(id, ime, prezime, sifra, datumRodjenja);
 
-                return Optional.of(noviZupljanin);
+                return noviZupljanin;
 
             }
             con.close();
@@ -140,7 +140,8 @@ public class BazaPodataka {
             System.out.println("Došlo je do pogreške kod spajanja na bazu podataka!");
             e.printStackTrace();
         }
-        return Optional.empty();
+        return new ZupljaninBuilder().createZupljanin();
+
     }
 
     public static int spremiZupljanina(Zupljanin zupljanin) throws Exception {
@@ -584,6 +585,23 @@ public class BazaPodataka {
         pstmt.setInt(2, zupljanin_id);
         pstmt.executeUpdate();
 
+        Sakrament sakrament=BazaPodataka.dohvatiSakrament(sakrament_id.longValue());
+        Zupljanin zupljanin=BazaPodataka.dohvatiZupljana(zupljanin_id.longValue());
+
+
+        String promjenaOpis = "Dodan župljanin: " + zupljanin.getIme() + " "+zupljanin.getPrezime() + " na sakrament " + sakrament.getNaziv();
+        String promjenaRola = getUserKorisnickoIme() + " - " + getUserRole();
+        LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
+
+        Promjene<String, String> novaPromjena = new Promjene<>(
+                null, zupljanin.getIme() + " "+zupljanin.getPrezime() + "("+sakrament.getNaziv()+")", sakrament.getClass().getName()+"-"+zupljanin.getClass().getName(),
+                promjenaOpis, promjenaRola, formattedDatumIVrijeme
+        );
+
+        writeChangeToBinaryFile(novaPromjena);
         con.close();
     }
 
@@ -602,6 +620,24 @@ public class BazaPodataka {
         deleteStmt.setInt(1, sakrament_id);
         deleteStmt.setInt(2, zupljanin_id);
         deleteStmt.executeUpdate();
+
+        Sakrament sakrament=BazaPodataka.dohvatiSakrament(sakrament_id.longValue());
+        Zupljanin zupljanin=BazaPodataka.dohvatiZupljana(zupljanin_id.longValue());
+
+
+        String promjenaOpis = "Obrisan: " + zupljanin.getIme() + " "+zupljanin.getPrezime() + "sa sakramenta " + sakrament.getNaziv();
+        String promjenaRola = getUserKorisnickoIme() + " - " + getUserRole();
+        LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
+
+        Promjene<String, String> novaPromjena = new Promjene<>(
+                zupljanin.getIme() + " "+zupljanin.getPrezime() + "("+sakrament.getNaziv()+")", null, sakrament.getClass().getName()+"-"+zupljanin.getClass().getName(),
+                promjenaOpis, promjenaRola, formattedDatumIVrijeme
+        );
+
+        writeChangeToBinaryFile(novaPromjena);
 
 
         con.close();
@@ -652,7 +688,6 @@ public class BazaPodataka {
             while (rs.next()) {
                 String sifra = rs.getString("sifra");
                 String naziv = rs.getString("naziv");
-                Integer liturgijsko_razdoblje = rs.getInt("liturgijsko_razdoblje");
 
                 Set<Zupljanin> setOdabranihZupljana = BazaPodataka.dohvatiZupljaneSakramenta(idSakramenta);
 
