@@ -44,8 +44,10 @@ public class PrikazPromjenaController   {
 
     @FXML
     private Label lastRefreshLabel;
+
     @FXML
     private Button notificationButton;
+
     @FXML
     private Button botunZaNitiSimulaciju;
 

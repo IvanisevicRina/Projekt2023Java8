@@ -66,6 +66,11 @@
 
         </Menu>
 
+        <Menu mnemonicParsing="false" text="Obavijesti">
+            <MenuItem mnemonicParsing="false" onAction="#showObavijestiScreen" text="Obavijesti"/>
+
+
+        </Menu>
 
     </MenuBar>
 </AnchorPane>

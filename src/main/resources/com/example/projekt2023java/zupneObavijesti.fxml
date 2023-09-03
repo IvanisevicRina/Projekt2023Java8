@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.ZupneObavijestiController">
+   <children>
+       <!-- Include content from izbornik.fxml -->
+       <fx:include fx:id="izbornikInclude" source="izbornik.fxml" visible="true" />
+
+       <!-- Include content from izbornikZupljanina.fxml -->
+       <fx:include fx:id="izbornikZupljaninaInclude" source="izbornikZupljanina.fxml" visible="false" />
+
+      <Text layoutX="271.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ŽUPNE OBAVIJESTI" textAlignment="CENTER" wrappingWidth="657.13671875">
+         <font>
+            <Font size="57.0" />
+         </font>
+      </Text>
+      <Text layoutX="417.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RASPORED BOGOSLUŽJA" textAlignment="CENTER" wrappingWidth="365.13671875">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="435.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RADNIM DANOM :" wrappingWidth="174.4970703125">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Text>
+      <Text layoutX="511.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SUBOTA :" wrappingWidth="97.4970703125">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Text>
+      <Text layoutX="499.0" layoutY="446.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEDJELJA :" wrappingWidth="108.4970703125">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Text>
+      <Text layoutX="455.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*četvrtkom klanjanje pred Presvetim  (nakon svete mise)" wrappingWidth="472.4970703125" />
+      <Label fx:id="label1" layoutX="617.0" layoutY="281.0" prefHeight="28.0" prefWidth="164.0" text="NIJE ZABILJEŽENO">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="label2" layoutX="622.0" layoutY="363.0" prefHeight="28.0" prefWidth="154.0" text="NIJE ZABILJEŽENO">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="label3" layoutX="622.0" layoutY="425.0" prefHeight="28.0" prefWidth="236.0" text="NIJE ZABILJEŽENO">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Text layoutX="480.0" layoutY="720.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ŽUPA GOSPE U SITI" textAlignment="CENTER" wrappingWidth="274.13671875">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
