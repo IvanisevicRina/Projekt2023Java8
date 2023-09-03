@@ -26,19 +26,28 @@
     </rowConstraints>
     <children>
         <fx:include source="izbornik.fxml" />
-        <Label text="BRISANJE sakramenta zupljanina" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label text="BRISANJE sakramenta župljanina" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label text="Odaberite zupljane za brisanje:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-        <Button mnemonicParsing="false" onAction="#odspojiZupljaninaOdSakramenta" text="OBRIŠI" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-      <ComboBox fx:id="odabirSakramentaComboBox" onAction="#initialize" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sakrament" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+        <Label text="Odaberite župljane za brisanje :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin></Label>
+        <Button mnemonicParsing="false" onAction="#odspojiZupljaninaOdSakramenta" text="OBRIŠI" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+      <ComboBox fx:id="odabirSakramentaComboBox" onAction="#initialize" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></ComboBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sakrament :" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
       </Text>
-      <ComboBox fx:id="odabirZupljaninaComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <ComboBox fx:id="odabirZupljaninaComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></ComboBox>
     </children>
 </GridPane>
