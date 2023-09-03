@@ -10,6 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,6 +32,9 @@ public class IzmjenaOsobnogSakramentaConteoller {
     private ListView<String> odabirOsobnogSakramentaListView;
     @FXML
     private ComboBox<String> liturgijaComboBox; // Define a ComboBox for liturgy selection
+    private static final Logger logger = LoggerFactory.getLogger(IzmjenaOsobnogSakramentaConteoller.class);
+
+
 
 
     public void azurirajOsobniSakrament() throws Exception {
@@ -71,6 +76,8 @@ public class IzmjenaOsobnogSakramentaConteoller {
                 validateVrijemeFormat(vrijemeOdrzavanja);
                 vrijeme=vrijemeOdrzavanja;
             } catch (NeispravanFormatVremenaException e) {
+
+                logger.error("Krivi format vremena!", e);
                 vrijeme = dateTimeString.substring(11);
                 displayAlert("Greška: ",e.getMessage());
                 errorOccured=true;

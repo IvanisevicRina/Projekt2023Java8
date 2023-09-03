@@ -8,6 +8,8 @@ import iznimke.TekstualniZapisException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -33,9 +35,10 @@ public class UnosSvecenikaController implements Serializable {
 
     private final PromjeneManager promjeneManager = new PromjeneManager();
 
-    private final Semaphore semaphore = new Semaphore(1);
 
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private static final Logger logger = LoggerFactory.getLogger(UnosSvecenikaController.class);
+
+
 
 
 
@@ -52,6 +55,8 @@ public class UnosSvecenikaController implements Serializable {
                 sadrziBrojeve(imeSvecenika);
                 validateImeSvecenika(imeSvecenika);
             } catch (TekstualniZapisException  | PrekoracenjeBrojaZnakovaException e) {
+                logger.error("Krivi unos! Prekoračenje broja znakova ili Sadrži nedozvoljene znakove(brojeve)", e);
+
                 errorMessages.append("Greška" + e.getMessage() + "\n");
             }
         }
@@ -65,6 +70,8 @@ public class UnosSvecenikaController implements Serializable {
                 sadrziBrojeve(prezimeSvecenika);
                 validateImeSvecenika(prezimeSvecenika);
             } catch (TekstualniZapisException | PrekoracenjeBrojaZnakovaException e) {
+                logger.error("Krivi unos! Prekoračenje broja znakova ili Sadrži nedozvoljene znakove(brojeve)", e);
+
                 errorMessages.append("Greška" + e.getMessage()+ "\n");
             }
         }
@@ -80,6 +87,9 @@ public class UnosSvecenikaController implements Serializable {
                 Svecenik newSvecenik = new SvecenikBuilder().createSvecenik();
                 newSvecenik.provjeraSifre(sifraSvecenika);
             } catch (PrekoracenjeBrojaZnakovaException | DuplikatSifreException e) {
+
+                logger.error("Krivi unos! Prekoračenje broja znakova ili Dupla sifra, vec je registrirana u bazi!", e);
+
                 errorMessages.append("Greška: " + e.getMessage() + "\n");
             }
         }
@@ -93,6 +103,7 @@ public class UnosSvecenikaController implements Serializable {
             try {
                 validateTitulaSvecenika(sifraSvecenika);
             } catch (PrekoracenjeBrojaZnakovaException e) {
+                logger.error("Krivi unos! Prekoračenje broja znakova", e);
                 errorMessages.append("Greška: " + e.getMessage() + "\n");
             }
         }
@@ -123,32 +134,12 @@ public class UnosSvecenikaController implements Serializable {
             Svecenik noviSvecenik= new SvecenikBuilder().setId(id).setSifra(sifraSvecenika).setIme(imeSvecenika).setPrezime(prezimeSvecenika).setTitula(titulaSvecenika).createSvecenik();
 
 
-            executorService.submit(() -> {
-                try {
-                    BazaPodataka.spremiSvecenika(noviSvecenik);
-                  //  recordPromjenaPriestAdded(noviSvecenik);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            });
-
-
-
-
-/*                                          SEMAFORI
 
                 try {
-                    SemaphoreManager.acquire();
-                    recordPromjenaPriestAdded(noviSvecenik);
                     BazaPodataka.spremiSvecenika(noviSvecenik);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
-                } finally {
-                    // Oslobodi dozvolu
-                    SemaphoreManager.release();
                 }
-*/
-
 
 
             imeSvecenikaTextField.clear();

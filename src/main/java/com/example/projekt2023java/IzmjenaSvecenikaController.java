@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 /**
@@ -28,13 +30,14 @@ public class IzmjenaSvecenikaController {
     private TextField titulaSvecenikaTextField;
     @FXML
     private ListView<String> odabirSvecenikaListView ;
-
+    private static final Logger logger = LoggerFactory.getLogger(IzmjenaSvecenikaController.class);
     /**
      * Metoda za ažuriranje podataka o svećeniku.
      *
      * @throws Exception Ako dođe do greške pri pristupu bazi podataka ili pri unosu podataka.
      */
     public void azurirajSvecenike() throws Exception {
+
         String imeSvecenika = imeSvecenikaTextField.getText();
         String prezimeSvecenika = prezimeSvecenikaTextField.getText();
 
@@ -56,6 +59,7 @@ public class IzmjenaSvecenikaController {
         } catch (TekstualniZapisException e) {
             imeSvecenika = "";
             prezimeSvecenika = "";
+            logger.error("Sadrži nedozvoljene znakove(brojeve)", e);
             displayAlert("Greška", e.getMessage());
         }
         for(Object o : selectedItems){
@@ -79,6 +83,7 @@ public class IzmjenaSvecenikaController {
                 sifra = sifraSvecenika;
             } catch (DuplikatSifreException e) {
                 sifra = "";
+                logger.error("Krivi unos! Dupla sifra, vec je registrirana u bazi!", e);
                 displayAlert("Greška", e.getMessage());
                 errorOccured = true;
             }

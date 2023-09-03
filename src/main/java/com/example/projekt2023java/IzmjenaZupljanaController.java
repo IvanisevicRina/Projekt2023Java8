@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class IzmjenaZupljanaController {
 
     @FXML
     private ListView<String> odabirZupljaninaListView ;
+    private static final Logger logger = LoggerFactory.getLogger(IzmjenaZupljanaController.class);
+
+
 
     /**
      * ažurira podataka o župljaninu.
@@ -75,8 +80,11 @@ public class IzmjenaZupljanaController {
         }else{
             try{
                 ovajZupljanin.provjeraSifre(sifraZupljanina);
+
+
                 sifra = sifraZupljanina;
             } catch (DuplikatSifreException e) {
+                logger.error("Krivi unos! Dupla sifra, vec je registrirana u bazi!", e);
                 sifra="";
                 displayAlert("Greška", e.getMessage());
                 errorOccured=true;

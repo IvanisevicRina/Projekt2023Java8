@@ -17,6 +17,8 @@ public class PregledGalerijaController {
     private ImageView imageView;
 
     private ResultSet resultSet;
+
+
     @FXML
     private Node izbornikInclude;
 

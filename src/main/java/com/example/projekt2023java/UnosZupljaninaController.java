@@ -68,9 +68,6 @@ public class UnosZupljaninaController {
         StringBuilder errorMessages = new StringBuilder();
 
 
-
-
-
         String imeZupljanina = imeZupljaninaTextField.getText();
         if(imeZupljanina.isEmpty()){
             errorMessages.append("Ime ne bi smjelo bit prazno!\n");
@@ -79,6 +76,7 @@ public class UnosZupljaninaController {
                 sadrziBrojeve(imeZupljanina);
                 validateImeZupljanina(imeZupljanina);
             } catch (TekstualniZapisException | PrekoracenjeBrojaZnakovaException e) {
+                logger.error("Krivi unos! Prekoračenje broja znakova ili Sadrži nedozvoljene znakove(brojeve)", e);
                 errorMessages.append("Greška " + e.getMessage() + "\n");
             }
         }
@@ -92,6 +90,7 @@ public class UnosZupljaninaController {
                 sadrziBrojeve(prezimeZupljanina);
                 validateImeZupljanina(prezimeZupljanina);
             } catch (TekstualniZapisException | PrekoracenjeBrojaZnakovaException e) {
+                logger.error("Krivi unos! Prekoračenje broja znakova ili Sadrži nedozvoljene znakove(brojeve)", e);
                 errorMessages.append("Greška " + e.getMessage()+ "\n");
             }
         }
@@ -106,7 +105,8 @@ public class UnosZupljaninaController {
             Zupljanin zupljanin = new ZupljaninBuilder().createZupljanin();
             zupljanin.provjeraSifre(sifraZupljanina);
         }catch(DuplikatSifreException e){
-            logger.error("Krivi unos!", e);
+            logger.error("Krivi unos! Dupla sifra, vec je registrirana u bazi!", e);
+
             errorMessages.append("Greška ").append(e.getMessage()).append("\n");
         }
 
