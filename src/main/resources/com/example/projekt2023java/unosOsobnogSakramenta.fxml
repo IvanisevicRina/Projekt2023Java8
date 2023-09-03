@@ -70,7 +70,7 @@
             </GridPane.margin>
         </ComboBox>
 
-        <TextField fx:id="vrijemeOdrzavanjaTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <TextField fx:id="vrijemeOdrzavanjaTextField" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
             </GridPane.margin>
@@ -96,6 +96,6 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Text>
-      <TextField fx:id="liturgijaTextField" prefHeight="25.0" prefWidth="288.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <TextField fx:id="liturgijaTextField" prefHeight="25.0" prefWidth="288.0" promptText="1(DOŠAŠĆE), 2(KORIZMA),...(OSTATAK)" GridPane.columnIndex="1" GridPane.rowIndex="7" />
     </children>
 </GridPane>

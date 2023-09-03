@@ -74,6 +74,7 @@ public class IzmjenaOsobnogSakramentaConteoller {
             } catch (NeispravanFormatVremenaException e) {
                 vrijeme = dateTimeString.substring(11);
                 displayAlert("Greška: ",e.getMessage());
+                errorOccured=true;
             }
 
         }
@@ -83,7 +84,7 @@ public class IzmjenaOsobnogSakramentaConteoller {
             datum=selectedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy."));
 
         }
-        if(selectedLiturgija.isEmpty()){
+        if(selectedLiturgija ==null){
             liturgija=ovajOsobniSakrament.getLiturgijskoRazdoblje().name();
 
         }else{
@@ -101,9 +102,11 @@ public class IzmjenaOsobnogSakramentaConteoller {
 
         LocalDateTime datumIVrijeme = LocalDateTime.parse(datumIVrijemeOsobnogSakramenta1, formatterDatumaIspita);
 
-        OsobniSakrament noviOsobniSakrament = new OsobniSakrament(ovajOsobniSakrament.getId(),ovajOsobniSakrament.getSakrament(),ovajOsobniSakrament.getZupljanin(),datumIVrijeme,new Crkva(lokacija),convertStringToEnum(liturgija));
+        if(!errorOccured) {
+            OsobniSakrament noviOsobniSakrament = new OsobniSakrament(ovajOsobniSakrament.getId(), ovajOsobniSakrament.getSakrament(), ovajOsobniSakrament.getZupljanin(), datumIVrijeme, new Crkva(lokacija), convertStringToEnum(liturgija));
 
-        BazaPodataka.azurirajOsobniSakrament(noviOsobniSakrament);
+            BazaPodataka.azurirajOsobniSakrament(noviOsobniSakrament);
+        }
 
 
     }
