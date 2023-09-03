@@ -252,4 +252,16 @@ public class Izbornik {
         HelloApplication.getMainStage().show();
     }
 
+    /**
+     * Prikazuje zaslon za izmjenu osobnog sakramenta.
+     *
+     * @throws IOException Ako se pojavi greška pri učitavanju FXML-a ili prikazu scene.
+     */
+    public void  showOsobniSakramentiUpdateScreen() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("izmjenaOsobnogSakramenta.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+        HelloApplication.getMainStage().setTitle("Izmjena:");
+        HelloApplication.getMainStage().setScene(scene);
+        HelloApplication.getMainStage().show();
+    }
 }

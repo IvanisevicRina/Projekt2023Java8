@@ -2,6 +2,7 @@ package com.example.projekt2023java;
 
 import baza.BazaPodataka;
 import entitet.Svecenik;
+import entitet.SvecenikBuilder;
 import iznimke.DuplikatSifreException;
 import iznimke.TekstualniZapisException;
 import javafx.collections.FXCollections;
@@ -40,7 +41,7 @@ public class IzmjenaSvecenikaController {
         String sifraSvecenika= sifraSvecenikaTextField.getText();
         String titulaSvecenika = titulaSvecenikaTextField.getText();
         List<Svecenik> sviSvecenici = BazaPodataka.dohvatiSveSvecenike();
-        Svecenik ovajSvecenik = null;
+        Svecenik ovajSvecenik = new SvecenikBuilder().createSvecenik();
         ObservableList<String> selectedItems = odabirSvecenikaListView.getSelectionModel().getSelectedItems();
         Boolean errorOccured = false;
         if (selectedItems.isEmpty()) {
@@ -61,6 +62,7 @@ public class IzmjenaSvecenikaController {
             for (Svecenik svecenik:sviSvecenici) {
                 if(o.equals(svecenik.getSifra() + "-----"+svecenik.getIme() + " " +svecenik.getPrezime())){
                     ovajSvecenik = svecenik;}}}
+
         String ime,prezime,sifra,titula;
         if(imeSvecenika.isEmpty()){
             ime = ovajSvecenik.getIme();

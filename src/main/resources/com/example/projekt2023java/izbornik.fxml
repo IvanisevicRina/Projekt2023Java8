@@ -47,6 +47,9 @@
 
             <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiDeleteScreen" text="Brisanje"/>
 
+            <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiUpdateScreen" text="Azuriraj"/>
+
+
         </Menu>
         <Menu mnemonicParsing="false" text="Galerija">
             <MenuItem mnemonicParsing="false" onAction="#showGalerijaScreen" text="Prikaz"/>

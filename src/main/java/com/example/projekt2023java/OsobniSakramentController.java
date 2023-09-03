@@ -74,7 +74,7 @@ public class OsobniSakramentController {
 
     private List<OsobniSakrament> osobniSakramentiList;
 
-
+    private static final long serialVersionUID = 5396125547749070789L;
     //ona se poziva kad dodjemo na ekran, znaci prije svega
     public void initialize(){
 
