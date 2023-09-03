@@ -50,6 +50,9 @@ public class RegistracijaController {
             return;
         }
         if ("Svecenik".equals(selectedRole)) {
+
+            svecenikPasswordField.setVisible(true);
+
             String svecenikPassword = svecenikPasswordField.getText();
             if (!"13579".equals(svecenikPassword)) {
                 prikaziPoruku("Unesite ispravan password za Svecenik ulogu.", Alert.AlertType.ERROR);
@@ -71,7 +74,19 @@ public class RegistracijaController {
         }
     }
 
+    @FXML
+    private void initialize() {
+        svecenikPasswordField.setVisible(false);
 
+        // Add an event listener to the roleChoiceBox
+        roleChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if ("Svecenik".equals(newValue)) {
+                svecenikPasswordField.setVisible(true);
+            } else {
+                svecenikPasswordField.setVisible(false);
+            }
+        });
+    }
 
     private boolean korisnickoImeExists(String korisnickoIme) {
         try (BufferedReader citac = new BufferedReader(new FileReader("dat/lozinke.txt"))) {

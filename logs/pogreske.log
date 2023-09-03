@@ -65,3 +65,5 @@
 2023-09-03 15:16:45,241 INFO [JavaFX Application Thread] c.e.p.UnosZupljaninaController [UnosZupljaninaController.java:108] unesena sifra:Ž1011
 2023-09-03 15:26:48,376 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
 2023-09-03 15:37:48,890 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 15:44:19,015 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-03 15:47:54,438 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication

@@ -6,17 +6,16 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.RegistracijaController">
    <children>
-      <TextField fx:id="korisnickoImeTextField" layoutX="151.0" layoutY="80.0" />
-      <PasswordField fx:id="lozinkaPasswordField" layoutX="152.0" layoutY="122.0" />
-      <Button layoutX="361.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleRegistracija" text="Registriraj" />
-      <Button layoutX="568.0" layoutY="110.0" mnemonicParsing="false" onAction="#prebaciNaEkranPrijave" text="Vrati me na LOGIN" />
-      <PasswordField fx:id="svecenikPasswordField" layoutX="315.0" layoutY="206.0" promptText="ZAPORKA" />
-      <ChoiceBox fx:id="roleChoiceBox" layoutX="314.0" layoutY="165.0" prefWidth="150.0">
+      <TextField fx:id="korisnickoImeTextField" layoutX="526.0" layoutY="206.0" />
+      <PasswordField fx:id="lozinkaPasswordField" layoutX="526.0" layoutY="275.0" />
+      <Button layoutX="846.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleRegistracija" text="Registriraj" />
+      <Button layoutX="542.0" layoutY="80.0" mnemonicParsing="false" onAction="#prebaciNaEkranPrijave" text="Vrati me na LOGIN" />
+      <PasswordField fx:id="svecenikPasswordField" layoutX="697.0" layoutY="335.0" promptText="ZAPORKA" />
+      <ChoiceBox fx:id="roleChoiceBox" layoutX="525.0" layoutY="335.0" prefWidth="150.0">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="Svecenik" />

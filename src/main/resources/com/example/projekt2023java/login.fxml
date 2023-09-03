@@ -8,11 +8,11 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.LoginController">
    <children>
-      <PasswordField fx:id="lozinkaPasswordField" layoutX="636.0" layoutY="223.0" />
-      <TextField fx:id="korisnickoImeTextField" layoutX="636.0" layoutY="179.0" />
-      <Text layoutX="508.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Korisničko ime" />
-      <Text layoutX="547.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lozinka" />
-      <Button layoutX="850.0" layoutY="199.0" mnemonicParsing="false" onAction="#handlePrijava" text="Prijava" />
-      <Button layoutX="999.0" layoutY="412.0" mnemonicParsing="false" onAction="#registracija" text="Registracija" />
+      <PasswordField fx:id="lozinkaPasswordField" layoutX="526.0" layoutY="316.0" />
+      <TextField fx:id="korisnickoImeTextField" layoutX="526.0" layoutY="244.0" />
+      <Text layoutX="418.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Korisničko ime" />
+      <Text layoutX="455.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lozinka" />
+      <Button layoutX="722.0" layoutY="375.0" mnemonicParsing="false" onAction="#handlePrijava" text="Prijava" />
+      <Button layoutX="562.0" layoutY="65.0" mnemonicParsing="false" onAction="#registracija" text="Registracija" />
    </children>
 </AnchorPane>
