@@ -12,9 +12,9 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.BrisanjeSakramentaZupljaninaController">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="395.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="671.0" minWidth="10.0" prefWidth="382.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="457.0" minWidth="10.0" prefWidth="423.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -26,28 +26,38 @@
     </rowConstraints>
     <children>
         <fx:include source="izbornik.fxml" />
-        <Label text="BRISANJE sakramenta župljanina" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label text="BRISANJE SAKRAMENTA ŽUPLJANINA" textAlignment="CENTER" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
             <font>
-                <Font size="18.0" />
+                <Font name="Monotype Corsiva" size="39.0" />
             </font>
         </Label>
-        <Label text="Odaberite župljane za brisanje :" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-         <GridPane.margin>
-            <Insets right="10.0" />
-         </GridPane.margin></Label>
-        <Button mnemonicParsing="false" onAction="#odspojiZupljaninaOdSakramenta" text="OBRIŠI" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-      <ComboBox fx:id="odabirSakramentaComboBox" onAction="#initialize" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <Button mnemonicParsing="false" onAction="#odspojiZupljaninaOdSakramenta" text="OBRIŠI" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+         <font>
+            <Font name="Cascadia Mono Regular" size="12.0" />
+         </font></Button>
+      <ComboBox fx:id="odabirSakramentaComboBox" onAction="#initialize" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin></ComboBox>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sakrament :" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sakrament :" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+         <font>
+            <Font name="Cascadia Mono Regular" size="12.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="odabirZupljaninaComboBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></ComboBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Župljanin :" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <font>
+            <Font name="Cascadia Mono Regular" size="12.0" />
+         </font>
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
       </Text>
-      <ComboBox fx:id="odabirZupljaninaComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin></ComboBox>
     </children>
 </GridPane>
