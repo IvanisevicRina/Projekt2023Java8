@@ -3,11 +3,13 @@ package entitet;
 import java.io.Serializable;
 import java.util.Set;
 
-public final class Sakrament extends Entitet implements Serializable {
+public class Sakrament extends Entitet implements Serializable {
 
     private String sifra;
     private String naziv;
     private Set<Zupljanin> zupljani;
+
+    private static final long serialVersionUID = 7259607473434795722L;
 
 
 

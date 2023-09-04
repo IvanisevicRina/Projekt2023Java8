@@ -150,7 +150,7 @@ public class IzmjenaOsobnogSakramentaConteoller {
             throw new NeispravanFormatVremenaException("Neispravan format vremena. Očekivani format: HH:mm");
         }
     }
-    public void initialize(){
+    public void initialize() throws Exception {
         List<OsobniSakrament> listaOsobnihSakramenata= BazaPodataka.dohvatiSveOsobneSakramente();
         List<String> osobniSakramentiList = listaOsobnihSakramenata.stream().map(p -> p.getId()+ "-----"+ p.getSakrament().getNaziv() + " " + p.getZupljanin().getIme() + " " + p.getZupljanin().getPrezime()).toList();
         odabirOsobnogSakramentaListView.setItems(FXCollections.observableList(osobniSakramentiList));

@@ -706,3 +706,6 @@ iznimke.TekstualniZapisException: TekstualniZapisException: Tekst ne smije sadr≈
 	at javafx.graphics@19/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
 	at javafx.graphics@19/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
 	at java.base/java.lang.Thread.run(Thread.java:1589)
+2023-09-04 23:18:57,704 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-04 23:44:25,577 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication
+2023-09-04 23:45:40,707 INFO [main] c.e.p.HelloApplication [HelloApplication.java:54] Exampe log from HelloApplication

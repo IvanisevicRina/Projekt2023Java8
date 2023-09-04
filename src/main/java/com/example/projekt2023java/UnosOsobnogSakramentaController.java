@@ -160,7 +160,7 @@ public class UnosOsobnogSakramentaController {
 
     }
 
-    public void initialize(){
+    public void initialize() throws Exception {
 
         List<Sakrament> sakramenti = BazaPodataka.dohvatiSveSakramente();
         List<String> sakramentiList = sakramenti.stream().map(p->p.getNaziv()).toList();

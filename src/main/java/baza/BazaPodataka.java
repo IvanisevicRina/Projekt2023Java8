@@ -5,10 +5,7 @@ import entitet.*;
 import niti.NotificationManager;
 import niti.WriteAChangeThread;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.security.spec.ECField;
 import java.sql.*;
 import java.sql.Date;
@@ -704,12 +701,16 @@ public class BazaPodataka {
     }
 
     public static void spremiOsobniSakrament(OsobniSakrament osobniSakrament) throws Exception {
-        Connection con = connectToDatabase();
+        try {
+            Connection con = connectToDatabase();
 
+            if (con != null) {
+                System.out.println("Uspješno smo se spojili na bazu!");
+            }
         PreparedStatement pstmt = con.prepareStatement("INSERT INTO OSOBNI_SAKRAMENT(SAKRAMENT_ID, ZUPLJANIN_ID, DATUM_I_VRIJEME,LITURGIJA,CRKVA) VALUES(?,?,?,?,?)");
         pstmt.setInt(1, osobniSakrament.getSakrament().getId().intValue());
         pstmt.setInt(2, osobniSakrament.getZupljanin().getId().intValue());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddHH:mm:ss.SS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         osobniSakrament.getDatumIVrijeme().format(formatter);
         pstmt.setTimestamp(3, Timestamp.valueOf(osobniSakrament.getDatumIVrijeme()));
         pstmt.setString(4, osobniSakrament.getLiturgijskoRazdoblje().toString());
@@ -720,8 +721,7 @@ public class BazaPodataka {
         String promjenaRola = getUserKorisnickoIme() + " - " + getUserRole();
         LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
 
-        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter1);
+        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
 
         Promjene<String, OsobniSakrament> novaPromjena = new Promjene<>(
                 null, osobniSakrament.toString(), osobniSakrament,
@@ -729,8 +729,12 @@ public class BazaPodataka {
         );
 
         writeChangeToBinaryFile(novaPromjena);
-
         con.close();
+
+    } catch (Exception e) {
+        System.out.println("Došlo je do pogreške kod spajanja na bazu podataka!");
+        e.printStackTrace();
+    }
     }
 
     public static void obrisiOsobniSakrament(Integer osobniSakramentId) throws Exception {
@@ -746,7 +750,7 @@ public class BazaPodataka {
     }
 
 
-    public static List<OsobniSakrament> dohvatiSveOsobneSakramente() {
+    public static List<OsobniSakrament> dohvatiSveOsobneSakramente() throws Exception{
         List<OsobniSakrament> listaOsobnihSakramenata = new ArrayList<>();
         try {
             Connection con = connectToDatabase();
@@ -791,6 +795,79 @@ public class BazaPodataka {
         return listaOsobnihSakramenata;
     }
 
+
+    public static void spremiSliku(String nazivSlike, byte[] slikaBytes) throws Exception{
+        try {
+            Connection con = connectToDatabase();
+            if (con != null) {
+                System.out.println("Uspješno smo se spojili na bazu!");
+            }
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO Slike (naziv, slika) VALUES (?, ?)");
+            pstmt.setString(1,nazivSlike);
+            pstmt.setBytes(2, slikaBytes);
+            pstmt.executeUpdate();
+
+            con.close();
+
+        }catch (Exception ex) {
+            System.out.println("Došlo je do pogreške kod spajanja na bazu podataka!");
+            ex.printStackTrace();
+
+        }
+    }
+    public static void spremiSlikuZupljanina(Integer zupljanin_id, String nazivSlike, byte[] slikaBytes) throws Exception{
+        try {
+            Connection con = connectToDatabase();
+            if (con != null) {
+                System.out.println("Uspješno smo se spojili na bazu!");
+            }
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO ZupljaninSlike (zupljanin_id, naziv, slika) VALUES (?, ?, ?)");
+
+            pstmt.setInt(1,zupljanin_id);
+            pstmt.setString(2,nazivSlike);
+            pstmt.setBytes(3, slikaBytes);
+
+            pstmt.executeUpdate();
+
+            con.close();
+        }catch (Exception ex) {
+            System.out.println("Došlo je do pogreške kod spajanja na bazu podataka!");
+            ex.printStackTrace();
+
+        }
+    }
+    public static void azurirajZupljanineSlike(Zupljanin zupljanin) {
+        try  {
+            Connection con = connectToDatabase();
+            if (con != null) {
+                System.out.println("Uspješno smo se spojili na bazu!");
+            }
+
+            PreparedStatement statement = con.prepareStatement("UPDATE Zupljanin SET slike = ? WHERE id = ?");
+
+            // Pretvorba liste slika u byte[] i postavljanje parametara
+            byte[] slikeBytes = pretvoriListuSlikaUByteArray(zupljanin.getSlike());
+            statement.setBytes(1, slikeBytes);
+            statement.setLong(2, zupljanin.getId());
+
+            statement.executeUpdate();
+            statement.close();
+            con.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static byte[] pretvoriListuSlikaUByteArray(List<Slike> slike) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(slike);
+            oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bos.toByteArray();
+    }
     public static LiturgijskoRazdoblje convertStringToEnum(String input) {
         for (LiturgijskoRazdoblje razdoblje : LiturgijskoRazdoblje.values()) {
             if (razdoblje.name().equals(input)) {
@@ -822,6 +899,8 @@ public class BazaPodataka {
         con.close();
 
     }
+
+
 
 
 

@@ -43,22 +43,12 @@ public class UnosGalerijaController {
 
     public void spremiSliku() {
         if (odabranaSlikaFile != null) {
-            List<Slike> slikeList = new ArrayList<>();
             try {
                 byte[] slikaBytes = ucitajSlikuBytes(odabranaSlikaFile);
 
-                Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/java-tvz-2023-PROJEKT", "student", "student");
-                String query = "INSERT INTO Slike (naziv, slika) VALUES (?, ?)";
-                PreparedStatement statement = connection.prepareStatement(query);
-                statement.setString(1, nazivSlikeField.getText());
-                statement.setBytes(2, slikaBytes);
-                statement.executeUpdate();
+                BazaPodataka.spremiSliku(nazivSlikeField.getText(), slikaBytes);
 
                 Slike slika = new Slike(nazivSlikeField.getText(), slikaBytes);
-                slikeList.add(slika);
-
-
-
 
                 List<Zupljanin> sviZupljani = BazaPodataka.dohvatiSveZupljane();
 
@@ -76,25 +66,17 @@ public class UnosGalerijaController {
                                 slike_zupljanina.add(slika);
                             }
 
-                            String query2 = "INSERT INTO ZupljaninSlike (zupljanin_id, naziv, slika) VALUES (?, ?, ?)";
-                            PreparedStatement statement2 = connection.prepareStatement(query2);
+                            BazaPodataka.spremiSlikuZupljanina(zupljanin.getId().intValue(),nazivSlikeField.getText(),slikaBytes);
 
-                            statement2.setLong(1, zupljanin.getId());  // zupljanin_id
-                            statement2.setString(2, nazivSlikeField.getText());  // naziv
-                            statement2.setBytes(3, slikaBytes);  // slika
-
-                            statement2.executeUpdate();
                             zupljanin.setSlike(slike_zupljanina);
-                            azurirajZupljanineSlike(zupljanin);
+
+                            BazaPodataka.azurirajZupljanineSlike(zupljanin);
 
                         }
                     }
                 }
 
-                statement.close();
-                connection.close();
 
-                // Ovdje možete dodati potvrdu spremanja ili prikaz poruke o uspješnom unosu
                 System.out.println("Slika je uspješno spremljena.");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -108,36 +90,12 @@ public class UnosGalerijaController {
                 alert.setTitle("Spremanje slike NEUSPJELO");
                 alert.setHeaderText("Neuspješno dodana slika");
                 alert.showAndWait();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
     }
-    public void azurirajZupljanineSlike(Zupljanin zupljanin) {
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/java-tvz-2023-PROJEKT", "student", "student")) {
-            String query = "UPDATE Zupljanin SET slike = ? WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
 
-            // Pretvorba liste slika u byte[] i postavljanje parametara
-            byte[] slikeBytes = pretvoriListuSlikaUByteArray(zupljanin.getSlike());
-            statement.setBytes(1, slikeBytes);
-            statement.setLong(2, zupljanin.getId());
-
-            statement.executeUpdate();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public byte[] pretvoriListuSlikaUByteArray(List<Slike> slike) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(slike);
-            oos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bos.toByteArray();
-    }
 
     private byte[] ucitajSlikuBytes(File slikaFile) throws IOException {
         try (FileInputStream fileInputStream = new FileInputStream(slikaFile)) {

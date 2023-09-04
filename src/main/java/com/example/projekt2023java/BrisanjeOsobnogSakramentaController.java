@@ -61,7 +61,7 @@ public class BrisanjeOsobnogSakramentaController {
 
     }
 
-    public void initialize(){
+    public void initialize() throws Exception {
         List<OsobniSakrament> listaOsobnihSakramenata = BazaPodataka.dohvatiSveOsobneSakramente();
         List<String> osobniSakramentiList = listaOsobnihSakramenata.stream().map(p -> p.getId()+ "-----"+ p.getSakrament().getNaziv() + " " + p.getZupljanin().getIme() + " " + p.getZupljanin().getPrezime()).toList();
         odabirOsobnogSakramentaListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

@@ -76,7 +76,7 @@ public class OsobniSakramentController {
 
     private static final long serialVersionUID = 5396125547749070789L;
     //ona se poziva kad dodjemo na ekran, znaci prije svega
-    public void initialize(){
+    public void initialize() throws Exception {
 
          osobniSakramentiList= BazaPodataka.dohvatiSveOsobneSakramente();
 
