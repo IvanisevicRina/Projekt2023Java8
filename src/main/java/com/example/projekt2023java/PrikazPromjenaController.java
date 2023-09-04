@@ -104,35 +104,6 @@ public class PrikazPromjenaController   {
             refreshTimeline.play();
 
 
-            Thread changesWaitThread = new Thread(() -> {
-                synchronized (this) {
-                    try {
-
-                        while (true) {
-                            System.out.println(ANSI_BLUE +"CHANGESWAIT THREAD OVDJE vama na usluzi");
-                            NotificationManager.getInstance().waitForNotification();
-                            Thread.sleep(5000); // Adjust the sleep duration as needed
-
-                            Platform.runLater(() -> {
-                                try {
-                                    System.out.println(ANSI_PURPLE +"I have been notify! Promjena obrađena, Sada cu refreshati tablicu sadrzaja promjena");
-                                    refreshTableContent();
-                                    Thread.sleep(1000);
-                                    System.out.println("jesam");
-                                } catch (Exception e) {
-                                    e.printStackTrace(); // Print the exception for debugging
-
-                                }
-                            });
-
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            });
-            changesWaitThread.start();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -174,7 +145,31 @@ public class PrikazPromjenaController   {
         addChangesWaitThread(20000, "Drago", "Drugić");
         addChangesWaitThread2(30000, "Pavao", "Prvić");
         addChangesWaitThread2(40000, "Drago", "Drugić");
+        Thread changesWaitThread = new Thread(() -> {
+            synchronized (this) {
+                try {
+                    while (true) {
+                        System.out.println(ANSI_BLUE +"CHANGESWAIT THREAD OVDJE vama na usluzi");
+                        NotificationManager.getInstance().waitForNotification();
+                        Thread.sleep(5000); // Adjust the sleep duration as needed
 
+                        Platform.runLater(() -> {
+                            try {
+                                System.out.println(ANSI_PURPLE +"I have been notify! Promjena obrađena, Sada cu refreshati tablicu sadrzaja promjena");
+                                refreshTableContent();
+                                Thread.sleep(1000);
+                                System.out.println("jesam");
+                            } catch (Exception e) {
+                                e.printStackTrace(); // Print the exception for debugging
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        changesWaitThread.start();
 
     }
 

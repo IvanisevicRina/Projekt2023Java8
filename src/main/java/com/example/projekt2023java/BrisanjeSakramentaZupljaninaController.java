@@ -7,6 +7,7 @@ import entitet.Zupljanin;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 
 import java.util.*;
@@ -30,7 +31,7 @@ public class BrisanjeSakramentaZupljaninaController {
             errorMessages.append("Morate odabrati sakrament!\n");
         }
         if(odabirZupljaninaComboBox.getValue()== null){
-            errorMessages.append("Morate odabrati zupljanina!\n");
+            errorMessages.append("Morate odabrati župljanina!\n");
         }
         if(errorMessages.isEmpty()) {
         List<Sakrament> sviSakramenti=BazaPodataka.dohvatiSveSakramente();
@@ -50,12 +51,31 @@ public class BrisanjeSakramentaZupljaninaController {
                 ovajZupljanin = zupljanin;
             }
         }
-        BazaPodataka.odspojiZupljaninaOdSakramenta(ovajSakrament.getId().intValue(), ovajZupljanin.getId().intValue());
+            // Prikaži dijalog za potvrdu brisanja
+            Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            potvrdaAlert.setTitle("Potvrda brisanja");
+            potvrdaAlert.setHeaderText("Jeste li sigurni da želite izbrisati sakrament"+ ovajSakrament.getNaziv()+" za župljanina?"+ ovajZupljanin.getIme() + " " + ovajZupljanin.getPrezime());
+
+            // Dodaj gumb "Da" i gumb "Ne"
+            ButtonType daButton = new ButtonType("Da");
+            ButtonType neButton = new ButtonType("Ne");
+
+            potvrdaAlert.getButtonTypes().setAll(daButton, neButton);
+
+            Optional<ButtonType> rezultat = potvrdaAlert.showAndWait();
+
+            if (rezultat.isPresent() && rezultat.get() == daButton) {
+                BazaPodataka.odspojiZupljaninaOdSakramenta(ovajSakrament.getId().intValue(), ovajZupljanin.getId().intValue());
+                Alert uspjehAlert = new Alert(Alert.AlertType.INFORMATION);
+                uspjehAlert.setTitle("Brisanje sakramenta župljanina");
+                uspjehAlert.setHeaderText("Uspješno obrisan sakrament župljanina");
+                uspjehAlert.showAndWait();
+            }
 
         }else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Spremanje osobnog sakramenta NEUSPJELO");
-            alert.setHeaderText("Neuspješno dodan novi osobni sakrament");
+            alert.setTitle("Brisanje župljaninova sakramenta NEUSPJELO");
+            alert.setHeaderText("Neuspješno obrisan sakrament župljanina");
             alert.setContentText(errorMessages.toString());
             alert.showAndWait();
         }

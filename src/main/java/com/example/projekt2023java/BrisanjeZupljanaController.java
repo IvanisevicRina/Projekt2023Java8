@@ -5,13 +5,11 @@ import entitet.Zupljanin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Služi za brisanje zupljanina
@@ -50,17 +48,32 @@ public class BrisanjeZupljanaController {
                 }
             }
         }
-        for (Zupljanin zupljanin:oviZupljani) {
-            BazaPodataka.obrisiZupljanina(zupljanin.getId().intValue());
+
+        // Prikaži dijalog za potvrdu brisanja
+        Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        potvrdaAlert.setTitle("Potvrda brisanja");
+        potvrdaAlert.setHeaderText("Jeste li sigurni da želite obrisati župljanina?");
+
+        // Dodaj gumb "Da" i gumb "Ne"
+        ButtonType daButton = new ButtonType("Da");
+        ButtonType neButton = new ButtonType("Ne");
+
+        potvrdaAlert.getButtonTypes().setAll(daButton, neButton);
+
+        Optional<ButtonType> rezultat = potvrdaAlert.showAndWait();
+
+        if (rezultat.isPresent() && rezultat.get() == daButton) {
+            for (Zupljanin zupljanin : oviZupljani) {
+                BazaPodataka.obrisiZupljanina(zupljanin.getId().intValue());
+            }
+
+            initialize();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Brisanje zupljanina");
+            alert.setHeaderText("Uspješno obrisan zupljanin");
+            alert.showAndWait();
         }
-
-        initialize();
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Brisanje zupljanina");
-        alert.setHeaderText("Uspješno obrisan zupljanin");
-        alert.showAndWait();
-
     }
 
     /**

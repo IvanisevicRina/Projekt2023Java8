@@ -6,11 +6,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Služi za brisanjeSvečenika
@@ -34,16 +36,35 @@ public class BrisanjeSvecenikaController {
                 }
             }
         }
-        for (Svecenik svecenik:oviSvecenici) {
-            BazaPodataka.obrisiSvecenika(svecenik.getId().intValue());
-        }
-        initialize();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Brisanje svecenika");
-        alert.setHeaderText("Uspješno obrisan svecenik");
-        alert.showAndWait();
 
+        // Prikaži dijalog za potvrdu brisanja
+        Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        potvrdaAlert.setTitle("Potvrda brisanja");
+        potvrdaAlert.setHeaderText("Jeste li sigurni da želite obrisati označene svećenike?");
+
+        // Dodaj gumb "Da" i gumb "Ne"
+        ButtonType daButton = new ButtonType("Da");
+        ButtonType neButton = new ButtonType("Ne");
+
+        potvrdaAlert.getButtonTypes().setAll(daButton, neButton);
+
+        Optional<ButtonType> rezultat = potvrdaAlert.showAndWait();
+
+        if (rezultat.isPresent() && rezultat.get() == daButton) {
+            // Korisnik je odabrao "Da", obriši svećenike
+            for (Svecenik svecenik : oviSvecenici) {
+                BazaPodataka.obrisiSvecenika(svecenik.getId().intValue());
+            }
+
+            initialize();
+            Alert uspjehAlert = new Alert(Alert.AlertType.INFORMATION);
+            uspjehAlert.setTitle("Brisanje svećenika");
+            uspjehAlert.setHeaderText("Uspješno obrisan svećenik");
+            uspjehAlert.showAndWait();
+        }
     }
+
+
     /**
      * Inicijalizira kontroler i priprema početni prikaz.
      */

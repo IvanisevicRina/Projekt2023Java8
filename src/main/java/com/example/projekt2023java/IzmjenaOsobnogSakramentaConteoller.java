@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 public class IzmjenaOsobnogSakramentaConteoller {
 
@@ -108,10 +109,34 @@ public class IzmjenaOsobnogSakramentaConteoller {
 
         LocalDateTime datumIVrijeme = LocalDateTime.parse(datumIVrijemeOsobnogSakramenta1, formatterDatumaIspita);
 
-        if(!errorOccured) {
-            OsobniSakrament noviOsobniSakrament = new OsobniSakrament(ovajOsobniSakrament.getId(), ovajOsobniSakrament.getSakrament(), ovajOsobniSakrament.getZupljanin(), datumIVrijeme, new Crkva(lokacija), convertStringToEnum(liturgija));
 
-            BazaPodataka.azurirajOsobniSakrament(noviOsobniSakrament);
+
+        if(!errorOccured) {
+            // Prikaži dijalog za potvrdu brisanja
+            Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            potvrdaAlert.setTitle("Potvrda izmjene");
+            potvrdaAlert.setHeaderText("Jeste li sigurni da želite izmjeniti podatke za osobni sakrament?");
+
+            // Dodaj gumb "Da" i gumb "Ne"
+            ButtonType daButton = new ButtonType("Da");
+            ButtonType neButton = new ButtonType("Ne");
+
+            potvrdaAlert.getButtonTypes().setAll(daButton, neButton);
+
+            Optional<ButtonType> rezultat = potvrdaAlert.showAndWait();
+
+            if (rezultat.isPresent() && rezultat.get() == daButton) {
+
+                OsobniSakrament noviOsobniSakrament = new OsobniSakrament(ovajOsobniSakrament.getId(), ovajOsobniSakrament.getSakrament(), ovajOsobniSakrament.getZupljanin(), datumIVrijeme, new Crkva(lokacija), convertStringToEnum(liturgija));
+
+                BazaPodataka.azurirajOsobniSakrament(noviOsobniSakrament);
+                initialize();
+                Alert uspjehAlert = new Alert(Alert.AlertType.INFORMATION);
+                uspjehAlert.setTitle("Izmjena osobnog sakramenta");
+                uspjehAlert.setHeaderText("Uspješno izmjenjen osobni sakrament");
+                uspjehAlert.showAndWait();
+            }
+
         }
 
 

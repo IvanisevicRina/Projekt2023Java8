@@ -10,15 +10,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
- *  ekran izmjene župljana.
+ * ekran izmjene župljana.
  */
 public class IzmjenaZupljanaController {
     @FXML
@@ -29,9 +31,8 @@ public class IzmjenaZupljanaController {
     private TextField prezimeZupljaninaTextField;
 
     @FXML
-    private ListView<String> odabirZupljaninaListView ;
+    private ListView<String> odabirZupljaninaListView;
     private static final Logger logger = LoggerFactory.getLogger(IzmjenaZupljanaController.class);
-
 
 
     /**
@@ -40,9 +41,9 @@ public class IzmjenaZupljanaController {
      * @throws Exception baca se ko dođe do greške pri pristupu bazi podataka ili pri unosu podataka.
      */
     public void azurirajZupljane() throws Exception {
-        String imeZupljana= imeZupljaninaTextField.getText();
+        String imeZupljana = imeZupljaninaTextField.getText();
         String prezimeZupljanina = prezimeZupljaninaTextField.getText();
-        String sifraZupljanina= sifraZupljaninaTextField.getText();
+        String sifraZupljanina = sifraZupljaninaTextField.getText();
         List<Zupljanin> sviZupljani = BazaPodataka.dohvatiSveZupljane();
         Zupljanin ovajZupljanin = new ZupljaninBuilder().createZupljanin();
         ObservableList<String> selectedItems = odabirZupljaninaListView.getSelectionModel().getSelectedItems();
@@ -60,54 +61,84 @@ public class IzmjenaZupljanaController {
         } catch (TekstualniZapisException e) {
             imeZupljana = "";
             prezimeZupljanina = "";
-            errorOccured=true;
+            errorOccured = true;
             displayAlert("Greška", e.getMessage());
         }
-        for(Object o : selectedItems){
-            for (Zupljanin zupljanin:sviZupljani) {
-                if(o.equals(zupljanin.getSifra() + "-----"+zupljanin.getIme() + " " +zupljanin.getPrezime())){
-                    ovajZupljanin = zupljanin;}}}
-        String ime,prezime,sifra;
-        if(imeZupljana.isEmpty()){
+        for (Object o : selectedItems) {
+            for (Zupljanin zupljanin : sviZupljani) {
+                if (o.equals(zupljanin.getSifra() + "-----" + zupljanin.getIme() + " " + zupljanin.getPrezime())) {
+                    ovajZupljanin = zupljanin;
+                }
+            }
+        }
+        String ime, prezime, sifra;
+        if (imeZupljana.isEmpty()) {
             ime = ovajZupljanin.getIme();
-        }else{
-            ime = imeZupljana;}
-        if(prezimeZupljanina.isEmpty()){
+        } else {
+            ime = imeZupljana;
+        }
+        if (prezimeZupljanina.isEmpty()) {
             prezime = ovajZupljanin.getPrezime();
-        }else{prezime = prezimeZupljanina;}
-        if(sifraZupljanina.isEmpty()){
+        } else {
+            prezime = prezimeZupljanina;
+        }
+        if (sifraZupljanina.isEmpty()) {
             sifra = ovajZupljanin.getSifra();
-        }else{
-            try{
+        } else {
+            try {
                 ovajZupljanin.provjeraSifre(sifraZupljanina);
 
 
                 sifra = sifraZupljanina;
             } catch (DuplikatSifreException e) {
                 logger.error("Krivi unos! Dupla sifra, vec je registrirana u bazi!", e);
-                sifra="";
+                sifra = "";
                 displayAlert("Greška", e.getMessage());
-                errorOccured=true;
+                errorOccured = true;
             }
-          }
+        }
 
 
-        if(!errorOccured) {
-            Zupljanin noviZupljanin = new ZupljaninBuilder().id(ovajZupljanin.getId()).ime(ime).prezime(prezime).sifra(sifra).datumRodjenja(ovajZupljanin.getDatumRodjenja()).createZupljanin();
+        if (!errorOccured) {
 
-            BazaPodataka.azurirajZupljane(noviZupljanin);
+            // Prikaži dijalog za potvrdu brisanja
+            Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            potvrdaAlert.setTitle("Potvrda izmjene");
+            potvrdaAlert.setHeaderText("Jeste li sigurni da želite izmjenit podatke župljana?");
+
+            // Dodaj gumb "Da" i gumb "Ne"
+            ButtonType daButton = new ButtonType("Da");
+            ButtonType neButton = new ButtonType("Ne");
+
+            potvrdaAlert.getButtonTypes().setAll(daButton, neButton);
+
+            Optional<ButtonType> rezultat = potvrdaAlert.showAndWait();
+
+            if (rezultat.isPresent() && rezultat.get() == daButton) {
+
+                Zupljanin noviZupljanin = new ZupljaninBuilder().id(ovajZupljanin.getId()).ime(ime).prezime(prezime).sifra(sifra).datumRodjenja(ovajZupljanin.getDatumRodjenja()).createZupljanin();
+
+                BazaPodataka.azurirajZupljane(noviZupljanin);
+
+                Alert uspjehAlert = new Alert(Alert.AlertType.INFORMATION);
+                uspjehAlert.setTitle("Izmjena župljanina");
+                uspjehAlert.setHeaderText("Uspješno izmjenjeni podaci župljanina");
+                uspjehAlert.showAndWait();
+            }
         }
         initialize();
     }
+
     /**
      * služi za inicijalizaciju ekrana.
      */
-    public void initialize(){
-        List<Zupljanin> listaZupljana= BazaPodataka.dohvatiSveZupljane();
-        List<String> zupljaniList = listaZupljana.stream().map(p -> p.getSifra() + "-----"+p.getIme() + " " + p.getPrezime()).toList();
+    public void initialize() {
+        List<Zupljanin> listaZupljana = BazaPodataka.dohvatiSveZupljane();
+        List<String> zupljaniList = listaZupljana.stream().map(p -> p.getSifra() + "-----" + p.getIme() + " " + p.getPrezime()).toList();
         odabirZupljaninaListView.setItems(FXCollections.observableList(zupljaniList));
 
     }
+
     /**
      * Metoda za provjeru da li tekst sadrži brojeve.
      *
@@ -121,6 +152,7 @@ public class IzmjenaZupljanaController {
             }
         }
     }
+
     /**
      * Metoda za prikazivanje upozorenja (Alert) korisniku.
      *

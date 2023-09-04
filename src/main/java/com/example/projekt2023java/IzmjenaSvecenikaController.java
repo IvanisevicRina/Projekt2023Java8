@@ -9,12 +9,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
+
 /**
  *  ekran izmjene svećenika.
  */
@@ -92,9 +95,31 @@ public class IzmjenaSvecenikaController {
             titula = ovajSvecenik.getTitula();
         }else{titula = titulaSvecenika;}
         if(!errorOccured) {
-            Svecenik noviSvecenik = new Svecenik(ovajSvecenik.getId(), ime, prezime, sifra, titula, ovajSvecenik.getDatumRodjenja());
 
-            BazaPodataka.azurirajSvecenika(noviSvecenik);
+            // Prikaži dijalog za potvrdu brisanja
+            Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            potvrdaAlert.setTitle("Potvrda izmjene");
+            potvrdaAlert.setHeaderText("Jeste li sigurni da želite izmjeniti podatke svećenike?");
+
+            // Dodaj gumb "Da" i gumb "Ne"
+            ButtonType daButton = new ButtonType("Da");
+            ButtonType neButton = new ButtonType("Ne");
+
+            potvrdaAlert.getButtonTypes().setAll(daButton, neButton);
+
+            Optional<ButtonType> rezultat = potvrdaAlert.showAndWait();
+
+            if (rezultat.isPresent() && rezultat.get() == daButton) {
+
+                Svecenik noviSvecenik = new Svecenik(ovajSvecenik.getId(), ime, prezime, sifra, titula, ovajSvecenik.getDatumRodjenja());
+
+                BazaPodataka.azurirajSvecenika(noviSvecenik);
+
+                Alert uspjehAlert = new Alert(Alert.AlertType.INFORMATION);
+                uspjehAlert.setTitle("Izmjena svećenika");
+                uspjehAlert.setHeaderText("Uspješno izmjenjeni podaci svećenika");
+                uspjehAlert.showAndWait();
+            }
         }
         initialize();
     }
