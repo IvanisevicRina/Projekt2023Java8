@@ -13,9 +13,9 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.UnosZupljaninaController">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="245.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="408.0" minWidth="10.0" prefWidth="407.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="550.0" minWidth="10.0" prefWidth="406.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="499.0" minWidth="10.0" prefWidth="387.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -31,12 +31,12 @@
     </rowConstraints>
     <children>
         <fx:include source="izbornik.fxml" />
-        <Label text="Unos novog zupljanina" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label text="UNOS NOVOG ŽUPLJANINA" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <font>
-                <Font size="24.0" />
+                <Font name="Monotype Corsiva" size="39.0" />
             </font>
         </Label>
-        <Label text="Ime zupljanina:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <Label text="Ime župljanina :" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets right="5.0" />
             </GridPane.margin>
@@ -44,22 +44,22 @@
 
         <TextField fx:id="imeZupljaninaTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <GridPane.margin>
-                <Insets left="10.0" right="10.0" />
+                <Insets left="10.0" right="100.0" />
             </GridPane.margin>
         </TextField>
 
-        <Button mnemonicParsing="false" onAction="#spremiZupljaninaButtonClicked" text="Spremi" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-        <Label text="Prezime zupljanina:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+        <Button mnemonicParsing="false" onAction="#spremiZupljaninaButtonClicked" text="SPREMI" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER" />
+        <Label text="Prezime župljanina :" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets right="5.0" />
             </GridPane.margin>
         </Label>
-        <Label text="Sifra zupljanina:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+        <Label text="Šifra župljanina :" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets right="5.0" />
             </GridPane.margin>
         </Label>
-        <Label text="Datum rodjenja:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+        <Label text="Datum rođenja :" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
             <GridPane.margin>
                 <Insets right="5.0" />
             </GridPane.margin>
@@ -67,12 +67,12 @@
 
         <TextField fx:id="prezimeZupljaninaTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <GridPane.margin>
-                <Insets left="10.0" right="10.0" />
+                <Insets left="10.0" right="100.0" />
             </GridPane.margin>
         </TextField>
         <TextField fx:id="sifraZupljaninaTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
-                <Insets left="10.0" right="10.0" />
+                <Insets left="10.0" right="100.0" />
             </GridPane.margin>
         </TextField>
 
@@ -81,7 +81,10 @@
                 <Insets left="10.0" right="10.0" />
             </GridPane.margin>
         </DatePicker>
-        <Label text="Sakramenti zupljanina:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+        <Label text="Sakramenti župljanina :" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="10.0" />
+         </GridPane.margin></Label>
         <ListView fx:id="odabirSakramentaListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.rowSpan="3">
             <GridPane.margin>
                 <Insets left="30.0" right="30.0" />

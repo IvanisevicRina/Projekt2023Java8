@@ -32,33 +32,33 @@
     </rowConstraints>
     <children>
         <fx:include source="izbornik.fxml" />
-        <Label text="Pretraga Sakramenata" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label text="PRETRAGA SAKRAMENATA" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <font>
-                <Font size="36.0" />
+                <Font name="Monotype Corsiva" size="36.0" />
             </font>
         </Label>
-        <Label text="Naziv:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+        <Label text="Naziv :" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
             <GridPane.margin>
-                <Insets right="5.0" />
+                <Insets right="10.0" />
             </GridPane.margin>
         </Label>
         <TextField fx:id="nazivSakramentaTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="300.0" />
             </GridPane.margin>
         </TextField>
-        <Button mnemonicParsing="false" onAction="#dohvatiSakramenti" text="Dohvati sakramente" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-        <TableView fx:id="sakramentiTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="2">
+        <Button mnemonicParsing="false" onAction="#dohvatiSakramenti" text="Dohvati sakramente" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+        <TableView fx:id="sakramentiTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="4">
             <columns>
-                <TableColumn fx:id="sifraSakramentaTableColumn" prefWidth="292.0" text="Šifra" />
-                <TableColumn fx:id="nazivSakramentaTableColumn" prefWidth="306.0" text="Naziv" />
-            <TableColumn fx:id="sifreZupljanaSakramentaTableColumn" prefWidth="464.0" text="Zupljani" />
+                <TableColumn fx:id="sifraSakramentaTableColumn" prefWidth="227.0" text="Šifra" />
+                <TableColumn fx:id="nazivSakramentaTableColumn" prefWidth="245.0" text="Naziv" />
+            <TableColumn fx:id="sifreZupljanaSakramentaTableColumn" prefWidth="590.0" text="Zupljani" />
             <TableColumn fx:id="brojZupljanaSakramentaTableColumn" prefWidth="137.0" text="BrojZupljana" />
          </columns>
         </TableView>
-        <Label text="Šifra:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <Label text="Šifra :" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
             <GridPane.margin>
-                <Insets right="5.0" />
+                <Insets right="10.0" />
             </GridPane.margin>
         </Label>
         <TextField fx:id="sifraSakramentaTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -66,11 +66,17 @@
                 <Insets left="5.0" right="5.0" />
             </opaqueInsets>
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="300.0" />
             </GridPane.margin>
         </TextField>
-      <TextField fx:id="sifraZupljanaTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sifra Zupljana:" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+      <TextField fx:id="sifraZupljanaTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets right="300.0" />
+         </GridPane.margin></TextField>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sifra Zupljana :" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin></Text>
 
     </children>
 </GridPane>

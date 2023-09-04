@@ -33,28 +33,28 @@
     </rowConstraints>
     <children>
         <fx:include source="izbornik.fxml" />
-        <Label text="Unos osobnog sakramenta" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label text="UNOS OSOBNOG SAKRAMENTA" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <font>
-                <Font size="24.0" />
+                <Font name="Monotype Corsiva" size="39.0" />
             </font>
         </Label>
-        <Label text="Sakrament osobnog sakramenta:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <Label text="Sakrament osobnog sakramenta :" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets left="10.0" right="10.0" />
             </GridPane.margin>
         </Label>
-        <Label text="Zupljanin osobnog sakramnta:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+        <Label text="Župljanin osobnog sakramenta :" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets left="10.0" right="10.0" />
             </GridPane.margin>
         </Label>
 
-        <Label alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="179.0" text="Vrijeme odrzavanja:" wrapText="true" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+        <Label alignment="CENTER_RIGHT" prefHeight="107.0" prefWidth="179.0" text="Vrijeme održavanja :" wrapText="true" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets left="10.0" right="10.0" />
             </GridPane.margin>
         </Label>
-        <Label text="Crkva:" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+        <Label text="Crkva :" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
             <GridPane.margin>
                 <Insets left="10.0" right="10.0" />
             </GridPane.margin>
@@ -72,16 +72,16 @@
 
         <TextField fx:id="vrijemeOdrzavanjaTextField" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="235.0" />
             </GridPane.margin>
         </TextField>
         <TextField fx:id="crkvaOsobnogSakramentaTextField" GridPane.columnIndex="1" GridPane.rowIndex="8">
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="100.0" />
             </GridPane.margin>
         </TextField>
-        <Button mnemonicParsing="false" onAction="#unesiOsobnogSakramenta" text="Spremi" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-        <Label text="Datum odrzavanja:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+        <Button mnemonicParsing="false" onAction="#unesiOsobnogSakramenta" prefHeight="36.0" prefWidth="89.0" text="SPREMI" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+        <Label text="Datum održavanja :" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
             <GridPane.margin>
                 <Insets left="10.0" right="10.0" />
             </GridPane.margin>
@@ -91,11 +91,14 @@
                 <Insets left="5.0" right="5.0" />
             </GridPane.margin>
         </DatePicker>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Liturgijsko razdoblje" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Liturgijsko razdoblje :" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
       </Text>
-      <TextField fx:id="liturgijaTextField" prefHeight="25.0" prefWidth="288.0" promptText="1(DOŠAŠĆE), 2(KORIZMA),...(OSTATAK)" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <TextField fx:id="liturgijaTextField" prefHeight="25.0" prefWidth="288.0" promptText="1(DOŠAŠĆE), 2(KORIZMA),...(OSTATAK)" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets right="235.0" />
+         </GridPane.margin></TextField>
     </children>
 </GridPane>

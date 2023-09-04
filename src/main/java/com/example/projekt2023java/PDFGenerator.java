@@ -4,6 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import entitet.Zupljanin;
+import javafx.scene.control.Alert;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,16 +45,27 @@ public class PDFGenerator {
                 content.add(new Paragraph("                                                " +sakrament, contentFont));
             }
 
+            document.add(content);
+
+
+
             Image image = Image.getInstance("css/image2.png");
             image.scaleAbsolute(100, 100);  // Set the image size
             image.setAbsolutePosition(411, 420);  // Set the position of the image
             document.add(image);
 
 
-            document.add(content);
+
+
 
             document.close();
-            System.out.println("PDF je generiran.");
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("GENERIRANO");
+            alert.setHeaderText(null);
+            alert.setContentText("Uspješno generiran PDF dokument");
+            alert.showAndWait();
+
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }

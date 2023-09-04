@@ -80,7 +80,6 @@ public class BazaPodataka {
     private static void writeChangeToBinaryFile(Promjene<?, ?> promjena) {
         WriteAChangeThread writeThread = new WriteAChangeThread(promjena);
         System.out.println(ANSI_GREEN + "Pozdrav iz baze, trenutno smo u procesu dodavanja promjene, čekaj da te obavjestim kad je gotovo");
-        NotificationManager.getInstance().notifyControllers();
         writeThread.start();
     }
 

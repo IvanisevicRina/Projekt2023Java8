@@ -15,7 +15,7 @@
 
       <Text layoutX="271.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ŽUPNE OBAVIJESTI" textAlignment="CENTER" wrappingWidth="657.13671875">
          <font>
-            <Font size="57.0" />
+            <Font name="Monotype Corsiva" size="57.0" />
          </font>
       </Text>
       <Text layoutX="417.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RASPORED BOGOSLUŽJA" textAlignment="CENTER" wrappingWidth="365.13671875">

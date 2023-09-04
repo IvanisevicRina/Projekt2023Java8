@@ -35,9 +35,9 @@
     <children>
 
         <fx:include source="izbornik.fxml" />
-        <Label text="Pretraga Svecenika" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label text="PRETRAGA SVEĆENIKA" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <font>
-                <Font size="36.0" />
+                <Font name="Monotype Corsiva" size="36.0" />
             </font>
         </Label>
         <Label text="Prezime:" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
@@ -50,7 +50,7 @@
                 <Insets left="5.0" right="5.0" />
             </GridPane.margin>
         </TextField>
-        <Button mnemonicParsing="false" onAction="#dohvatiSvecenike" text="Dohvati svecenike" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+        <Button mnemonicParsing="false" onAction="#dohvatiSvecenike" text="Dohvati svećenike" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
         <TableView fx:id="svecenikTableView" prefHeight="290.0" prefWidth="1200.0" GridPane.columnSpan="6" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.rowSpan="4" GridPane.vgrow="ALWAYS">
             <columns>
             <TableColumn fx:id="idSvecenikaTableColumn" prefWidth="115.0" text="ID" />

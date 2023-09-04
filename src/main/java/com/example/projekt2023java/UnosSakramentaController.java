@@ -80,7 +80,7 @@ public class UnosSakramentaController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Spremanje župljana na sakrament");
             alert.setHeaderText("Uspješno dodani župljani na sakrament");
-            alert.setContentText("Župljanin "+oviZupljani.stream().map(m ->m.getIme()+ " "+m.getPrezime()) +" dodan na sakrament " + ovajSakrament.getNaziv());
+            alert.setContentText("Župljanin dodan na sakrament " + ovajSakrament.getNaziv());
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

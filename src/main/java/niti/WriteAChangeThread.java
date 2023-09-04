@@ -20,6 +20,7 @@ public class WriteAChangeThread extends Thread implements Serializable {
     public void run() {
         PromjeneManager promjeneManager = new PromjeneManager();
         promjeneManager.dodajNovuPromjenu(promjena);
+        NotificationManager.getInstance().notifyControllers();
 
 
     }

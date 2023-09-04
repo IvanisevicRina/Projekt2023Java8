@@ -27,6 +27,8 @@ public class RegistracijaController {
 
     @FXML
     private PasswordField svecenikPasswordField;
+    @FXML
+    private PasswordField ponovnaLozinkaPasswordField;
 
 
     @FXML
@@ -34,6 +36,8 @@ public class RegistracijaController {
         String korisnickoIme = korisnickoImeTextField.getText();
         String lozinka = lozinkaPasswordField.getText();
         String selectedRole = roleChoiceBox.getValue();
+        String ponovnaLozinka = ponovnaLozinkaPasswordField.getText();
+
 
 
         if (korisnickoIme.isEmpty() || lozinka.isEmpty()) {
@@ -47,6 +51,10 @@ public class RegistracijaController {
 
         if (korisnickoImeExists(korisnickoIme)) {
             prikaziPoruku("Korisničko ime već postoji. Molimo odaberite drugo ime.", Alert.AlertType.ERROR);
+            return;
+        }
+        if (!lozinka.equals(ponovnaLozinka)) {
+            prikaziPoruku("Lozinke se ne podudaraju.", Alert.AlertType.ERROR);
             return;
         }
         if ("Svecenik".equals(selectedRole)) {

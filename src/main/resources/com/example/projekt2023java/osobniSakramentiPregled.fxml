@@ -18,8 +18,8 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="41.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -27,8 +27,8 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="46.0" minHeight="3.0" prefHeight="29.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="86.0" minHeight="0.0" prefHeight="86.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="264.0" minHeight="10.0" prefHeight="264.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="86.0" minHeight="0.0" prefHeight="61.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="316.0" minHeight="10.0" prefHeight="289.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
@@ -38,9 +38,9 @@
         <!-- Include content from izbornikZupljanina.fxml -->
         <fx:include fx:id="izbornikZupljaninaInclude" source="izbornikZupljanina.fxml" visible="false" />
 
-        <Label text="Pretraga Osobnih Sakramenata" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label text="Pretraga Osobnih Sakramenata" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
             <font>
-                <Font size="36.0" />
+                <Font name="Monotype Corsiva" size="39.0" />
             </font>
         </Label>
         <Label text="Ime Zupljanina:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
@@ -50,7 +50,7 @@
         </Label>
         <TextField fx:id="imeZupljaninaOsobnogSakramentaTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="300.0" />
             </GridPane.margin>
         </TextField>
         <Button mnemonicParsing="false" onAction="#dohvatiOsobneSakramente" text="Dohvati osobne Sakramente" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
@@ -74,12 +74,12 @@
                 <Insets left="5.0" right="5.0" />
             </opaqueInsets>
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="300.0" />
             </GridPane.margin>
         </TextField>
         <TextField fx:id="prezimeZupljaninaOsobnogSakramentaTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="300.0" />
             </GridPane.margin>
         </TextField>
         <Label text="Prezime Zupljanina:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
@@ -93,10 +93,13 @@
          </GridPane.margin></Label>
         <TextField fx:id="datumOsobnogSakramentaTextField" GridPane.columnIndex="1" GridPane.rowIndex="6">
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="300.0" />
             </GridPane.margin>
         </TextField>
-      <TextField fx:id="lokacijaSakramentaTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <TextField fx:id="liturgijaSakramentaTextField" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets right="300.0" />
+         </GridPane.margin></TextField>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Liturgija:" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
          <GridPane.margin>
             <Insets right="10.0" />
@@ -107,6 +110,9 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Text>
-      <TextField fx:id="liturgijaSakramentaTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <TextField fx:id="lokacijaSakramentaTextField" GridPane.columnIndex="1" GridPane.rowIndex="8">
+         <GridPane.margin>
+            <Insets right="300.0" />
+         </GridPane.margin></TextField>
     </children>
 </GridPane>

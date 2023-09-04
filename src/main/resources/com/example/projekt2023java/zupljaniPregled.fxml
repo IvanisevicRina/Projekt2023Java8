@@ -14,8 +14,8 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.PregledZupljana">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="621.0" minWidth="10.0" prefWidth="411.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="907.0" minWidth="10.0" prefWidth="789.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -32,9 +32,9 @@
     <children>
         <fx:include source="izbornik.fxml" />
 
-        <Label text="Pretraga Zupljana" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label text="PREGLED ŽUPLJANA" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
             <font>
-                <Font size="36.0" />
+                <Font name="Monotype Corsiva" size="39.0" />
             </font>
         </Label>
         <Label text="Prezime:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
@@ -44,16 +44,19 @@
         </Label>
         <TextField fx:id="prezimeZupljaninaTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="550.0" />
             </GridPane.margin>
         </TextField>
-        <Button mnemonicParsing="false" onAction="#dohvatiZupljane" text="Dohvati zupljane" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-        <TableView fx:id="zupljaninTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="8" GridPane.rowSpan="2">
+        <Button mnemonicParsing="false" onAction="#dohvatiZupljane" text="DOHVATI ŽUPLJANE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets right="300.0" />
+         </GridPane.margin></Button>
+        <TableView fx:id="zupljaninTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="3">
             <columns>
-                <TableColumn fx:id="sifraZupljaninaTableColumn" prefWidth="275.0" text="Sifra" />
-                <TableColumn fx:id="prezimeZupljaninaTableColumn" prefWidth="294.0" text="Prezime" />
-                <TableColumn fx:id="imeZupljaninaTableColumn" prefWidth="310.0" text="Ime" />
-                <TableColumn fx:id="datumZupljaninaTableColumn" prefWidth="320.0" text="Datum rođenja" />
+                <TableColumn fx:id="sifraZupljaninaTableColumn" prefWidth="275.0" text="ŠIFRA" />
+                <TableColumn fx:id="prezimeZupljaninaTableColumn" prefWidth="294.0" text="PREZIME" />
+                <TableColumn fx:id="imeZupljaninaTableColumn" prefWidth="310.0" text="IME" />
+                <TableColumn fx:id="datumZupljaninaTableColumn" prefWidth="320.0" text="DATUM ROĐENJA" />
             </columns>
         </TableView>
         <Label text="Šifra:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
@@ -66,12 +69,12 @@
                 <Insets left="5.0" right="5.0" />
             </opaqueInsets>
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="550.0" />
             </GridPane.margin>
         </TextField>
         <TextField fx:id="imeZupljaninaTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
-                <Insets left="5.0" right="5.0" />
+                <Insets left="5.0" right="550.0" />
             </GridPane.margin>
         </TextField>
         <Label text="Ime:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
@@ -84,7 +87,7 @@
                 <Insets right="5.0" />
             </GridPane.margin>
         </Label>
-        <DatePicker fx:id="datumRodjenjaDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="6">
+        <DatePicker fx:id="datumRodjenjaDatePicker" prefHeight="25.0" prefWidth="235.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>

@@ -15,7 +15,12 @@
       <Text layoutX="521.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lozinka :" />
       <Button layoutX="600.0" layoutY="499.0" mnemonicParsing="false" onAction="#handlePrijava" text="Prijava" />
       <Button layoutX="587.0" layoutY="585.0" mnemonicParsing="false" onAction="#registracija" text="Registracija" />
-      <Text layoutX="526.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRIJAVA" textAlignment="CENTER">
+      <Text layoutX="341.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ŽUPNA ZAJEDNICA GOSPE U SITI" textAlignment="CENTER">
+         <font>
+            <Font name="Monotype Corsiva" size="39.0" />
+         </font>
+      </Text>
+      <Text layoutX="551.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRIJAVA" textAlignment="CENTER">
          <font>
             <Font name="Monotype Corsiva" size="39.0" />
          </font>

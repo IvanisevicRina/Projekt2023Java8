@@ -140,8 +140,8 @@ public class OsobniSakramentController {
                 .filter(p -> p.getZupljanin().getIme().toLowerCase().contains(imeStudenta.toLowerCase()))
                 .filter(p -> p.getZupljanin().getPrezime().toLowerCase().contains(prezimeStudenta.toLowerCase()))
                 .filter(p -> p.getDatumIVrijeme().toString().contains(datumIVrijeme))
-                .filter(p->p.getLiturgijskoRazdoblje().toString().contains(liturgija))
-                .filter(p->p.getCrkva().nazivCrkve().contains(crkva))
+                .filter(p->p.getLiturgijskoRazdoblje().toString().toLowerCase().contains(liturgija.toLowerCase()))
+                .filter(p->p.getCrkva().nazivCrkve().toLowerCase().contains(crkva.toLowerCase()))
                 .toList();
 
         osobniSakramentiTableView.setItems(FXCollections.observableList(filtriraniOsobniSakramenti));

@@ -24,6 +24,7 @@ public class PotvrdaPrimljenihSakramenataController {
 
     @FXML
     private ComboBox<String> odabirZupljaninaComboBox;
+
     @FXML
     private Node izbornikInclude;
 
@@ -40,7 +41,6 @@ public class PotvrdaPrimljenihSakramenataController {
         System.out.println("rola: " + getUserRole());
         izbornikInclude.setVisible(!useIzbornikZupljanina);
         izbornikZupljaninaInclude.setVisible(useIzbornikZupljanina);
-
     }
     /**
      * Izdaje potvrdu o primljenim sakramentima za odabranog župljanina i generira PDF dokument.
@@ -51,7 +51,7 @@ public class PotvrdaPrimljenihSakramenataController {
         Zupljanin ovajZupljanin = sviZupljani.get(0);
 
         for (Zupljanin zupljanin : sviZupljani) {
-            if (Objects.equals(odabirZupljaninaComboBox.getValue(), (zupljanin.getIme() + " " + zupljanin.getPrezime()))) {
+            if (Objects.equals(odabirZupljaninaComboBox.getValue(), ( zupljanin.getIme() + " " + zupljanin.getPrezime()))) {
                 ovajZupljanin = zupljanin;
             }
         }
@@ -127,6 +127,7 @@ public class PotvrdaPrimljenihSakramenataController {
         alert.setContentText("Failed to download the PDF file.");
         alert.showAndWait();
     }
+
     /**
      * Dohvaća korisničku ulogu (Svecenik ili Zupljanin) iz datoteke.
      *

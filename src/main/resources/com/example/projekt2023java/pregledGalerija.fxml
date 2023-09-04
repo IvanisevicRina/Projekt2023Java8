@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2023java.PregledGalerijaController">
     <!-- Include content from izbornik.fxml -->
@@ -11,9 +13,14 @@
     <!-- Include content from izbornikZupljanina.fxml -->
     <fx:include fx:id="izbornikZupljaninaInclude" source="izbornikZupljanina.fxml" visible="false" />
 
-    <ImageView fx:id="imageView" fitHeight="664.0" fitWidth="1024.0" layoutX="101.0" layoutY="57.0" preserveRatio="true" />
+    <ImageView fx:id="imageView" fitHeight="594.0" fitWidth="976.0" layoutX="112.0" layoutY="131.0" preserveRatio="true" />
 
     <Button layoutX="72.0" layoutY="736.0" onAction="#prikaziSlike" text="Početak" />
 
     <Button layoutX="1055.0" layoutY="736.0" onAction="#prikaziSljedecuSliku" text="Sljedeća slika" />
+   <Text layoutX="513.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GALERIJA">
+      <font>
+         <Font name="Monotype Corsiva" size="39.0" />
+      </font>
+   </Text>
 </AnchorPane>
