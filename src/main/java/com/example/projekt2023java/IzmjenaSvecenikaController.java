@@ -18,9 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 
-/**
- *  ekran izmjene svećenika.
- */
+
 public class IzmjenaSvecenikaController {
 
     @FXML
@@ -34,11 +32,7 @@ public class IzmjenaSvecenikaController {
     @FXML
     private ListView<String> odabirSvecenikaListView ;
     private static final Logger logger = LoggerFactory.getLogger(IzmjenaSvecenikaController.class);
-    /**
-     * Metoda za ažuriranje podataka o svećeniku.
-     *
-     * @throws Exception Ako dođe do greške pri pristupu bazi podataka ili pri unosu podataka.
-     */
+
     public void azurirajSvecenike() throws Exception {
 
         String imeSvecenika = imeSvecenikaTextField.getText();
@@ -130,21 +124,14 @@ public class IzmjenaSvecenikaController {
         }
         initialize();
     }
-    /**
-     * Metoda za inicijalizaciju ekrana.
-     */
+
     public void initialize(){
         List<Svecenik> listaSvecenika= BazaPodataka.dohvatiSveSvecenike();
         List<String> svecenikList = listaSvecenika.stream().map(p -> p.getSifra() + "-----"+p.getIme() + " " + p.getPrezime()).toList();
         odabirSvecenikaListView.setItems(FXCollections.observableList(svecenikList));
 
     }
-    /**
-     * Metoda za provjeru da li tekst sadrži brojeve.
-     *
-     * @param text Tekst koji se provjerava.
-     * @throws TekstualniZapisException Ako tekst sadrži brojeve.
-     */
+
     private void sadrziBrojeve(String text) throws TekstualniZapisException {
         for (char c : text.toCharArray()) {
             if (Character.isDigit(c)) {
@@ -152,12 +139,7 @@ public class IzmjenaSvecenikaController {
             }
         }
     }
-    /**
-     * Metoda za prikazivanje upozorenja (Alert) korisniku.
-     *
-     * @param title   Naslov upozorenja.
-     * @param message Poruka upozorenja.
-     */
+
     private void displayAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

@@ -19,9 +19,6 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * ekran izmjene župljana.
- */
 public class IzmjenaZupljanaController {
     @FXML
     private TextField imeZupljaninaTextField;
@@ -35,11 +32,7 @@ public class IzmjenaZupljanaController {
     private static final Logger logger = LoggerFactory.getLogger(IzmjenaZupljanaController.class);
 
 
-    /**
-     * ažurira podataka o župljaninu.
-     *
-     * @throws Exception baca se ko dođe do greške pri pristupu bazi podataka ili pri unosu podataka.
-     */
+
     public void azurirajZupljane() throws Exception {
         String imeZupljana = imeZupljaninaTextField.getText();
         String prezimeZupljanina = prezimeZupljaninaTextField.getText();
@@ -134,9 +127,7 @@ public class IzmjenaZupljanaController {
         initialize();
     }
 
-    /**
-     * služi za inicijalizaciju ekrana.
-     */
+
     public void initialize() {
         List<Zupljanin> listaZupljana = BazaPodataka.dohvatiSveZupljane();
         List<String> zupljaniList = listaZupljana.stream().map(p -> p.getSifra() + "-----" + p.getIme() + " " + p.getPrezime()).toList();
@@ -144,12 +135,6 @@ public class IzmjenaZupljanaController {
 
     }
 
-    /**
-     * Metoda za provjeru da li tekst sadrži brojeve.
-     *
-     * @param text Tekst koji se provjerava.
-     * @throws TekstualniZapisException Ako tekst sadrži brojeve.
-     */
     private void sadrziBrojeve(String text) throws TekstualniZapisException {
         for (char c : text.toCharArray()) {
             if (Character.isDigit(c)) {
@@ -158,12 +143,7 @@ public class IzmjenaZupljanaController {
         }
     }
 
-    /**
-     * Metoda za prikazivanje upozorenja (Alert) korisniku.
-     *
-     * @param title   Naslov upozorenja.
-     * @param message Poruka upozorenja.
-     */
+
     private void displayAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

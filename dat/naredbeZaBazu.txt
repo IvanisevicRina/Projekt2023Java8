@@ -41,40 +41,11 @@
         FOREIGN KEY(zupljanin_id) REFERENCES ZUPLJANIN(id)
         );
 
-        CREATE TABLE ZUPA(
-        id LONG NOT NULL GENERATED ALWAYS AS IDENTITY,
-        naziv VARCHAR(50) NOT NULL,
-        PRIMARY KEY(id)
-        );
 
-        CREATE TABLE ZUPA_OSOBNI_SAKRAMENT(
-        zupa_id LONG NOT NULL,
-        osobni_sakrament_id LONG NOT NULL,
-        PRIMARY KEY(zupa_id, osobni_sakrament_id),
-        FOREIGN KEY(zupa_id) REFERENCES ZUPA(id),
-        FOREIGN KEY(osobni_sakrament_id) REFERENCES OSOBNI_SAKRAMENT(id)
-        );
 
-        CREATE TABLE ZUPA_SVECENIK(
-        zupa_id LONG NOT NULL,
-        svecenik_id LONG NOT NULL,
-        PRIMARY KEY(zupa_id, svecenik_id),
-        FOREIGN KEY(zupa_id) REFERENCES ZUPA(id),
-        FOREIGN KEY(svecenik_id) REFERENCES SVECENIK(id)
-        );
 
-        CREATE TABLE ZUPA_SAKRAMENT(
-        zupa_id LONG NOT NULL,
-        sakrament_id LONG NOT NULL,
-        PRIMARY KEY(zupa_id, sakrament_id),
-        FOREIGN KEY(zupa_id) REFERENCES ZUPA(id),
-        FOREIGN KEY(sakrament_id) REFERENCES SAKRAMENT(id)
-        );
 
-        CREATE TABLE ZUPA_ZUPLJANIN(
-        zupa_id LONG NOT NULL,
-        zupljanin_id LONG NOT NULL,
-        PRIMARY KEY(zupa_id, zupljanin_id),
-        FOREIGN KEY(zupa_id) REFERENCES ZUPA(id),
-        FOREIGN KEY(zupljanin_id) REFERENCES ZUPLJANIN(id)
-        );
+
+
+
+

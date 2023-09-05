@@ -2,7 +2,6 @@ package util;
 
 
 import entitet.*;
-import sortiranje.ZupljaninSorter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -261,7 +260,6 @@ public class Datoteke {
                 System.out.println("Zupljani sa ovim sakramentom '" + sakrament.getNaziv() + "' su:");
                 Set<Zupljanin> sortiraniZupljani = new HashSet<>(sakrament.getZupljani());
                 sortiraniZupljani.stream()
-                        .sorted(new ZupljaninSorter())
                         .map(s -> s.getPrezime() + " " + s.getIme())
                         .forEach(System.out::println);
             }

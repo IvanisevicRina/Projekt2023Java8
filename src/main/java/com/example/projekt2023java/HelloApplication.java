@@ -13,20 +13,14 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * Služi za pokretanje aplikacije
- */
+
 
 public class  HelloApplication extends Application {
     private static Stage mainStage;
 
     private static final Logger logger = LoggerFactory.getLogger(HelloApplication.class);
 
-    /**
-     * Služi za postavljanje logina kao sljedeće scene
-     * @param stage
-     * @throws IOException
-     */
+
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
@@ -57,9 +51,6 @@ public class  HelloApplication extends Application {
         return mainStage;
     }
 
-    /**
-     * Osvježava podatke za imendan
-     */
 
     private void refreshData() {
         Platform.runLater(() -> {

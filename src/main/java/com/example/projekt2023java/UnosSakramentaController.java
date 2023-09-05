@@ -107,12 +107,10 @@ public class UnosSakramentaController {
             System.out.println("odabirSCombo.getValue() = " +odabirSakramentaComboBox.getValue() + " sakrament.getNaziv() = "+sakrament.getNaziv());
             if(Objects.equals(odabirSakramentaComboBox.getValue(), sakrament.getNaziv())) {
                 ovajSakrament=sakrament;
-
-
             }
 
         }
-        System.out.println(ovajSakrament.getNaziv() + "------------");
+
         ovajSakrament.getZupljani().stream().forEach(System.out::println);
 
 

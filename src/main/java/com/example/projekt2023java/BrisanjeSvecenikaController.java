@@ -14,17 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Služi za brisanjeSvečenika
- */
+
 public class BrisanjeSvecenikaController {
     @FXML
     private ListView<String> odabirSvecenikaListView ;
-    /**
-     * Metoda za brisanje svećenika.
-     *
-     * @throws Exception Ako se dogodi greška pri brisanju svećenika.
-     */
+
     public void obrisiSvecenike() throws Exception {
         List<Svecenik> sviSvecenici = BazaPodataka.dohvatiSveSvecenike();
         List<Svecenik> oviSvecenici = new ArrayList<>();
@@ -65,9 +59,7 @@ public class BrisanjeSvecenikaController {
     }
 
 
-    /**
-     * Inicijalizira kontroler i priprema početni prikaz.
-     */
+
     public void initialize(){
         List<Svecenik> listaSvecenika = BazaPodataka.dohvatiSveSvecenike();
         List<String> svecenikList = listaSvecenika.stream().map(p -> p.getSifra()+ "-----"+ p.getIme() + " " + p.getPrezime()).toList();
