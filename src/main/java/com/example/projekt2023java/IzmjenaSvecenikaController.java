@@ -103,12 +103,12 @@ public class IzmjenaSvecenikaController {
 
         if(!errorOccured) {
 
-            // Prikaži dijalog za potvrdu brisanja
+
             Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
             potvrdaAlert.setTitle("Potvrda izmjene");
             potvrdaAlert.setHeaderText("Jeste li sigurni da želite izmjeniti podatke svećenike?");
 
-            // Dodaj gumb "Da" i gumb "Ne"
+
             ButtonType daButton = new ButtonType("Da");
             ButtonType neButton = new ButtonType("Ne");
 

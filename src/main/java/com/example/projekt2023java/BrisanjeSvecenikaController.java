@@ -37,12 +37,12 @@ public class BrisanjeSvecenikaController {
             }
         }
 
-        // Prikaži dijalog za potvrdu brisanja
+
         Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
         potvrdaAlert.setTitle("Potvrda brisanja");
         potvrdaAlert.setHeaderText("Jeste li sigurni da želite obrisati označene svećenike?");
 
-        // Dodaj gumb "Da" i gumb "Ne"
+
         ButtonType daButton = new ButtonType("Da");
         ButtonType neButton = new ButtonType("Ne");
 
@@ -51,7 +51,7 @@ public class BrisanjeSvecenikaController {
         Optional<ButtonType> rezultat = potvrdaAlert.showAndWait();
 
         if (rezultat.isPresent() && rezultat.get() == daButton) {
-            // Korisnik je odabrao "Da", obriši svećenike
+
             for (Svecenik svecenik : oviSvecenici) {
                 BazaPodataka.obrisiSvecenika(svecenik.getId().intValue());
             }

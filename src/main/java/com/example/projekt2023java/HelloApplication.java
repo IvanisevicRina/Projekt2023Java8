@@ -39,14 +39,13 @@ public class  HelloApplication extends Application {
         stage.show();
 
 
-        // Pokreni osvježavanje svakih 5 minuta
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                refreshData(); // Metoda za osvježavanje podataka
+                refreshData();
             }
-        }, 0, 2 * 60 * 1000); // Počni odmah i ponavljaj svakih 1 minuta
+        }, 0, 2 * 60 * 1000);
     }
 
     public static void main(String[] args) {

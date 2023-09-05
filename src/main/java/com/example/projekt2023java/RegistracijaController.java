@@ -66,7 +66,7 @@ public class RegistracijaController {
                 prikaziPoruku("Unesite ispravan password za Svecenik ulogu.", Alert.AlertType.ERROR);
                 return;
             }
-            // Proceed with registration and password hashing
+
         }
 
         String hashiranaLozinka = hashirajLozinku(lozinka);
@@ -86,7 +86,7 @@ public class RegistracijaController {
     private void initialize() {
         svecenikPasswordField.setVisible(false);
 
-        // Add an event listener to the roleChoiceBox
+
         roleChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if ("Svecenik".equals(newValue)) {
                 svecenikPasswordField.setVisible(true);
@@ -102,13 +102,13 @@ public class RegistracijaController {
             while ((linija = citac.readLine()) != null) {
                 String[] dijelovi = linija.split(":");
                 if (dijelovi.length == 3 && dijelovi[0].equals(korisnickoIme)) {
-                    return true; // Username already exists
+                    return true;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false; // Username does not exist
+        return false;
     }
 
     private void prebaciNaEkranPrijave() throws IOException {

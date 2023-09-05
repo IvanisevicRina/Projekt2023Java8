@@ -64,7 +64,7 @@ public class PregledGalerijaController {
 
             resultSet = statement.executeQuery("SELECT slika FROM Slike");
 
-            // Prikaz prvog prikaza slike
+
             if (resultSet.next()) {
                 byte[] slikaBytes = resultSet.getBytes("slika");
                 Image image = new Image(new ByteArrayInputStream(slikaBytes));
@@ -84,7 +84,7 @@ public class PregledGalerijaController {
                 Image image = new Image(new ByteArrayInputStream(slikaBytes));
                 imageView.setImage(image);
             } else {
-                resultSet.beforeFirst(); // Vrati na početak rezultat seta ako je kraj dostignut
+                resultSet.beforeFirst();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,7 +101,7 @@ public class PregledGalerijaController {
             if (line != null) {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
-                    return parts[1]; // Return the role part
+                    return parts[1];
                 }
             }
         } catch (IOException e) {

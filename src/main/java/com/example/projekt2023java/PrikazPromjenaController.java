@@ -1,4 +1,5 @@
 package com.example.projekt2023java;
+
 import baza.BazaPodataka;
 import entitet.*;
 import javafx.application.Platform;
@@ -15,12 +16,14 @@ import niti.NotificationManager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 
 import static niti.ThreadColor.ANSI_BLUE;
 import static niti.ThreadColor.ANSI_PURPLE;
 
-public class PrikazPromjenaController   {
+public class PrikazPromjenaController {
 
     @FXML
     private TableView<Promjene<?, ?>> promjeneTableView;
@@ -48,8 +51,6 @@ public class PrikazPromjenaController   {
     @FXML
     private Button notificationButton;
 
-    @FXML
-    private Button botunZaNitiSimulaciju;
 
     private final String[] colors = {
             "#003cff", // Blue
@@ -58,10 +59,10 @@ public class PrikazPromjenaController   {
             "#ffff00", // Yellow
             "#ff00ff", // Purple
     };
-    public void setButtonColor(String color) {
-        Platform.runLater(() -> notificationButton.setStyle("-fx-background-color: " + color));
-    }
 
+    public void setButtonColor(String color) {
+        notificationButton.setStyle("-fx-background-color: " + color);
+    }
 
 
     public void initialize() throws Exception {
@@ -72,19 +73,18 @@ public class PrikazPromjenaController   {
         NotificationManager.getInstance().registerController(this);
 
         notificationButton.setOnAction(event -> {
-            // Call the refreshTableContent method when the button is clicked
+
             refreshTableContent();
-            // Generate a random color from the array
+
             String randomColor = colors[(int) (Math.random() * colors.length)];
 
-            // Set the button's style to the random color
             notificationButton.setStyle("-fx-background-color: " + randomColor);
 
         });
 
 
-        try{
-            List<Promjene<?,?>> promjeneList = promjeneManager.dohvatiSvePromjene();
+        try {
+            List<Promjene<?, ?>> promjeneList = promjeneManager.dohvatiSvePromjene();
             if (promjeneList.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("No Recent Changes");
@@ -92,16 +92,16 @@ public class PrikazPromjenaController   {
                 alert.setContentText("There are no recent changes available.");
                 alert.showAndWait();
             }
-            Platform.runLater(() -> setupUI(promjeneList));
+            setupUI(promjeneList);
 
 
-
-            // Schedule automatic refresh every 30 seconds
-            Duration refreshDuration = Duration.seconds(60);
-            KeyFrame refreshKeyFrame = new KeyFrame(refreshDuration, event -> refreshTableContent());
-            Timeline refreshTimeline = new Timeline(refreshKeyFrame);
-            refreshTimeline.setCycleCount(Timeline.INDEFINITE); // Repeat indefinitely
-            refreshTimeline.play();
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    refreshTableContent();
+                }
+            }, 0, 1 * 60 * 1000);
 
 
         } catch (Exception e) {
@@ -109,20 +109,22 @@ public class PrikazPromjenaController   {
         }
 
 
-
     }
+
     private void refreshTableContent() {
         try {
             List<Promjene<?, ?>> newPromjeneList = promjeneManager.dohvatiSvePromjene();
-            promjeneTableView.getItems().setAll(newPromjeneList);
-            updateLastRefreshLabel();
-            String randomColor = colors[(int) (Math.random() * colors.length)];
-
-            notificationButton.setStyle("-fx-background-color: " + randomColor);
+            Platform.runLater(() -> {
+                promjeneTableView.getItems().setAll(newPromjeneList);
+                updateLastRefreshLabel();
+                String randomColor = colors[(int) (Math.random() * colors.length)];
+                notificationButton.setStyle("-fx-background-color: " + randomColor);
+            });
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
     private void setupUI(List<Promjene<?, ?>> promjeneList) {
         staraVrijednostColumn.setCellValueFactory(new PropertyValueFactory<>("staraVrijednost"));
         novaVrijednostColumn.setCellValueFactory(new PropertyValueFactory<>("novaVrijednost"));
@@ -134,11 +136,12 @@ public class PrikazPromjenaController   {
 
 
     private void updateLastRefreshLabel() {
-        Platform.runLater(() -> {
+
             String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             lastRefreshLabel.setText("Last Refresh: " + currentTime);
-        });
+
     }
+
     @FXML
     private void handleSimulacijaClick(ActionEvent event) {
         addChangesWaitThread(10000, "Pavao", "Prvić");
@@ -148,18 +151,18 @@ public class PrikazPromjenaController   {
 
 
         Thread changesWaitThread = new Thread(() -> {
-                try {
-                    while (true) {
-                        System.out.println(ANSI_BLUE +"CHANGESWAIT THREAD OVDJE vama na usluzi");
-                        NotificationManager.getInstance().waitForNotification();
-                        Thread.sleep(5000); // Adjust the sleep duration as needed
+            try {
+                while (true) {
+                    System.out.println(ANSI_BLUE + "CHANGESWAIT THREAD OVDJE vama na usluzi");
+                    NotificationManager.getInstance().waitForNotification();
+                    Thread.sleep(5000);
 
-                        System.out.println(ANSI_PURPLE +"I have been notify! Promjena obrađena, Sada cu refreshati tablicu sadrzaja promjena");
-                        refreshTableContent();
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    System.out.println(ANSI_PURPLE + "I have been notify! Promjena obrađena, Sada cu refreshati tablicu sadrzaja promjena");
+                    refreshTableContent();
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
         });
         changesWaitThread.start();
@@ -179,18 +182,20 @@ public class PrikazPromjenaController   {
         });
         changesWaitThread.start();
     }
+
     private void addChangesWaitThread2(int sleepDuration, String firstName, String lastName) {
         Thread changesWaitThread = new Thread(() -> {
             try {
                 Thread.sleep(sleepDuration);
                 List<Svecenik> svecenikList = BazaPodataka.dohvatiSveSvecenike();
-                for (Svecenik svecenik:svecenikList) {
-                    if(svecenik.getIme().equals(firstName) && svecenik.getPrezime().equals(lastName)) {
+                for (Svecenik svecenik : svecenikList) {
+                    if (svecenik.getIme().equals(firstName) && svecenik.getPrezime().equals(lastName)) {
                         BazaPodataka.obrisiSvecenika(svecenik.getId().intValue());
                         System.out.println("Obrisao sam svecenika " + sleepDuration / 1000 + " sekundi dok vidis promjenu na ekranu!");
                     }
 
-                }} catch (Exception e) {
+                }
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         });

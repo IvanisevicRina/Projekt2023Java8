@@ -51,12 +51,12 @@ public class BrisanjeSakramentaZupljaninaController {
                 ovajZupljanin = zupljanin;
             }
         }
-            // Prikaži dijalog za potvrdu brisanja
+
             Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
             potvrdaAlert.setTitle("Potvrda brisanja");
             potvrdaAlert.setHeaderText("Jeste li sigurni da želite izbrisati sakrament"+ ovajSakrament.getNaziv()+" za župljanina?"+ ovajZupljanin.getIme() + " " + ovajZupljanin.getPrezime());
 
-            // Dodaj gumb "Da" i gumb "Ne"
+
             ButtonType daButton = new ButtonType("Da");
             ButtonType neButton = new ButtonType("Ne");
 

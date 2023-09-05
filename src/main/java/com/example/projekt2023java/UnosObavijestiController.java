@@ -27,7 +27,7 @@ public class UnosObavijestiController {
         String subotaObavijest = subotaTextField.getText();
         String nedjeljaObavijest = nedjeljaTextField.getText();
 
-        // Read the existing content from the file
+
         List<String> existingContent = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("dat/obavijesti.txt"))) {
             String line;
@@ -53,7 +53,7 @@ public class UnosObavijestiController {
             promjena=true;
         }
 
-        // Write the modified content back to the file
+
         try (FileWriter writer = new FileWriter("dat/obavijesti.txt")) {
             for (String line : existingContent) {
                 writer.write(line + "\n");

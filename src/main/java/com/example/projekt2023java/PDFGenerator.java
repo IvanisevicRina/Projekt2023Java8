@@ -50,8 +50,8 @@ public class PDFGenerator {
 
 
             Image image = Image.getInstance("css/image2.png");
-            image.scaleAbsolute(100, 100);  // Set the image size
-            image.setAbsolutePosition(411, 420);  // Set the position of the image
+            image.scaleAbsolute(100, 100);
+            image.setAbsolutePosition(411, 420);
             document.add(image);
 
 

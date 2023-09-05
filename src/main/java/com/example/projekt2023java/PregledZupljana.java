@@ -51,7 +51,7 @@ public class PregledZupljana {
         private List<Zupljanin> zupljaniList;
 
 
-        //ona se poziva kad dodjemo na ekran, znaci prije svega
+
         public void initialize() {
 
         zupljaniList = BazaPodataka.dohvatiSveZupljane();

@@ -49,12 +49,11 @@ public class BrisanjeZupljanaController {
             }
         }
 
-        // Prikaži dijalog za potvrdu brisanja
         Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
         potvrdaAlert.setTitle("Potvrda brisanja");
         potvrdaAlert.setHeaderText("Jeste li sigurni da želite obrisati župljanina?");
 
-        // Dodaj gumb "Da" i gumb "Ne"
+
         ButtonType daButton = new ButtonType("Da");
         ButtonType neButton = new ButtonType("Ne");
 

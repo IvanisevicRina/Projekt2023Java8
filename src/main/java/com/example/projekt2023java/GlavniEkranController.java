@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import java.io.IOException;
 
 public class GlavniEkranController {
-    //mora imati metode sa kojima cemo mi otvarati druge ekrane
 
     public void showStartScreen() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("glavniEkran.fxml"));

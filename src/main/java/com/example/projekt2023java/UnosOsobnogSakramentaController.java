@@ -217,9 +217,7 @@ public class UnosOsobnogSakramentaController {
 
 
     private void validateVrijemeFormat(String vrijeme) throws NeispravanFormatVremenaException {
-        // Implement your validation logic here
-        // You can use regular expressions to match the desired time format
-        if (!vrijeme.matches("^\\d{2}:\\d{2}$")) {
+      if (!vrijeme.matches("^\\d{2}:\\d{2}$")) {
             throw new NeispravanFormatVremenaException("Neispravan format vremena. Očekivani format: HH:mm");
         }
     }

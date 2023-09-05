@@ -119,12 +119,11 @@ public class IzmjenaOsobnogSakramentaConteoller {
 
 
         if(!errorOccured) {
-            // Prikaži dijalog za potvrdu brisanja
+
             Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
             potvrdaAlert.setTitle("Potvrda izmjene");
             potvrdaAlert.setHeaderText("Jeste li sigurni da želite izmjeniti podatke za osobni sakrament?");
 
-            // Dodaj gumb "Da" i gumb "Ne"
             ButtonType daButton = new ButtonType("Da");
             ButtonType neButton = new ButtonType("Ne");
 
@@ -151,9 +150,8 @@ public class IzmjenaOsobnogSakramentaConteoller {
 
 
     private void validateVrijemeFormat(String vrijeme) throws NeispravanFormatVremenaException {
-        // Implement your validation logic here
-        // You can use regular expressions to match the desired time format
-        if (!vrijeme.matches("^\\d{2}:\\d{2}$")) {
+
+      if (!vrijeme.matches("^\\d{2}:\\d{2}$")) {
             throw new NeispravanFormatVremenaException("Neispravan format vremena. Očekivani format: HH:mm");
         }
     }

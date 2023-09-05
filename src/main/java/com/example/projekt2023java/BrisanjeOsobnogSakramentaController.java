@@ -31,12 +31,12 @@ public class BrisanjeOsobnogSakramentaController {
                 }
             }
         }
-        // Prikaži dijalog za potvrdu brisanja
+
         Alert potvrdaAlert = new Alert(Alert.AlertType.CONFIRMATION);
         potvrdaAlert.setTitle("Potvrda brisanja");
         potvrdaAlert.setHeaderText("Jeste li sigurni da želite obrisati osobni sakrament?");
 
-        // Dodaj gumb "Da" i gumb "Ne"
+
         ButtonType daButton = new ButtonType("Da");
         ButtonType neButton = new ButtonType("Ne");
 
@@ -45,7 +45,7 @@ public class BrisanjeOsobnogSakramentaController {
         Optional<ButtonType> rezultat = potvrdaAlert.showAndWait();
 
         if (rezultat.isPresent() && rezultat.get() == daButton) {
-            // Korisnik je odabrao "Da", obriši svećenike
+
 
             for (OsobniSakrament osobniSakrament : oviOsobniSakramenti) {
                 BazaPodataka.obrisiOsobniSakrament(osobniSakrament.getId().intValue());

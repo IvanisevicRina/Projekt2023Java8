@@ -50,7 +50,7 @@ public class BazaPodataka {
             if (line != null) {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
-                    return parts[0]; // Return the role part
+                    return parts[0];
                 }
             }
         } catch (IOException e) {
@@ -65,7 +65,7 @@ public class BazaPodataka {
             if (line != null) {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
-                    return parts[1]; // Return the role part
+                    return parts[1];
                 }
             }
         } catch (IOException e) {
@@ -115,7 +115,7 @@ public class BazaPodataka {
                 System.out.println("Uspješno smo se spojili na bazu!");
             }
             PreparedStatement pstmt = con.prepareStatement("SELECT * FROM ZUPLJANIN WHERE ID = ?");
-            pstmt.setLong(1, id); //////
+            pstmt.setLong(1, id);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -185,15 +185,9 @@ public class BazaPodataka {
 
     public static void azurirajZupljane(Zupljanin zupljanin) throws Exception {
         Connection con = connectToDatabase();
-        Zupljanin stariZupljanin = new ZupljaninBuilder().createZupljanin();
-        List<Zupljanin> zupljaninList = BazaPodataka.dohvatiSveZupljane();
-        for (Zupljanin zupljanin1 : zupljaninList) {
-            if (Objects.equals(zupljanin.getId(), zupljanin1.getId())) {
-                stariZupljanin = zupljanin1;
-                System.out.println("nasao sam ga");
-            }
 
-        }
+        Zupljanin stariZupljanin=BazaPodataka.dohvatiZupljana(zupljanin.getId());
+
         PreparedStatement pstmt = con.prepareStatement("UPDATE ZUPLJANIN SET IME = ?, PREZIME = ?, SIFRA =?, DATUM_RODJENJA = ? WHERE ID = ?");
 
         pstmt.setString(1, zupljanin.getIme());
@@ -325,7 +319,7 @@ public class BazaPodataka {
     public static void azurirajOsobniSakrament(OsobniSakrament noviOsobniSakrament) throws Exception {
         Connection con = connectToDatabase();
 
-        // Find the old OsobniSakrament based on ID
+
         List<OsobniSakrament> sviOsobniSakramenti = BazaPodataka.dohvatiSveOsobneSakramente();
         OsobniSakrament stariOsobniSakrament = null;
         for (OsobniSakrament osobniSakrament : sviOsobniSakramenti) {
@@ -341,7 +335,7 @@ public class BazaPodataka {
             return;
         }
 
-        // Update the OsobniSakrament in the database
+
         PreparedStatement pstmt = con.prepareStatement("UPDATE OSOBNI_SAKRAMENT SET  DATUM_I_VRIJEME = ?, LITURGIJA = ?, CRKVA = ? WHERE ID = ?");
         pstmt.setTimestamp(1, Timestamp.valueOf(noviOsobniSakrament.getDatumIVrijeme()));
         pstmt.setString(2, noviOsobniSakrament.getLiturgijskoRazdoblje().toString());
@@ -350,7 +344,6 @@ public class BazaPodataka {
 
         pstmt.executeUpdate();
 
-        // Generate and write change log
         String promjenaOpis = "Azuriran osobni sakrament za: " + stariOsobniSakrament.getZupljanin().getIme() + " " + stariOsobniSakrament.getZupljanin().getPrezime();
         String promjenaRola = getUserKorisnickoIme() + " - " + getUserRole();
         LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
@@ -845,7 +838,7 @@ public class BazaPodataka {
 
             PreparedStatement statement = con.prepareStatement("UPDATE Zupljanin SET slike = ? WHERE id = ?");
 
-            // Pretvorba liste slika u byte[] i postavljanje parametara
+
             byte[] slikeBytes = pretvoriListuSlikaUByteArray(zupljanin.getSlike());
             statement.setBytes(1, slikeBytes);
             statement.setLong(2, zupljanin.getId());

@@ -8,7 +8,7 @@ public class PromjeneManager implements Serializable {
     public PromjeneManager()  {
     }
 
-    public synchronized void dodajNovuPromjenu(Promjene<?, ?> novaPromjena) {
+    public void dodajNovuPromjenu(Promjene<?, ?> novaPromjena) {
         List<Promjene<?, ?>> existingPromjene = PromjeneSerijalizer.citajPromjene("dat/promjeneSerijalizirane.ser");
         existingPromjene.add(novaPromjena);
         PromjeneSerijalizer.pisiPromjene(existingPromjene, "dat/promjeneSerijalizirane.ser");
@@ -16,7 +16,7 @@ public class PromjeneManager implements Serializable {
     }
 
 
-    public synchronized List<Promjene<?, ?>> dohvatiSvePromjene() {
+    public List<Promjene<?, ?>> dohvatiSvePromjene() {
         return PromjeneSerijalizer.citajPromjene("dat/promjeneSerijalizirane.ser");
     }
     public void izbrisiPromjenu(Promjene<?, ?> promjenaZaBrisanje) {

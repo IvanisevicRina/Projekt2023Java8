@@ -26,9 +26,8 @@ public class NotificationManager {
     public synchronized void notifyControllers() {
         changesOccurred = true;
         notifyAll();
-        // Change the button color to black when notified
-        for (PrikazPromjenaController controller : registeredControllers) {
-            controller.setButtonColor("#000000"); // Black color
+       for (PrikazPromjenaController controller : registeredControllers) {
+            controller.setButtonColor("#000000");
         }
     }
 

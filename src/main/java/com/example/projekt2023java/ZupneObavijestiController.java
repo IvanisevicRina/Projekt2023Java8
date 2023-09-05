@@ -59,7 +59,7 @@ public class ZupneObavijestiController {
             if (line != null) {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
-                    return parts[1]; // Return the role part
+                    return parts[1];
                 }
             }
         } catch (IOException e) {

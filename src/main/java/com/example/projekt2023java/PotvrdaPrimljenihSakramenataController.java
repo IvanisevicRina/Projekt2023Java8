@@ -74,11 +74,11 @@ public class PotvrdaPrimljenihSakramenataController {
      */
     @FXML
     private void downloadPDF(ActionEvent event) {
-        // Get selected župljanin's first name
+
         String selectedZupljaninName = odabirZupljaninaComboBox.getValue();
         String zupljaninFirstName = selectedZupljaninName.split(" ")[0];
 
-        // Create a personalized file name
+
         String fileName = zupljaninFirstName + "_sakramenti.pdf";
 
         FileChooser fileChooser = new FileChooser();
@@ -139,7 +139,7 @@ public class PotvrdaPrimljenihSakramenataController {
             if (line != null) {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
-                    return parts[1]; // Return the role part
+                    return parts[1];
                 }
             }
         } catch (IOException e) {

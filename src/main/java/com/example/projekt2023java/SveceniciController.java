@@ -52,7 +52,7 @@ public class SveceniciController {
     private List<Svecenik> svecenikList;
 
 
-    //ona se poziva kad dodjemo na ekran, znaci prije svega
+
     public void initialize(){
 
         svecenikList = BazaPodataka.dohvatiSveSvecenike();

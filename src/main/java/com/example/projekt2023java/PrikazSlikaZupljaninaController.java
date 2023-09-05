@@ -76,13 +76,13 @@ public class PrikazSlikaZupljaninaController {
         imagesList = BazaPodataka.dohvatiSlikeZupljanina(ovajZupljanin);
 
 
-            currentIndex = 0; // Initialize index for images
+            currentIndex = 0;
             if (!imagesList.isEmpty()) {
                 setImageInView();
-                nextButton.setDisable(false); // Enable the "Next" button
+                nextButton.setDisable(false);
             } else {
-                imageView.setImage(null); // No images found, clear the image view
-                nextButton.setDisable(true); // Disable the "Next" button
+                imageView.setImage(null);
+                nextButton.setDisable(true);
             }
 
 
@@ -105,7 +105,7 @@ public class PrikazSlikaZupljaninaController {
             if (line != null) {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
-                    return parts[1]; // Return the role part
+                    return parts[1];
                 }
             }
         } catch (IOException e) {

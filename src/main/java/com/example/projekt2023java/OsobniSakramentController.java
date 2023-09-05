@@ -75,7 +75,7 @@ public class OsobniSakramentController {
     private List<OsobniSakrament> osobniSakramentiList;
 
     private static final long serialVersionUID = 5396125547749070789L;
-    //ona se poziva kad dodjemo na ekran, znaci prije svega
+
     public void initialize() throws Exception {
 
          osobniSakramentiList= BazaPodataka.dohvatiSveOsobneSakramente();
@@ -102,7 +102,7 @@ public class OsobniSakramentController {
             if (liturgijskoRazdoblje != null) {
                 return new SimpleStringProperty(liturgijskoRazdoblje.toString());
             } else {
-                return new SimpleStringProperty(""); // Or any default value you prefer
+                return new SimpleStringProperty("");
             }
         });
         lokacijaSakramentaTableColumn
@@ -152,7 +152,7 @@ public class OsobniSakramentController {
             if (line != null) {
                 String[] parts = line.split(":");
                 if (parts.length == 2) {
-                    return parts[1]; // Return the role part
+                    return parts[1];
                 }
             }
         } catch (IOException e) {

@@ -36,7 +36,7 @@ public class LoginController {
             String userRole = extractUserRoleFromDatabase("dat/lozinke.txt", korisnickoIme);
             saveUserRoleToFile(korisnickoIme, userRole);
             if ("Svecenik".equals(userRole)) {
-                // Redirect to Svecenik-specific screen/menu
+
                 prikaziSveceniciPregled();
             } else if ("Zupljanin".equals(userRole)) {
                 prikaziZupljaniPregled();
@@ -51,7 +51,7 @@ public class LoginController {
 
 
     private boolean autentifikacija(String korisnickoIme, String lozinka) {
-        // Čitanje hashiranih lozinki iz tekstualne datoteke
+
         String putanjaDatoteke = "dat/lozinke.txt";
         String spremljeniHash = procitajHashIzDatoteke(putanjaDatoteke, korisnickoIme);
         if (spremljeniHash == null) {
@@ -59,12 +59,12 @@ public class LoginController {
         }
 
         System.out.println("lozinka:" + lozinka);
-        // Hashiranje unesene lozinke
+
         String uneseniHash = hashirajLozinku(lozinka);
 
         System.out.println("uneseniHash:" +uneseniHash);
 
-        // Usporedba hashiranih lozinki
+
         return spremljeniHash.equals(uneseniHash);
     }
 
