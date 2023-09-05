@@ -851,11 +851,43 @@ public class BazaPodataka {
             statement.setLong(2, zupljanin.getId());
 
             statement.executeUpdate();
-            statement.close();
+
             con.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static List<byte[]>  dohvatiSlikeZupljanina(Zupljanin zupljanin){
+        List<byte[]> imagesList = new ArrayList<>();
+
+        try{
+            Connection con = connectToDatabase();
+            if (con != null) {
+                System.out.println("Uspješno smo se spojili na bazu!");
+            }
+
+
+            PreparedStatement statement = con.prepareStatement("SELECT slika FROM ZupljaninSlike WHERE zupljanin_id = ?");
+
+            statement.setLong(1, zupljanin.getId());
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                byte[] slikaBytes = resultSet.getBytes("slika");
+                imagesList.add(slikaBytes);
+            }
+
+            con.close();
+
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return imagesList;
+
+
     }
     public static byte[] pretvoriListuSlikaUByteArray(List<Slike> slike) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();

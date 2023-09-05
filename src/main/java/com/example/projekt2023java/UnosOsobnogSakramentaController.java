@@ -4,6 +4,7 @@ import baza.BazaPodataka;
 import entitet.*;
 import iznimke.NeispravanFormatVremenaException;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -38,6 +39,9 @@ public class UnosOsobnogSakramentaController {
     @FXML
     private TextField liturgijaTextField;
 
+    @FXML
+    private ComboBox<String> liturgijaComboBox;
+
 
     public static LiturgijskoRazdoblje liturgija(int broj_liturgije) {
 
@@ -61,7 +65,8 @@ public class UnosOsobnogSakramentaController {
         if(odabirZupljaninaComboBox.getValue()== null){
             errorMessages.append("Morate odabrati zupljanina!\n");
         }
-        String liturgijaSakramentaString = liturgijaTextField.getText();
+        String liturgijaSakramentaString =  liturgijaComboBox.getValue();
+
         if (liturgijaSakramentaString.isEmpty()) {
             errorMessages.append("Polje liturgije ne bi smjelo bit prazno!\n");
         }
@@ -134,7 +139,7 @@ public class UnosOsobnogSakramentaController {
 
             LocalDateTime datumIVrijeme = LocalDateTime.parse(datumIVrijemeOsobnogSakramenta, formatterDatumaIspita);
 
-            OsobniSakrament noviOsobniSakrament= new OsobniSakrament(id,ovajSakrament,ovajZupljanin,datumIVrijeme,new Crkva(crkvaOsobnogSakramenta),liturgija(Integer.parseInt(liturgijaSakramentaString)));
+            OsobniSakrament noviOsobniSakrament= new OsobniSakrament(id,ovajSakrament,ovajZupljanin,datumIVrijeme,new Crkva(crkvaOsobnogSakramenta),convertStringToEnum(liturgijaSakramentaString));
             noviOsobniSakrament.setLiturgijskoRazdoblje(liturgija(Integer.parseInt(liturgijaSakramentaString)));
 
             try {
@@ -179,13 +184,8 @@ public class UnosOsobnogSakramentaController {
                         zupljaniniSet.add(osobniSakrament.getZupljanin());
                     }
                 }
-                System.out.println("ZUPLJANI U SETU:");
-                for (Zupljanin zupljanin : zupljaniniSet) {
-                    System.out.println(zupljanin.getIme() + " " + zupljanin.getPrezime());
-                }
 
 
-                System.out.println("Zupljani sa sakramentom: "+ovajSakrament.getNaziv());
                 for (Zupljanin z:ovajSakrament.getZupljani()) {
                     boolean found = false;
                     for (Zupljanin zupljanin : zupljaniniSet) {
@@ -208,9 +208,14 @@ public class UnosOsobnogSakramentaController {
         List<String> zupljaninList = zupljaniNaSakramentu.stream().map(s -> s.getIme() + " " + s.getPrezime()).toList();
         odabirZupljaninaComboBox.setItems(FXCollections.observableList(zupljaninList));
 
+        ObservableList<String> liturgijaOptions = FXCollections.observableArrayList(LiturgijskoRazdoblje.DOSASCE.name(), LiturgijskoRazdoblje.KORIZMA.name(), LiturgijskoRazdoblje.OSTATAK.name());
+        liturgijaComboBox.setItems(liturgijaOptions);
+
 
 
     }
+
+
     private void validateVrijemeFormat(String vrijeme) throws NeispravanFormatVremenaException {
         // Implement your validation logic here
         // You can use regular expressions to match the desired time format
@@ -219,6 +224,14 @@ public class UnosOsobnogSakramentaController {
         }
     }
 
+    public static LiturgijskoRazdoblje convertStringToEnum(String input) {
+        for (LiturgijskoRazdoblje razdoblje : LiturgijskoRazdoblje.values()) {
+            if (razdoblje.name().equals(input)) {
+                return razdoblje;
+            }
+        }
+        return null;
+    }
 
 
 

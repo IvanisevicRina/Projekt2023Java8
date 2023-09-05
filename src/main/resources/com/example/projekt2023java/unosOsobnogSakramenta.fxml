@@ -96,9 +96,9 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Text>
-      <TextField fx:id="liturgijaTextField" prefHeight="25.0" prefWidth="288.0" promptText="1(DOŠAŠĆE), 2(KORIZMA),...(OSTATAK)" GridPane.columnIndex="1" GridPane.rowIndex="7">
+      <ComboBox fx:id="liturgijaComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
          <GridPane.margin>
-            <Insets right="235.0" />
-         </GridPane.margin></TextField>
+            <Insets left="5.0" />
+         </GridPane.margin></ComboBox>
     </children>
 </GridPane>

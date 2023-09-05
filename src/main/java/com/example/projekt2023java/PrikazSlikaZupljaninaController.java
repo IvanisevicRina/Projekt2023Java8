@@ -73,20 +73,9 @@ public class PrikazSlikaZupljaninaController {
             }
         }
 
-        imagesList = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/java-tvz-2023-PROJEKT", "student", "student")) {
-            String query = "SELECT slika FROM ZupljaninSlike WHERE zupljanin_id = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setLong(1, ovajZupljanin.getId());
+        imagesList = BazaPodataka.dohvatiSlikeZupljanina(ovajZupljanin);
 
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                byte[] slikaBytes = resultSet.getBytes("slika");
-                imagesList.add(slikaBytes);
-            }
 
-            resultSet.close();
-            statement.close();
             currentIndex = 0; // Initialize index for images
             if (!imagesList.isEmpty()) {
                 setImageInView();
@@ -95,10 +84,6 @@ public class PrikazSlikaZupljaninaController {
                 imageView.setImage(null); // No images found, clear the image view
                 nextButton.setDisable(true); // Disable the "Next" button
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
 
 
     }

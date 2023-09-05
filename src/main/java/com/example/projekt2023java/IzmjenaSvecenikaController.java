@@ -60,6 +60,7 @@ public class IzmjenaSvecenikaController {
             sadrziBrojeve(prezimeSvecenika);
 
         } catch (TekstualniZapisException e) {
+            errorOccured=true;
             imeSvecenika = "";
             prezimeSvecenika = "";
             logger.error("Sadrži nedozvoljene znakove(brojeve)", e);
@@ -94,6 +95,12 @@ public class IzmjenaSvecenikaController {
         if(titulaSvecenika.isEmpty()){
             titula = ovajSvecenik.getTitula();
         }else{titula = titulaSvecenika;}
+
+        if (imeSvecenika.isEmpty() && prezimeSvecenika.isEmpty() && sifraSvecenika.isEmpty() && titulaSvecenika.isEmpty()) {
+            displayAlert("Greška", "Morate unijeti barem jedno od polja za izmjenu.");
+            errorOccured=true;
+        }
+
         if(!errorOccured) {
 
             // Prikaži dijalog za potvrdu brisanja

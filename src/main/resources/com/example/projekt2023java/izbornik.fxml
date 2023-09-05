@@ -50,7 +50,7 @@
 
             <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiDeleteScreen" text="Brisanje"/>
 
-            <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiUpdateScreen" text="Azuriraj"/>
+            <MenuItem mnemonicParsing="false" onAction="#showOsobniSakramentiUpdateScreen" text="Izmjena"/>
 
 
         </Menu>

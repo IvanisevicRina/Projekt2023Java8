@@ -145,29 +145,22 @@ public class PrikazPromjenaController   {
         addChangesWaitThread(20000, "Drago", "Drugić");
         addChangesWaitThread2(30000, "Pavao", "Prvić");
         addChangesWaitThread2(40000, "Drago", "Drugić");
+
+
         Thread changesWaitThread = new Thread(() -> {
-            synchronized (this) {
                 try {
                     while (true) {
                         System.out.println(ANSI_BLUE +"CHANGESWAIT THREAD OVDJE vama na usluzi");
                         NotificationManager.getInstance().waitForNotification();
                         Thread.sleep(5000); // Adjust the sleep duration as needed
 
-                        Platform.runLater(() -> {
-                            try {
-                                System.out.println(ANSI_PURPLE +"I have been notify! Promjena obrađena, Sada cu refreshati tablicu sadrzaja promjena");
-                                refreshTableContent();
-                                Thread.sleep(1000);
-                                System.out.println("jesam");
-                            } catch (Exception e) {
-                                e.printStackTrace(); // Print the exception for debugging
-                            }
-                        });
+                        System.out.println(ANSI_PURPLE +"I have been notify! Promjena obrađena, Sada cu refreshati tablicu sadrzaja promjena");
+                        refreshTableContent();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
+
         });
         changesWaitThread.start();
 
@@ -209,13 +202,11 @@ public class PrikazPromjenaController   {
         Promjene<?, ?> odabranaPromjena = promjeneTableView.getSelectionModel().getSelectedItem();
 
         if (odabranaPromjena != null) {
-            // Izbrišite odabranu promjenu iz vaše liste promjena
+
             promjeneManager.izbrisiPromjenu(odabranaPromjena);
 
-            // Ažurirajte tablicu kako biste reflektirali promjene
             refreshTableContent();
         } else {
-            // Ako nije odabrana promjena, prikažite poruku ili upozorenje
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Nema odabrane promjene");
             alert.setHeaderText("Upozorenje");

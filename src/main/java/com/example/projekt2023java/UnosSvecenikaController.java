@@ -186,54 +186,8 @@ public class UnosSvecenikaController implements Serializable {
         }
     }
 
-    private void recordPromjenaPriestAdded(Svecenik noviSvecenik) throws InterruptedException {
-        String promjenaOpis = "Dodan novi svećenik: " + noviSvecenik.getPrezime() + " " + noviSvecenik.getIme();
-        String promjenaRola = getUserKorisnickoIme() +  " - "+  getUserRole();
-        LocalDateTime promjenaDatumIVrijeme = LocalDateTime.now();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String formattedDatumIVrijeme = promjenaDatumIVrijeme.format(formatter);
-
-        Promjene<String, Svecenik> novaPromjena = new Promjene<>(
-                null, noviSvecenik.toString(), noviSvecenik,
-                promjenaOpis, promjenaRola, formattedDatumIVrijeme
-        );
-
-        promjeneManager.dodajNovuPromjenu(novaPromjena);
 
 
-    }
-
-
-
-    private String getUserRole() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
-            String line = reader.readLine();
-            if (line != null) {
-                String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    return parts[1]; // Return the role part
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    private String getUserKorisnickoIme() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("dat/rola.txt"))) {
-            String line = reader.readLine();
-            if (line != null) {
-                String[] parts = line.split(":");
-                if (parts.length == 2) {
-                    return parts[0]; // Return the role part
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 
 

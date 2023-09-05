@@ -64,12 +64,12 @@ public class  HelloApplication extends Application {
 
     private void refreshData() {
         Platform.runLater(() -> {
-            // Ovdje osvježite podatke na ekranu
+
             Date currentDate = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM");
             String formattedDate = dateFormat.format(currentDate);
 
-            SveciKalendar kalendar = new SveciKalendar(); // Kreirajte instancu klase s imenima svetaca
+            SveciKalendar kalendar = new SveciKalendar();
             String imeSveca = kalendar.getImeSveca(formattedDate);
 
 

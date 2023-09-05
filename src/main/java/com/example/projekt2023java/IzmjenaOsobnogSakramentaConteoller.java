@@ -32,7 +32,7 @@ public class IzmjenaOsobnogSakramentaConteoller {
     @FXML
     private ListView<String> odabirOsobnogSakramentaListView;
     @FXML
-    private ComboBox<String> liturgijaComboBox; // Define a ComboBox for liturgy selection
+    private ComboBox<String> liturgijaComboBox;
     private static final Logger logger = LoggerFactory.getLogger(IzmjenaOsobnogSakramentaConteoller.class);
 
 
@@ -50,12 +50,19 @@ public class IzmjenaOsobnogSakramentaConteoller {
 
 
         String crkvaString = crkvaTextField.getText();
-        Crkva crkva = new Crkva(crkvaString);
+
+
 
         List<OsobniSakrament> sviOsobniSakramenti= BazaPodataka.dohvatiSveOsobneSakramente();
         OsobniSakrament ovajOsobniSakrament = null;
         ObservableList<String> selectedItems = odabirOsobnogSakramentaListView.getSelectionModel().getSelectedItems();
         Boolean errorOccured = false;
+
+        if (vrijemeOdrzavanja.isEmpty() && selectedDate == null && selectedLiturgija == null && crkvaString.isEmpty()) {
+            displayAlert("Greška", "Morate unijeti barem jedno od polja za izmjenu.");
+            return;
+        }
+
         if (selectedItems.isEmpty()) {
             displayAlert("Greška", "Morate odabrati osobni sakrament za ažuriranje.");
             return;

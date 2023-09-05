@@ -49,6 +49,11 @@ public class IzmjenaZupljanaController {
         ObservableList<String> selectedItems = odabirZupljaninaListView.getSelectionModel().getSelectedItems();
 
         Boolean errorOccured = false;
+
+        if (imeZupljana.isEmpty() && prezimeZupljanina.isEmpty() && sifraZupljanina.isEmpty() ) {
+            displayAlert("Greška", "Morate unijeti barem jedno od polja za izmjenu.");
+            errorOccured=true;
+        }
         if (selectedItems.isEmpty()) {
             displayAlert("Greška", "Morate odabrati župljanina za ažuriranje.");
             return;
