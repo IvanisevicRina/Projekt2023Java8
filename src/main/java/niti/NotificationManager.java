@@ -1,8 +1,6 @@
 package niti;
 
 import com.example.projekt2023java.PrikazPromjenaController;
-import javafx.application.Platform;
-
 import java.util.ArrayList;
 import java.util.List;
 

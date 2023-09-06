@@ -79,6 +79,6 @@ public non-sealed class OsobniSakrament extends Entitet  implements Serializable
 
     @Override
     public void lokacijaDvorista(String adresaDvorista) {
-
+        System.out.println("ovo je adresa VANJSKOG ODRŽAVANJA:" + adresaDvorista);
     }
 }

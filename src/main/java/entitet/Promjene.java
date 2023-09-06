@@ -2,10 +2,13 @@ package entitet;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Promjene<T, U> implements Serializable {
+
     private static final long serialVersionUID = -2691492564381033481L;
     private T staraVrijednost;
     private T novaVrijednost;
