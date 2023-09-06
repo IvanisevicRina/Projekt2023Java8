@@ -36,22 +36,10 @@ public class UnosOsobnogSakramentaController {
     @FXML
     private ComboBox<String> odabirZupljaninaComboBox;
 
-    @FXML
-    private TextField liturgijaTextField;
 
     @FXML
     private ComboBox<String> liturgijaComboBox;
 
-
-    public static LiturgijskoRazdoblje liturgija(int broj_liturgije) {
-
-        return switch (broj_liturgije) {
-            case 1 -> LiturgijskoRazdoblje.DOSASCE;
-            case 2 -> LiturgijskoRazdoblje.KORIZMA;
-            default -> LiturgijskoRazdoblje.OSTATAK;
-        };
-
-    }
 
 
     public void unesiOsobnogSakramenta() throws Exception {
@@ -140,7 +128,6 @@ public class UnosOsobnogSakramentaController {
             LocalDateTime datumIVrijeme = LocalDateTime.parse(datumIVrijemeOsobnogSakramenta, formatterDatumaIspita);
 
             OsobniSakrament noviOsobniSakrament= new OsobniSakrament(id,ovajSakrament,ovajZupljanin,datumIVrijeme,new Crkva(crkvaOsobnogSakramenta),convertStringToEnum(liturgijaSakramentaString));
-            noviOsobniSakrament.setLiturgijskoRazdoblje(liturgija(Integer.parseInt(liturgijaSakramentaString)));
 
             try {
                 BazaPodataka.spremiOsobniSakrament(noviOsobniSakrament);

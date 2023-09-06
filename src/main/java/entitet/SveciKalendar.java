@@ -13,8 +13,8 @@ public class SveciKalendar {
         sveciImendani.put("02.09", "Tvrtko");
         sveciImendani.put("03.09", "Marin");
         sveciImendani.put("04.09", "Mario");
-        sveciImendani.put("05.09", "Roko");
-        sveciImendani.put("06.09", "Rina");
+        sveciImendani.put("05.09", "Karlo");
+        sveciImendani.put("06.09", "Roko");
         sveciImendani.put("07.09", "Gabrijela");
         sveciImendani.put("08.09", "Marija");
         sveciImendani.put("09.09", "Frane");

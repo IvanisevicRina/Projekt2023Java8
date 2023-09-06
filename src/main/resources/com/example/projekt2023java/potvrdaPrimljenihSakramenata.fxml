@@ -14,8 +14,7 @@
     <fx:include fx:id="izbornikZupljaninaInclude" source="izbornikZupljanina.fxml" visible="false" />
 
     <ComboBox fx:id="odabirZupljaninaComboBox" layoutX="525.0" layoutY="296.0" prefWidth="150.0" />
-   <Button layoutX="760.0" layoutY="296.0" mnemonicParsing="false" onAction="#izdajPotvrdu" text="IZDAJ POTVRDU" />
-   <Button layoutX="555.0" layoutY="544.0" mnemonicParsing="false" onAction="#downloadPDF" text="PREUZMI PDF" />
+   <Button layoutX="548.0" layoutY="464.0" mnemonicParsing="false" onAction="#izdajPotvrdu" text="IZDAJ POTVRDU" />
    <Text layoutX="310.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IZDAVANJE POTVRDA PRIMLJENIH SAKRAMENATA" textAlignment="CENTER" wrappingWidth="553.92626953125">
       <font>
          <Font name="Monotype Corsiva" size="39.0" />

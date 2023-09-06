@@ -18,26 +18,7 @@ public class Promjene<T, U> implements Serializable {
     public Promjene() {
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Promjene<?, ?> promjene = (Promjene<?, ?>) o;
-        return Objects.equals(datumIVrijeme, promjene.datumIVrijeme);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(datumIVrijeme);
-    }
-    public Promjene(T staraVrijednost, T novaVrijednost, U objektPromjene, String opis, String rola, String datumIVrijeme) {
-        this.staraVrijednost = staraVrijednost;
-        this.novaVrijednost = novaVrijednost;
-        this.objektPromjene = objektPromjene;
-        this.opis = opis;
-        this.rola = rola;
-        this.datumIVrijeme = datumIVrijeme;
-    }
 
     public T getStaraVrijednost() {
         return staraVrijednost;
@@ -84,6 +65,26 @@ public class Promjene<T, U> implements Serializable {
     }
 
     public void setDatumIVrijeme(String datumIVrijeme) {
+        this.datumIVrijeme = datumIVrijeme;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Promjene<?, ?> promjene = (Promjene<?, ?>) o;
+        return Objects.equals(datumIVrijeme, promjene.datumIVrijeme);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(datumIVrijeme);
+    }
+    public Promjene(T staraVrijednost, T novaVrijednost, U objektPromjene, String opis, String rola, String datumIVrijeme) {
+        this.staraVrijednost = staraVrijednost;
+        this.novaVrijednost = novaVrijednost;
+        this.objektPromjene = objektPromjene;
+        this.opis = opis;
+        this.rola = rola;
         this.datumIVrijeme = datumIVrijeme;
     }
 }

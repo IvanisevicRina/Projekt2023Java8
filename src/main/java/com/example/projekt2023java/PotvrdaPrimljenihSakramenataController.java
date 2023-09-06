@@ -60,57 +60,6 @@ public class PotvrdaPrimljenihSakramenataController {
         PDFGenerator.generatePDF("dat/sakramenti.pdf", popisSakramenata, ovajZupljanin);
 
     }
-    @FXML
-    private void downloadPDF(ActionEvent event) {
-
-        String selectedZupljaninName = odabirZupljaninaComboBox.getValue();
-        String zupljaninFirstName = selectedZupljaninName.split(" ")[0];
-
-
-        String fileName = zupljaninFirstName + "_sakramenti.pdf";
-
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialFileName(fileName);
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
-
-        File selectedFile = fileChooser.showSaveDialog(null);
-        if (selectedFile != null) {
-            try {
-                FileInputStream inputStream = new FileInputStream("dat/sakramenti.pdf");
-                FileOutputStream outputStream = new FileOutputStream(selectedFile);
-
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, length);
-                }
-
-                inputStream.close();
-                outputStream.close();
-
-                showDownloadSuccessfulAlert();
-            } catch (IOException e) {
-                e.printStackTrace();
-                showDownloadFailedAlert();
-            }
-        }
-    }
-
-    private void showDownloadSuccessfulAlert() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Download Successful");
-        alert.setHeaderText(null);
-        alert.setContentText("PDF file downloaded successfully.");
-        alert.showAndWait();
-    }
-
-    private void showDownloadFailedAlert() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Download Failed");
-        alert.setHeaderText(null);
-        alert.setContentText("Failed to download the PDF file.");
-        alert.showAndWait();
-    }
 
 
     private String getUserRole() {

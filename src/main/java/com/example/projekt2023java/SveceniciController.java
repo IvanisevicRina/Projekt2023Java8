@@ -36,6 +36,7 @@ public class SveceniciController {
 
     @FXML
     private TableColumn<Svecenik, Long> idSvecenikaTableColumn;
+
     @FXML
     private TableColumn<Svecenik, String> sifraSvecenikaTableColumn;
 
@@ -90,7 +91,7 @@ public class SveceniciController {
         List<Svecenik> filtriraniSvecenici = svecenikList.stream()
                 .filter(p -> p.getPrezime().toLowerCase().contains(prezime.toLowerCase()))
                 .filter(p -> p.getIme().toLowerCase().contains(ime.toLowerCase()))
-                .filter(p -> p.getSifra().contains(sifra))
+                .filter(p -> p.getSifra().toLowerCase().contains(sifra))
                 .filter(p -> p.getTitula().toLowerCase().contains(titula.toLowerCase()))
                 .toList();
 
