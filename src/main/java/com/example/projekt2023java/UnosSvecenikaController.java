@@ -33,8 +33,6 @@ public class UnosSvecenikaController implements Serializable {
     private TextField titulaSvecenikaTextField;
 
 
-    private final PromjeneManager promjeneManager = new PromjeneManager();
-
 
     private static final Logger logger = LoggerFactory.getLogger(UnosSvecenikaController.class);
 

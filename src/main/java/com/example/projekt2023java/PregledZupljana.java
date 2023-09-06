@@ -71,12 +71,12 @@ public class PregledZupljana {
                         new Callback<TableColumn.CellDataFeatures<Zupljanin, String>, ObservableValue<String>>() {
                             @Override
                             public ObservableValue<String> call(
-                                    TableColumn.CellDataFeatures<Zupljanin, String> student) {
+                                    TableColumn.CellDataFeatures<Zupljanin, String> zupljanin) {
                                 SimpleStringProperty property = new SimpleStringProperty();
                                 DateTimeFormatter formatter =
                                         DateTimeFormatter.ofPattern("dd.MM.yyyy.");
                                 property.setValue(
-                                        student.getValue().getDatumRodjenja().format(formatter));
+                                        zupljanin.getValue().getDatumRodjenja().format(formatter));
                                 return property;
                             }
                         }
